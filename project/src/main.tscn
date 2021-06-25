@@ -1,0 +1,35 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://lut-godot/components/run.gd" type="Script" id=1]
+[ext_resource path="res://lut-godot/components/velocity.gd" type="Script" id=2]
+[ext_resource path="res://lut-godot/input/controller.gd" type="Script" id=3]
+[ext_resource path="res://icon.png" type="Texture" id=4]
+[ext_resource path="res://lut-godot/input/user_input.gd" type="Script" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 40.1759, 35.8296 )
+
+[node name="Node2D" type="Node2D"]
+
+[node name="KinematicBody2D" type="KinematicBody2D" parent="."]
+position = Vector2( 253.901, 175.228 )
+
+[node name="Controller" type="Node" parent="KinematicBody2D"]
+script = ExtResource( 3 )
+
+[node name="Input_User" type="Node" parent="KinematicBody2D/Controller"]
+script = ExtResource( 5 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="KinematicBody2D"]
+texture = ExtResource( 4 )
+
+[node name="Velocity" type="Node2D" parent="KinematicBody2D"]
+script = ExtResource( 2 )
+_units = 32.0
+
+[node name="Run" type="Node2D" parent="KinematicBody2D"]
+script = ExtResource( 1 )
+speed = 4.0

@@ -8,10 +8,136 @@
 
 config_version=4
 
+_global_script_classes=[ {
+"base": "Node",
+"class": "Component_Controller",
+"language": "GDScript",
+"path": "res://lut-godot/input/controller.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Dash",
+"language": "GDScript",
+"path": "res://lut-godot/components/dash.gd"
+}, {
+"base": "Node",
+"class": "Component_Disabler",
+"language": "GDScript",
+"path": "res://lut-godot/components/disabler.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Gravity",
+"language": "GDScript",
+"path": "res://lut-godot/components/gravity.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Jump",
+"language": "GDScript",
+"path": "res://lut-godot/components/jump.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Run",
+"language": "GDScript",
+"path": "res://lut-godot/components/run.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Turner",
+"language": "GDScript",
+"path": "res://lut-godot/components/turner.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Velocity",
+"language": "GDScript",
+"path": "res://lut-godot/components/velocity.gd"
+}, {
+"base": "Node",
+"class": "Input_Abstract",
+"language": "GDScript",
+"path": "res://lut-godot/input/abstract_input.gd"
+}, {
+"base": "Input_Abstract",
+"class": "Input_User",
+"language": "GDScript",
+"path": "res://lut-godot/input/user_input.gd"
+}, {
+"base": "Input_Abstract",
+"class": "Input_Virtual",
+"language": "GDScript",
+"path": "res://lut-godot/input/virtual_input.gd"
+}, {
+"base": "Reference",
+"class": "NodE",
+"language": "GDScript",
+"path": "res://lut-godot/extension/node_extension.gd"
+}, {
+"base": "Node",
+"class": "ObjEct",
+"language": "GDScript",
+"path": "res://lut-godot/extension/object_extension.gd"
+}, {
+"base": "Resource",
+"class": "Parameters_Run",
+"language": "GDScript",
+"path": "res://lut-godot/components/run_parameters.gd"
+} ]
+_global_script_class_icons={
+"Component_Controller": "",
+"Component_Dash": "",
+"Component_Disabler": "",
+"Component_Gravity": "",
+"Component_Jump": "",
+"Component_Run": "",
+"Component_Turner": "",
+"Component_Velocity": "",
+"Input_Abstract": "",
+"Input_User": "",
+"Input_Virtual": "",
+"NodE": "",
+"ObjEct": "",
+"Parameters_Run": ""
+}
+
 [application]
 
 config/name="Fantasy Game"
 config/icon="res://icon.png"
+
+[input]
+
+left_move={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777231,"unicode":0,"echo":false,"script":null)
+ ]
+}
+right_move={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777233,"unicode":0,"echo":false,"script":null)
+ ]
+}
+up_move={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777232,"unicode":0,"echo":false,"script":null)
+ ]
+}
+down_move={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":16777234,"unicode":0,"echo":false,"script":null)
+ ]
+}
+jump={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
+ ]
+}
+dodge={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":90,"unicode":0,"echo":false,"script":null)
+ ]
+}
+attack={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
+ ]
+}
 
 [physics]
 
