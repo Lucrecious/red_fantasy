@@ -3,6 +3,7 @@ extends AnimationPlayer
 
 func _ready() -> void:
 	connect('animation_finished', self, '_on_animation_finished')
+	connect('animation_changed', self, '_on_animation_changed')
 	
 	for child in get_children():
 		var signal_expression := child as SignalExpression
@@ -11,10 +12,9 @@ func _ready() -> void:
 			signal_expression.connect('conditions_unmet', self, '_on_conditions_unmet', [signal_expression])
 			continue
 		
-		var signal_callback := child as SignalAnimationFinishedCallback
-		if signal_callback:
-			signal_callback.connect('called', self, '_on_signal_callback_called', [signal_callback])
-			continue
+		var placeholder := child as PriorityNodePlaceholder
+		if placeholder: continue
+		
 		assert(false, 'not recognized type')
 		continue
 
@@ -26,6 +26,12 @@ func play(name: String = "", custom_blend: float = -1, custom_speed: float = 1.0
 	.play(name, custom_blend, custom_speed, from_end)
 	emit_signal('animation_changed', old, current_animation)
 
+func stop(reset := false) -> void:
+	if not is_playing(): return
+	var current := current_animation
+	.stop(reset)
+	emit_signal('animation_finished', current)
+
 var _playing_for_callback := false
 var _play_priority := -1
 
@@ -36,28 +42,36 @@ func _on_conditions_met(sender: SignalExpression) -> void:
 	
 	_play_priority = sender.get_index()
 
-func _on_signal_callback_called(sender: SignalAnimationFinishedCallback) -> void:
+var _callback_object: Object = null
+var _callback_method := ''
+func callback_on_finished(animation_name: String, sender: PriorityNodePlaceholder, object: Object, callback: String) -> void:
 	if _play_priority > sender.get_index(): return
 	
-	play(sender.animation_name)
+	stop()
+	play(animation_name)
 	
 	_play_priority = sender.get_index()
 	_playing_for_callback = true
+	_callback_object = object
+	_callback_method = callback
 
 func _on_animation_finished(_animation_name: String) -> void:
-	if not _playing_for_callback: return
-	_playing_for_callback = false
-	
-	var index := _play_priority
-	_play_priority = -1
-	_play_next_highest_priority_expression(index)
+	_animation_callback()
 
-func _on_animation_changed(_animation_name: String) -> void:
+func _on_animation_changed(_old_animation: String, _new_animation: String) -> void:
+	_animation_callback()
+
+func _animation_callback() -> void:
 	if not _playing_for_callback: return
 	_playing_for_callback = false
 	
 	var index := _play_priority
 	_play_priority = -1
+	
+	_callback_object.call(_callback_method)
+	_callback_object = null
+	_callback_method = ''
+	
 	_play_next_highest_priority_expression(index)
 
 func _on_conditions_unmet(sender: SignalExpression) -> void:
@@ -67,9 +81,13 @@ func _on_conditions_unmet(sender: SignalExpression) -> void:
 	_play_priority = -1
 	_play_next_highest_priority_expression(index)
 
+func play_default() -> void:
+	_play_priority = -1
+	_play_next_highest_priority_expression(get_child_count())
+
 func _play_next_highest_priority_expression(index: int) -> void:
 	for i in range(0, index):
-		var li := (index - 1) - i
+		var li := index - i - 1
 		var expression := get_child(li) as SignalExpression
 		if not expression: continue
 		if not expression.is_true(): continue

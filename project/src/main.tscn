@@ -1,4 +1,4 @@
-[gd_scene load_steps=170 format=2]
+[gd_scene load_steps=175 format=2]
 
 [ext_resource path="res://lut-godot/components/run.gd" type="Script" id=1]
 [ext_resource path="res://lut-godot/components/velocity.gd" type="Script" id=2]
@@ -21,8 +21,133 @@
 [ext_resource path="res://lut-godot/components/disabler.gd" type="Script" id=19]
 [ext_resource path="res://lut-godot/signal_animation_finished_callback.gd" type="Script" id=20]
 [ext_resource path="res://assets/backgrounds/sky_background.png" type="Texture" id=21]
+[ext_resource path="res://src/components/attack_combo.gd" type="Script" id=22]
+[ext_resource path="res://src/components/pusher.gd" type="Script" id=23]
 
-[sub_resource type="Animation" id=142]
+[sub_resource type="Animation" id=150]
+resource_name = "attack1"
+length = 0.42
+step = 0.07
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "attack_combo" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07, 0.14, 0.21, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 3, 4, 5, 6, 7 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pusher:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.07, 0.14, 0.21 ),
+"transitions": PoolRealArray( 10.5561, 1.41421, 1 ),
+"update": 0,
+"values": [ 0.0, 3.5, 0.0 ]
+}
+
+[sub_resource type="Animation" id=151]
+resource_name = "attack2"
+length = 0.42
+step = 0.07
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "attack_combo" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.07, 0.14, 0.21, 0.28 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 8, 9, 10, 11, 12 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pusher:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.07, 0.14, 0.21 ),
+"transitions": PoolRealArray( 12.1257, 1.31951, 1 ),
+"update": 0,
+"values": [ 0.0, 3.5, 0.0 ]
+}
+
+[sub_resource type="Animation" id=152]
+resource_name = "attack3"
+length = 0.56
+step = 0.07
+tracks/0/type = "value"
+tracks/0/path = NodePath("AnimatedSprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.07, 0.14, 0.21, 0.28, 0.35, 0.42, 0.49 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 13, 15, 16, 17, 18, 19, 20, 21 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("AnimatedSprite:animation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "attack_combo" ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("Pusher:x")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.14, 0.21, 0.28 ),
+"transitions": PoolRealArray( 13.9288, 1.41421, 1 ),
+"update": 0,
+"values": [ 0.0, 3.5, 0.0 ]
+}
+
+[sub_resource type="Animation" id=140]
 resource_name = "fall_loop"
 length = 0.07
 loop = true
@@ -52,7 +177,7 @@ tracks/1/keys = {
 "values": [ "jump_fall" ]
 }
 
-[sub_resource type="Animation" id=143]
+[sub_resource type="Animation" id=141]
 resource_name = "fall_start"
 length = 0.14
 step = 0.07
@@ -81,8 +206,7 @@ tracks/1/keys = {
 "values": [ "jump_fall" ]
 }
 
-[sub_resource type="Animation" id=140]
-resource_name = "idle"
+[sub_resource type="Animation" id=142]
 length = 1.05
 loop = true
 step = 0.07
@@ -111,7 +235,7 @@ tracks/1/keys = {
 "values": [ "idle" ]
 }
 
-[sub_resource type="Animation" id=144]
+[sub_resource type="Animation" id=143]
 resource_name = "jump_loop"
 length = 0.14
 loop = true
@@ -141,7 +265,7 @@ tracks/1/keys = {
 "values": [ "jump_fall" ]
 }
 
-[sub_resource type="Animation" id=145]
+[sub_resource type="Animation" id=144]
 resource_name = "jump_start"
 length = 0.14
 step = 0.07
@@ -170,7 +294,7 @@ tracks/1/keys = {
 "values": [ 3, 4 ]
 }
 
-[sub_resource type="Animation" id=146]
+[sub_resource type="Animation" id=145]
 resource_name = "roll"
 length = 0.7
 step = 0.07
@@ -199,8 +323,7 @@ tracks/1/keys = {
 "values": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
 }
 
-[sub_resource type="Animation" id=141]
-resource_name = "run"
+[sub_resource type="Animation" id=146]
 length = 0.56
 loop = true
 step = 0.07
@@ -618,14 +741,14 @@ animations = [ {
 "speed": 15.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=147]
 extents = Vector2( 7, 12 )
 
-[sub_resource type="Curve" id=147]
+[sub_resource type="Curve" id=148]
 _data = [ Vector2( 0.00392928, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.119843, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.819254, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.897839, 0 ), 0.0, 0.0, 0, 0 ]
 
-[sub_resource type="CurveTexture" id=148]
-curve = SubResource( 147 )
+[sub_resource type="CurveTexture" id=149]
+curve = SubResource( 148 )
 
 [sub_resource type="ConvexPolygonShape2D" id=3]
 points = PoolVector2Array( 48, 48, 16, 48, 16, 16, 48, 16 )
@@ -1089,13 +1212,16 @@ position = Vector2( 253.901, 175.228 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="KinematicBody2D"]
 autoplay = "idle"
-anims/fall_loop = SubResource( 142 )
-anims/fall_start = SubResource( 143 )
-anims/idle = SubResource( 140 )
-anims/jump_loop = SubResource( 144 )
-anims/jump_start = SubResource( 145 )
-anims/roll = SubResource( 146 )
-anims/run = SubResource( 141 )
+anims/attack1 = SubResource( 150 )
+anims/attack2 = SubResource( 151 )
+anims/attack3 = SubResource( 152 )
+anims/fall_loop = SubResource( 140 )
+anims/fall_start = SubResource( 141 )
+anims/idle = SubResource( 142 )
+anims/jump_loop = SubResource( 143 )
+anims/jump_start = SubResource( 144 )
+anims/roll = SubResource( 145 )
+anims/run = SubResource( 146 )
 next/fall_start = "fall_loop"
 next/jump_start = "jump_loop"
 script = ExtResource( 14 )
@@ -1128,9 +1254,9 @@ _expression_format = "not {0} and {1} >= 0"
 
 [node name="Roll" type="Node" parent="KinematicBody2D/AnimationPlayer"]
 script = ExtResource( 20 )
-animation_name = "roll"
-_node_to_callback_path = NodePath("../../Dodge")
-_callback_name = "_callback_finish_dodge"
+
+[node name="Attack" type="Node" parent="KinematicBody2D/AnimationPlayer"]
+script = ExtResource( 20 )
 
 [node name="Controller" type="Node" parent="KinematicBody2D"]
 script = ExtResource( 3 )
@@ -1140,8 +1266,8 @@ script = ExtResource( 5 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="KinematicBody2D"]
 frames = SubResource( 139 )
-animation = "roll"
-frame = 9
+animation = "attack_combo"
+frame = 18
 
 [node name="Turner" type="Node2D" parent="KinematicBody2D"]
 script = ExtResource( 16 )
@@ -1154,7 +1280,11 @@ _animation_names = [ "run", "roll" ]
 _turn_bys = [ 1, 1 ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="KinematicBody2D"]
-shape = SubResource( 1 )
+shape = SubResource( 147 )
+
+[node name="Velocity" type="Node2D" parent="KinematicBody2D"]
+script = ExtResource( 2 )
+_units = 32.0
 
 [node name="Gravity" type="Node2D" parent="KinematicBody2D"]
 script = ExtResource( 7 )
@@ -1163,10 +1293,6 @@ down_gravity = 30.0
 
 [node name="Disabler" type="Node" parent="KinematicBody2D"]
 script = ExtResource( 19 )
-
-[node name="Velocity" type="Node2D" parent="KinematicBody2D"]
-script = ExtResource( 2 )
-_units = 32.0
 
 [node name="Run" type="Node2D" parent="KinematicBody2D"]
 script = ExtResource( 1 )
@@ -1179,9 +1305,21 @@ _height = 2.5
 
 [node name="Dodge" type="Node2D" parent="KinematicBody2D"]
 script = ExtResource( 18 )
+_dodge_animation_name = "roll"
 _max_speed = 8.5
-_speed_curve = SubResource( 148 )
+_speed_curve = SubResource( 149 )
 _curve_sec = 0.7
+_dodge_priority_node_path = NodePath("../AnimationPlayer/Roll")
+
+[node name="AttackCombo" type="Node2D" parent="KinematicBody2D"]
+script = ExtResource( 22 )
+_attack_combo = PoolStringArray( "attack1", "attack2", "attack3" )
+_priority_node_path = NodePath("../AnimationPlayer/Attack")
+_animation_ends = PoolRealArray( 0.21, 0.35, 0.42 )
+
+[node name="Pusher" type="Node2D" parent="KinematicBody2D"]
+position = Vector2( -253.901, -175.228 )
+script = ExtResource( 23 )
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 2 )
@@ -1192,10 +1330,9 @@ format = 1
 tile_data = PoolIntArray( 131074, 0, 0, 131075, 0, 1, 131076, 0, 1, 131077, 0, 2, 196610, 0, 6, 196611, 0, 7, 196612, 0, 9, 196613, 0, 5, 196616, 0, 19, 196617, 0, 16, 196618, 0, 20, 262148, 0, 6, 262149, 0, 8, 327692, 0, 0, 327693, 0, 1, 327694, 0, 2, 393228, 0, 3, 393229, 0, 4, 393230, 0, 5, 458752, 0, 0, 458753, 0, 1, 458754, 0, 1, 458755, 0, 1, 458756, 0, 1, 458757, 0, 1, 458758, 0, 1, 458759, 0, 1, 458760, 0, 1, 458761, 0, 1, 458762, 0, 1, 458763, 0, 1, 458764, 0, 10, 458765, 0, 4, 458766, 0, 5, 524288, 0, 6, 524289, 0, 7, 524290, 0, 7, 524291, 0, 7, 524292, 0, 7, 524293, 0, 7, 524294, 0, 7, 524295, 0, 7, 524296, 0, 7, 524297, 0, 7, 524298, 0, 7, 524299, 0, 7, 524300, 0, 7, 524301, 0, 7, 524302, 0, 8 )
 
 [connection signal="direction_h_changed" from="KinematicBody2D/Controller" to="KinematicBody2D/AnimationPlayer/Run" method="on_condition_changed"]
-[connection signal="floor_hit" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Jump" method="on_condition_changed"]
 [connection signal="floor_hit" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Fall" method="on_condition_changed"]
-[connection signal="floor_left" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Jump" method="on_condition_changed"]
+[connection signal="floor_hit" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Jump" method="on_condition_changed"]
 [connection signal="floor_left" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Fall" method="on_condition_changed"]
-[connection signal="y_direction_changed" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Jump" method="on_condition_changed"]
+[connection signal="floor_left" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Jump" method="on_condition_changed"]
 [connection signal="y_direction_changed" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Fall" method="on_condition_changed"]
-[connection signal="dodge_started" from="KinematicBody2D/Dodge" to="KinematicBody2D/AnimationPlayer/Roll" method="animation_callback"]
+[connection signal="y_direction_changed" from="KinematicBody2D/Velocity" to="KinematicBody2D/AnimationPlayer/Jump" method="on_condition_changed"]
