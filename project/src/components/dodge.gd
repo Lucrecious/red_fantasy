@@ -47,10 +47,14 @@ func _on_action_just_pressed(action: String) -> void:
 	
 	_dodge(sign(_controller.direction.x))
 
+func is_dodging() -> bool:
+	return _dodge_direction != -1
+
 var _dodge_direction := 0
 onready var _dodge_start_msec := 0
 func _dodge(direction: int) -> void:
 	if not _enabled: return
+	if _dodge_direction != 0: return
 	
 	direction = direction if direction else 1
 	_disabler.disable_below(self)

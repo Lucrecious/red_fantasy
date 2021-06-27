@@ -13,7 +13,16 @@ onready var _gravity := NodE.get_sibling(self, Component_Gravity) as Component_G
 
 onready var _priority_node := get_node_or_null(_priority_node_path) as PriorityNodePlaceholder
 
-var _enabled := true
+var _enabled := false
+
+func enable() -> void:
+	if _enabled: return
+	_enabled = true
+
+func disable() -> void:
+	if not _enabled: return
+	_enabled = false
+	_finish_attack()
 
 func _ready() -> void:
 	assert(_animation_player, 'must be sibling')
@@ -26,12 +35,14 @@ func _ready() -> void:
 	assert(_attack_combo.size() == _animation_ends.size(), 'must be same size')
 	
 	_controller.connect('action_just_pressed', self, '_on_action_just_pressed')
-
+	enable()
 
 var _combo_count := 0
 var _msec_since_last_attack := 0
 var _combo_next := false
 func _on_action_just_pressed(action: String) -> void:
+	if not _enabled: return
+	
 	if action != 'attack': return
 	if _attack_combo.empty(): return
 	if _combo_next: return
@@ -59,6 +70,8 @@ func _on_action_just_pressed(action: String) -> void:
 	_combo_count += 1
 
 func _start_attack() -> void:
+	if not _enabled: return
+	
 	_velocity.value = Vector2.ZERO
 	_disabler.disable_below(self)
 	_gravity.add_filter(get_parent().get_path_to(self), self, '_reduce_gravity')
@@ -66,11 +79,13 @@ func _start_attack() -> void:
 func _finish_attack() -> void:
 	if _enabled and _combo_next: return
 	
+	if not _enabled: _combo_next = false
+	
 	_combo_count = 0
+	_gravity.remove_filter(get_parent().get_path_to(self))
 	
 	if _enabled:
 		_disabler.enable_below(self)
-		_gravity.remove_filter(get_parent().get_path_to(self))
 
 func _reduce_gravity(value: float) -> float:
 	return value / 5.0
