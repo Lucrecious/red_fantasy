@@ -25,6 +25,11 @@ _global_script_classes=[ {
 "path": "res://lut-godot/components/disabler.gd"
 }, {
 "base": "Node2D",
+"class": "Component_Dodge",
+"language": "GDScript",
+"path": "res://src/components/dodge.gd"
+}, {
+"base": "Node2D",
 "class": "Component_Gravity",
 "language": "GDScript",
 "path": "res://lut-godot/components/gravity.gd"
@@ -33,6 +38,11 @@ _global_script_classes=[ {
 "class": "Component_Jump",
 "language": "GDScript",
 "path": "res://lut-godot/components/jump.gd"
+}, {
+"base": "AnimationPlayer",
+"class": "Component_PriorityAnimationPlayer",
+"language": "GDScript",
+"path": "res://src/animation.gd"
 }, {
 "base": "Node2D",
 "class": "Component_Run",
@@ -78,13 +88,30 @@ _global_script_classes=[ {
 "class": "Parameters_Run",
 "language": "GDScript",
 "path": "res://lut-godot/components/run_parameters.gd"
+}, {
+"base": "Node",
+"class": "SignalAnimationFinishedCallback",
+"language": "GDScript",
+"path": "res://lut-godot/signal_animation_finished_callback.gd"
+}, {
+"base": "Node",
+"class": "SignalExpression",
+"language": "GDScript",
+"path": "res://lut-godot/signal_expression.gd"
+}, {
+"base": "Node",
+"class": "SubComponent_TurnerListener",
+"language": "GDScript",
+"path": "res://lut-godot/components/turner_listener.gd"
 } ]
 _global_script_class_icons={
 "Component_Controller": "",
 "Component_Dash": "",
 "Component_Disabler": "",
+"Component_Dodge": "",
 "Component_Gravity": "",
 "Component_Jump": "",
+"Component_PriorityAnimationPlayer": "",
 "Component_Run": "",
 "Component_Turner": "",
 "Component_Velocity": "",
@@ -93,13 +120,47 @@ _global_script_class_icons={
 "Input_Virtual": "",
 "NodE": "",
 "ObjEct": "",
-"Parameters_Run": ""
+"Parameters_Run": "",
+"SignalAnimationFinishedCallback": "",
+"SignalExpression": "",
+"SubComponent_TurnerListener": ""
 }
 
 [application]
 
 config/name="Fantasy Game"
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=480
+window/size/height=270
+window/size/test_width=960
+window/size/test_height=540
+window/stretch/mode="2d"
+
+[importer_defaults]
+
+texture={
+"compress/bptc_ldr": 0,
+"compress/hdr_mode": 0,
+"compress/lossy_quality": 0.7,
+"compress/mode": 0,
+"compress/normal_map": 0,
+"detect_3d": false,
+"flags/anisotropic": false,
+"flags/filter": false,
+"flags/mipmaps": false,
+"flags/repeat": 0,
+"flags/srgb": 2,
+"process/HDR_as_SRGB": false,
+"process/fix_alpha_border": true,
+"process/invert_color": false,
+"process/premult_alpha": false,
+"size_limit": 0,
+"stream": false,
+"svg/scale": 1.0
+}
 
 [input]
 
