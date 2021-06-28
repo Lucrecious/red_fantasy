@@ -2,6 +2,7 @@ class_name Component_Pusher
 extends Node2D
 
 export(float) var x := 0.0 setget _x_set, _x_get
+export(float) var y := 0.0 setget _y_set, _y_get
 
 onready var _velocity := NodE.get_sibling(self, Component_Velocity) as Component_Velocity
 onready var _turner := NodE.get_sibling(self, Component_Turner) as Component_Turner
@@ -20,3 +21,15 @@ func _x_set(value: float) -> void:
 func _x_get() -> float:
 	if not _velocity: return 0.0
 	return _velocity.value.x
+
+func _y_set(value: float) -> void:
+	if not _velocity: return
+	if _velocity.value.y == value: return
+	_velocity.value.y = value 
+
+func _y_get() -> float:
+	if not _velocity: return 0.0
+	return _velocity.value.y
+
+
+

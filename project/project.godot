@@ -9,6 +9,41 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "AI_Actioner",
+"language": "GDScript",
+"path": "res://src/ai/single_input_action.gd"
+}, {
+"base": "Node2D",
+"class": "AI_Awareness",
+"language": "GDScript",
+"path": "res://src/ai/ai_awareness.gd"
+}, {
+"base": "Node",
+"class": "AI_Chain",
+"language": "GDScript",
+"path": "res://src/ai/chain.gd"
+}, {
+"base": "Node",
+"class": "AI_Controller",
+"language": "GDScript",
+"path": "res://src/ai/controller.gd"
+}, {
+"base": "Node2D",
+"class": "AI_DynamicMoveTo",
+"language": "GDScript",
+"path": "res://src/ai/dynamic_move_to.gd"
+}, {
+"base": "Node2D",
+"class": "AI_MoveTo",
+"language": "GDScript",
+"path": "res://src/ai/move_to.gd"
+}, {
+"base": "Area2D",
+"class": "Collision_Hitbox",
+"language": "GDScript",
+"path": "res://lut-godot/collision/hitbox.gd"
+}, {
 "base": "Node2D",
 "class": "Component_AttackCombo",
 "language": "GDScript",
@@ -24,6 +59,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut-godot/components/dash.gd"
 }, {
+"base": "Node2D",
+"class": "Component_Death",
+"language": "GDScript",
+"path": "res://lut-godot/components/death.gd"
+}, {
 "base": "Node",
 "class": "Component_Disabler",
 "language": "GDScript",
@@ -38,6 +78,16 @@ _global_script_classes=[ {
 "class": "Component_Gravity",
 "language": "GDScript",
 "path": "res://lut-godot/components/gravity.gd"
+}, {
+"base": "Node",
+"class": "Component_Health",
+"language": "GDScript",
+"path": "res://lut-godot/components/health.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Hurter",
+"language": "GDScript",
+"path": "res://src/components/hurter.gd"
 }, {
 "base": "Node2D",
 "class": "Component_Jump",
@@ -55,9 +105,19 @@ _global_script_classes=[ {
 "path": "res://src/components/pusher.gd"
 }, {
 "base": "Node2D",
+"class": "Component_RootSprite",
+"language": "GDScript",
+"path": "res://lut-godot/components/root_sprite.gd"
+}, {
+"base": "Node2D",
 "class": "Component_Run",
 "language": "GDScript",
 "path": "res://lut-godot/components/run.gd"
+}, {
+"base": "Node2D",
+"class": "Component_Shield",
+"language": "GDScript",
+"path": "res://src/components/shield.gd"
 }, {
 "base": "Node2D",
 "class": "Component_Turner",
@@ -68,6 +128,11 @@ _global_script_classes=[ {
 "class": "Component_Velocity",
 "language": "GDScript",
 "path": "res://lut-godot/components/velocity.gd"
+}, {
+"base": "Resource",
+"class": "Data_Damage",
+"language": "GDScript",
+"path": "res://lut-godot/collision/damage.gd"
 }, {
 "base": "Node",
 "class": "Input_Abstract",
@@ -115,18 +180,31 @@ _global_script_classes=[ {
 "path": "res://lut-godot/components/turner_listener.gd"
 } ]
 _global_script_class_icons={
+"AI_Actioner": "",
+"AI_Awareness": "",
+"AI_Chain": "",
+"AI_Controller": "",
+"AI_DynamicMoveTo": "",
+"AI_MoveTo": "",
+"Collision_Hitbox": "",
 "Component_AttackCombo": "",
 "Component_Controller": "",
 "Component_Dash": "",
+"Component_Death": "",
 "Component_Disabler": "",
 "Component_Dodge": "",
 "Component_Gravity": "",
+"Component_Health": "",
+"Component_Hurter": "",
 "Component_Jump": "",
 "Component_PriorityAnimationPlayer": "",
 "Component_Pusher": "",
+"Component_RootSprite": "",
 "Component_Run": "",
+"Component_Shield": "",
 "Component_Turner": "",
 "Component_Velocity": "",
+"Data_Damage": "",
 "Input_Abstract": "",
 "Input_User": "",
 "Input_Virtual": "",
@@ -141,7 +219,13 @@ _global_script_class_icons={
 [application]
 
 config/name="Fantasy Game"
+run/main_scene="res://src/main.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+ParticleInstancer="*res://src/particles/particles.gd"
+Tweener="*res://src/tweeners/tweeners.gd"
 
 [display]
 
@@ -149,7 +233,7 @@ window/size/width=480
 window/size/height=270
 window/size/test_width=960
 window/size/test_height=540
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 
 [importer_defaults]
 
@@ -211,6 +295,12 @@ attack={
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":67,"unicode":0,"echo":false,"script":null)
  ]
 }
+
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemy"
+2d_physics/layer_3="Ground"
 
 [physics]
 

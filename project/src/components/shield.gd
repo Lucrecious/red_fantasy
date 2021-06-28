@@ -1,3 +1,4 @@
+class_name Component_Shield
 extends Node2D
 
 signal shielding_started()

@@ -17,6 +17,8 @@ func _ready() -> void:
 		
 		assert(false, 'not recognized type')
 		continue
+	
+	play_default()
 
 # override to include extra signal
 func play(name: String = "", custom_blend: float = -1, custom_speed: float = 1.0, from_end: bool = false):
@@ -38,6 +40,7 @@ var _play_priority := -1
 func _on_conditions_met(sender: SignalExpression) -> void:
 	if _play_priority > sender.get_index(): return
 	
+	stop()
 	play(sender.condition_key)
 	
 	_play_priority = sender.get_index()

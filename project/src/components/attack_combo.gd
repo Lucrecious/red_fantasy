@@ -1,6 +1,8 @@
 class_name Component_AttackCombo
 extends Node2D
 
+signal combo_finished()
+
 export(PoolStringArray) var _attack_combo := PoolStringArray()
 export(NodePath) var _priority_node_path := NodePath()
 export(PoolRealArray) var _animation_ends := PoolRealArray()
@@ -44,6 +46,9 @@ func _on_action_just_pressed(action: String) -> void:
 	if not _enabled: return
 	
 	if action != 'attack': return
+	attack()
+
+func attack() -> void:
 	if _attack_combo.empty(): return
 	if _combo_next: return
 	
@@ -86,6 +91,8 @@ func _finish_attack() -> void:
 	
 	if _enabled:
 		_disabler.enable_below(self)
+	
+	emit_signal('combo_finished')
 
 func _reduce_gravity(value: float) -> float:
 	return value / 5.0

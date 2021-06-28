@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/particles/self_destruct.gd" type="Script" id=1]
+
+[sub_resource type="Gradient" id=1]
+offsets = PoolRealArray( 0.0119522, 0.838645, 0.994024 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[node name="Blood" type="CPUParticles2D"]
+emitting = false
+amount = 30
+lifetime = 2.0
+one_shot = true
+explosiveness = 1.0
+local_coords = false
+emission_shape = 1
+emission_sphere_radius = 8.0
+initial_velocity = 120.0
+initial_velocity_random = 0.5
+scale_amount = 3.0
+scale_amount_random = 1.0
+color_ramp = SubResource( 1 )
+script = ExtResource( 1 )
+_colors = PoolColorArray( 0.482353, 0.0627451, 0.0627451, 1, 0.243137, 0.0470588, 0.0470588, 1 )
