@@ -28,8 +28,11 @@ func target(location: Vector2) -> void:
 	_moving = true
 	set_physics_process(true)
 
+func stop() -> void:
+	_moving = false
+
 func _physics_process(_delta: float) -> void:
-	if is_at_location(_target):
+	if is_at_location(_target) or not _moving:
 		_moving = false
 		set_physics_process(false)
 		_input.release('left_move')

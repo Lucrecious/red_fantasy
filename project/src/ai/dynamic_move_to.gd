@@ -23,7 +23,8 @@ func target(node: Node2D, rect: ReferenceRect, update_sec := 0.0) -> void:
 	assert((node and rect) or (not node and not rect))
 	if node == _target_node:
 		_rect_range = rect
-		_update_timer.wait_time = update_sec
+		if update_sec > 0:
+			_update_timer.wait_time = update_sec
 		return
 	
 	_update_timer.stop()
@@ -38,6 +39,10 @@ func target(node: Node2D, rect: ReferenceRect, update_sec := 0.0) -> void:
 		_target_node.connect('tree_exiting', self, '_remove_target')
 		_update_timer.start(update_sec)
 		_update_target_position()
+
+func stop() -> void:
+	target(null, null)
+	return
 
 func _update_target_position() -> void:
 	var pos := _get_target_pos(_target_node.global_position, _rect_range.get_rect())
