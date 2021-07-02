@@ -14,6 +14,7 @@ onready var _priority_node := get_node_or_null(_priority_node_path) as Node
 onready var _animation_player := NodE.get_sibling(self, Component_PriorityAnimationPlayer) as Component_PriorityAnimationPlayer
 onready var _controller := NodE.get_sibling(self, Component_Controller) as Component_Controller
 onready var _disabler := NodE.get_sibling(self, Component_Disabler) as Component_Disabler
+onready var _turner := NodE.get_sibling_with_error(self, Component_Turner) as Component_Turner
 
 var _shielding := false
 var _blocking := false
@@ -44,7 +45,15 @@ func _ready():
 	_controller.connect('action_just_pressed', self, '_on_action_just_pressed')
 	_controller.connect('action_just_released', self, '_on_action_just_released')
 	
+	_controller.connect('direction_h_changed', self, '_on_direction_h_changed')
+	
 	enable()
+
+func _on_direction_h_changed() -> void:
+	if not _enabled: return
+	if not _shielding: return
+	if _parrying: return
+	_turner.update_direction_by_controller()
 
 func _on_action_just_pressed(action: String) -> void:
 	if not _enabled: return
@@ -54,6 +63,9 @@ func _on_action_just_pressed(action: String) -> void:
 	if action != 'dodge': return
 	
 	_shielding = true
+	_blocking = false
+	_parrying = false
+	
 	_animation_player.callback_on_finished(_block_start, _priority_node, self, '_start_block_loop')
 	_disabler.disable_below(self)
 	emit_signal('shielding_started')
@@ -61,7 +73,10 @@ func _on_action_just_pressed(action: String) -> void:
 func _start_block_loop() -> void:
 	if not _enabled: return
 	
+	_shielding = true
 	_blocking = true
+	_parrying = false
+	
 	emit_signal('blocking_started')
 
 func _on_action_just_released(action: String) -> void:
@@ -70,7 +85,7 @@ func _on_action_just_released(action: String) -> void:
 	if not _shielding: return
 	if action != 'dodge': return
 	
-	_shielding = false
+	_shielding = true
 	_blocking = false
 	_parrying = true
 	

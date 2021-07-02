@@ -3,6 +3,7 @@ extends Planner_Abstract
 onready var _awareness := NodE.get_child(self, AI_Awareness) as AI_Awareness
 
 func _ready() -> void:
+	return
 	_awareness.connect('target_changed', self, '_on_target_changed')
 
 func _on_run_ended() -> void:

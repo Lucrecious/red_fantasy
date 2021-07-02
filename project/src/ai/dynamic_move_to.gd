@@ -95,11 +95,16 @@ func _get_target_pos(center: Vector2, box_local: Rect2) -> Vector2:
 	box_left = box_left.abs()
 	box_left.position += _body.global_position
 	
-	if left and box_left.has_point(center):
-		return center
+	var rect := Rect2(center - Vector2.ONE * .5, Vector2.ONE)
+	var extents := NodE.get_child(_target_node, Component_Extents) as Component_Extents
+	if extents:
+		rect = extents.get_as_global_rect()
 	
-	if not left and box_right.has_point(center):
-		return center
+	if not left and (box_left.encloses(rect) or box_left.intersects(rect)):
+		return _body.global_position
+	
+	if left and (box_right.encloses(rect) or box_right.intersects(rect)):
+		return _body.global_position
 	
 	if left:
 		return Vector2(center_left, center.y)

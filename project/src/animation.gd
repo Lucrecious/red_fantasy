@@ -26,7 +26,6 @@ func play(name: String = "", custom_blend: float = -1, custom_speed: float = 1.0
 	assert(has_animation(name))
 	var old := current_animation
 	.play(name, custom_blend, custom_speed, from_end)
-	emit_signal('animation_changed', old, current_animation)
 
 func stop(reset := false) -> void:
 	if not is_playing(): return

@@ -5,6 +5,7 @@ signal finished()
 
 onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
 onready var _turner := NodE.get_child(_body, Component_Turner) as Component_Turner
+onready var _virtual_input := NodE.get_child_with_error(NodE.get_child_with_error(_body, Component_Controller), Input_Virtual) as Input_Virtual
 
 var _connections := {}
 

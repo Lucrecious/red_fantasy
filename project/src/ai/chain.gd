@@ -23,6 +23,7 @@ func run() -> void:
 	_running = true
 	
 	_run_link(_index)
+	
 	_index += 1
 
 func _run_link(index: int) -> void:
@@ -48,6 +49,7 @@ func _on_finish_signal(sender: Object, finish_signal: String) -> void:
 	yield(get_tree(), 'idle_frame')
 	
 	_run_link(_index)
+	
 	_index += 1
 
 func clear() -> void:

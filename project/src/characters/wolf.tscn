@@ -1,4 +1,4 @@
-[gd_scene load_steps=84 format=2]
+[gd_scene load_steps=85 format=2]
 
 [ext_resource path="res://assets/characters/wolf/attack.png" type="Texture" id=1]
 [ext_resource path="res://assets/characters/wolf/run.png" type="Texture" id=2]
@@ -20,8 +20,9 @@
 [ext_resource path="res://lut-godot/signal_expression.gd" type="Script" id=18]
 [ext_resource path="res://lut-godot/signal_animation_finished_callback.gd" type="Script" id=19]
 [ext_resource path="res://lut-godot/components/gravity.gd" type="Script" id=20]
-[ext_resource path="res://lut-godot/collision/hitbox.gd" type="Script" id=21]
+[ext_resource path="res://src/collision/hitbox.gd" type="Script" id=21]
 [ext_resource path="res://src/characters/wolf_bite.tres" type="Resource" id=22]
+[ext_resource path="res://src/characters/input_bindings/neutral_attack.tres" type="Resource" id=23]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 13, 9 )
@@ -509,7 +510,6 @@ down_gravity = 40.0
 
 [node name="Velocity" type="Node2D" parent="."]
 script = ExtResource( 12 )
-_units = 32.0
 
 [node name="Disabler" type="Node" parent="."]
 script = ExtResource( 14 )
@@ -520,6 +520,7 @@ speed = 6.0
 
 [node name="Bite" type="Node2D" parent="."]
 script = ExtResource( 16 )
+_input_binding = ExtResource( 23 )
 _attack_combo = PoolStringArray( "bite" )
 _priority_node_path = NodePath("../AnimationPlayer/Bite")
 _animation_ends = PoolRealArray( 0.96 )

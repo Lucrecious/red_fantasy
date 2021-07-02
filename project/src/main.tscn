@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://src/characters/wolf.tscn" type="PackedScene" id=8]
 [ext_resource path="res://src/ai/planners/wolf.gd" type="Script" id=9]
 [ext_resource path="res://src/characters/knight.tscn" type="PackedScene" id=10]
+[ext_resource path="res://src/ai/planners/final_boss.gd" type="Script" id=11]
+[ext_resource path="res://src/characters/final_boss/final_boss.tscn" type="PackedScene" id=12]
 [ext_resource path="res://assets/backgrounds/sky_background.png" type="Texture" id=21]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
@@ -462,7 +464,7 @@ points = PoolVector2Array( 48, 48, 16, 48, 16, 16, 48, 16 )
 0/z_index = 0
 
 [sub_resource type="RectangleShape2D" id=49]
-extents = Vector2( 185.199, 29.0999 )
+extents = Vector2( 185.199, 91.2978 )
 
 [node name="Node2D" type="Node2D"]
 
@@ -472,11 +474,8 @@ extents = Vector2( 185.199, 29.0999 )
 texture = ExtResource( 21 )
 centered = false
 
-[node name="Knight" parent="." instance=ExtResource( 10 )]
-position = Vector2( 203.815, 208.864 )
-
 [node name="Wolf" parent="." instance=ExtResource( 8 )]
-position = Vector2( 134.606, 209.769 )
+position = Vector2( 35.0579, 78.9248 )
 
 [node name="Planner" type="Node2D" parent="Wolf"]
 script = ExtResource( 9 )
@@ -492,7 +491,7 @@ script = ExtResource( 7 )
 
 [node name="Awareness" type="Node2D" parent="Wolf/Planner"]
 script = ExtResource( 4 )
-_awareness_area_path = NodePath("../../../Area2D")
+_awareness_area_path = NodePath("../../../AreaOfInterest")
 _eyes_path = NodePath("../Eyes")
 _collision = 4
 
@@ -508,8 +507,70 @@ __meta__ = {
 [node name="Eyes" type="Position2D" parent="Wolf/Planner"]
 position = Vector2( 16.8633, 2.2427 )
 
+[node name="FinalBoss" parent="." instance=ExtResource( 12 )]
+position = Vector2( 258.589, 202.995 )
+
+[node name="Planner" type="Node2D" parent="FinalBoss"]
+script = ExtResource( 11 )
+_jump_smash_check_sec = 1.12
+_jump_attack_check_sec = 1.12
+
+[node name="MoveTo" type="Node2D" parent="FinalBoss/Planner"]
+script = ExtResource( 2 )
+
+[node name="DynamicMoveTo" type="Node2D" parent="FinalBoss/Planner"]
+script = ExtResource( 5 )
+
+[node name="Actioner" type="Node" parent="FinalBoss/Planner"]
+script = ExtResource( 7 )
+
+[node name="Awareness" type="Node2D" parent="FinalBoss/Planner"]
+script = ExtResource( 4 )
+_awareness_area_path = NodePath("../../../AreaOfInterest")
+_eyes_path = NodePath("../Eyes")
+_collision = 4
+
+[node name="Eyes" type="Position2D" parent="FinalBoss/Planner"]
+position = Vector2( 13.6954, -12.4369 )
+
+[node name="AttackComboRange" type="ReferenceRect" parent="FinalBoss/Planner"]
+margin_left = 6.64102
+margin_top = -12.6374
+margin_right = 36.641
+margin_bottom = 15.3626
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JumpSmashRange" type="ReferenceRect" parent="FinalBoss/Planner"]
+margin_left = 79.9598
+margin_top = -14.1355
+margin_right = 133.96
+margin_bottom = 13.8645
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SpinAttackRange" type="ReferenceRect" parent="FinalBoss/Planner"]
+margin_left = 9.0
+margin_top = -13.0
+margin_right = 120.0
+margin_bottom = 15.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="JumpAttackRange" type="ReferenceRect" parent="FinalBoss/Planner"]
+margin_left = 48.0
+margin_top = -13.0
+margin_right = 158.0
+margin_bottom = 15.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Golem" parent="." instance=ExtResource( 1 )]
-position = Vector2( 313.562, 209.661 )
+position = Vector2( 435.151, 76.1534 )
 
 [node name="Planner" type="Node2D" parent="Golem"]
 script = ExtResource( 3 )
@@ -525,7 +586,7 @@ script = ExtResource( 7 )
 
 [node name="Awareness" type="Node2D" parent="Golem/Planner"]
 script = ExtResource( 4 )
-_awareness_area_path = NodePath("../../../Area2D")
+_awareness_area_path = NodePath("../../../AreaOfInterest")
 _eyes_path = NodePath("../Eyes")
 _collision = 4
 
@@ -541,6 +602,9 @@ __meta__ = {
 [node name="Eyes" type="Position2D" parent="Golem/Planner"]
 position = Vector2( 13.1391, -17.6673 )
 
+[node name="Knight" parent="." instance=ExtResource( 10 )]
+position = Vector2( 136.783, 208.775 )
+
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = SubResource( 48 )
 cell_size = Vector2( 32, 32 )
@@ -549,11 +613,14 @@ centered_textures = true
 collision_layer = 4
 collision_mask = 3
 format = 1
-tile_data = PoolIntArray( 131074, 0, 0, 131075, 0, 1, 131076, 0, 1, 131077, 0, 2, 196610, 0, 6, 196611, 0, 7, 196612, 0, 9, 196613, 0, 5, 196616, 0, 19, 196617, 0, 16, 196618, 0, 20, 262148, 0, 6, 262149, 0, 8, 327692, 0, 0, 327693, 0, 1, 327694, 0, 2, 393228, 0, 3, 393229, 0, 4, 393230, 0, 5, 458752, 0, 0, 458753, 0, 1, 458754, 0, 1, 458755, 0, 1, 458756, 0, 1, 458757, 0, 1, 458758, 0, 1, 458759, 0, 1, 458760, 0, 1, 458761, 0, 1, 458762, 0, 1, 458763, 0, 1, 458764, 0, 10, 458765, 0, 4, 458766, 0, 5, 524288, 0, 6, 524289, 0, 7, 524290, 0, 7, 524291, 0, 7, 524292, 0, 7, 524293, 0, 7, 524294, 0, 7, 524295, 0, 7, 524296, 0, 7, 524297, 0, 7, 524298, 0, 7, 524299, 0, 7, 524300, 0, 7, 524301, 0, 7, 524302, 0, 8 )
+tile_data = PoolIntArray( 196608, 0, 0, 196609, 0, 2, 196621, 0, 0, 196622, 0, 2, 262144, 0, 3, 262145, 0, 5, 262157, 0, 3, 262158, 0, 5, 327680, 0, 3, 327681, 0, 5, 327693, 0, 3, 327694, 0, 5, 393216, 0, 3, 393217, 0, 5, 393229, 0, 3, 393230, 0, 5, 458752, 0, 3, 458753, 0, 11, 458754, 0, 1, 458755, 0, 1, 458756, 0, 1, 458757, 0, 1, 458758, 0, 1, 458759, 0, 1, 458760, 0, 1, 458761, 0, 1, 458762, 0, 1, 458763, 0, 1, 458764, 0, 1, 458765, 0, 10, 458766, 0, 5, 524288, 0, 6, 524289, 0, 7, 524290, 0, 7, 524291, 0, 7, 524292, 0, 7, 524293, 0, 7, 524294, 0, 7, 524295, 0, 7, 524296, 0, 7, 524297, 0, 7, 524298, 0, 7, 524299, 0, 7, 524300, 0, 7, 524301, 0, 7, 524302, 0, 8 )
 
-[node name="Area2D" type="Area2D" parent="."]
+[node name="AreaOfInterest" type="Area2D" parent="."]
 visible = false
+position = Vector2( 48.6088, 10.321 )
+monitorable = false
+collision_layer = 0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2( 193.228, 189.918 )
+[node name="Collision" type="CollisionShape2D" parent="AreaOfInterest"]
+position = Vector2( 191.685, 145.168 )
 shape = SubResource( 49 )

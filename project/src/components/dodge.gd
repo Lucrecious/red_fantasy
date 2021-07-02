@@ -4,11 +4,13 @@ extends Node2D
 signal dodge_started()
 signal dodge_ended()
 
+export(Resource) var _input_binding: Resource = null
 export(String) var _dodge_animation_name := ''
 export(float) var _max_speed := 3.0
 export(CurveTexture) var _speed_curve: CurveTexture = null
 export(float) var _curve_sec := 1.0
 export(NodePath) var _dodge_priority_node_path := NodePath()
+export(Vector2) var _immune_range := Vector2(0, 0)
 
 onready var _disabler := NodE.get_sibling(self, Component_Disabler) as Component_Disabler
 onready var _velocity := NodE.get_sibling(self, Component_Velocity) as Component_Velocity
@@ -19,6 +21,7 @@ onready var _dodge_priority_node := get_node_or_null(_dodge_priority_node_path) 
 func _ready() -> void:
 	set_physics_process(false)
 	
+	assert(_input_binding, 'must be set')
 	assert(_disabler, 'must be set')
 	assert(_controller, 'must be set')
 	assert(_velocity, 'must be set')
@@ -42,19 +45,18 @@ func disable() -> void:
 func _on_action_just_pressed(action: String) -> void:
 	if not _enabled: return
 	
-	if _controller.direction.x == 0: return
-	if action != 'dodge': return
+	if not _input_binding.is_pressed(_controller): return
 	
-	_dodge(sign(_controller.direction.x))
+	dodge(sign(_controller.direction.x))
 
 func is_dodging() -> bool:
-	return _dodge_direction != -1
+	return _dodge_direction != 0
 
 var _dodge_direction := 0
 onready var _dodge_start_msec := 0
-func _dodge(direction: int) -> void:
-	if not _enabled: return
-	if _dodge_direction != 0: return
+func dodge(direction: int) -> bool:
+	if not _enabled: return false
+	if _dodge_direction != 0: return false
 	
 	direction = direction if direction else 1
 	_disabler.disable_below(self)
@@ -64,6 +66,14 @@ func _dodge(direction: int) -> void:
 	
 	_animation_player.callback_on_finished(_dodge_animation_name, _dodge_priority_node, self, '_callback_finish_dodge')
 	emit_signal('dodge_started')
+	
+	return true
+
+func is_immune() -> bool:
+	if not is_dodging(): return false
+	
+	var dodge_sec := (OS.get_ticks_msec() - _dodge_start_msec) / 1000.0
+	return dodge_sec >= _immune_range.x and dodge_sec < _immune_range.y
 
 func _callback_finish_dodge() -> void:
 	if _enabled:

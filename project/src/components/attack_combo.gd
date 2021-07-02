@@ -3,9 +3,11 @@ extends Node2D
 
 signal combo_finished()
 
+export(Resource) var _input_binding: Resource = null
 export(PoolStringArray) var _attack_combo := PoolStringArray()
 export(NodePath) var _priority_node_path := NodePath()
 export(PoolRealArray) var _animation_ends := PoolRealArray()
+export(float) var _lower_gravtiy_factor := .2
 
 onready var _animation_player := NodE.get_sibling(self, Component_PriorityAnimationPlayer) as Component_PriorityAnimationPlayer
 onready var _disabler := NodE.get_sibling(self, Component_Disabler) as Component_Disabler
@@ -27,6 +29,7 @@ func disable() -> void:
 	_finish_attack()
 
 func _ready() -> void:
+	assert(_input_binding is Input_ActionBinding, 'must be set')
 	assert(_animation_player, 'must be sibling')
 	assert(_disabler, 'must be sibling')
 	assert(_velocity, 'must be sibling')
@@ -44,8 +47,8 @@ var _msec_since_last_attack := 0
 var _combo_next := false
 func _on_action_just_pressed(action: String) -> void:
 	if not _enabled: return
+	if not _input_binding.is_pressed(_controller): return
 	
-	if action != 'attack': return
 	attack()
 
 func attack() -> void:
@@ -74,8 +77,13 @@ func attack() -> void:
 	_msec_since_last_attack = OS.get_ticks_msec()
 	_combo_count += 1
 
+func is_attacking() -> bool: return _attacking
+
+var _attacking := false
 func _start_attack() -> void:
 	if not _enabled: return
+	
+	_attacking = true
 	
 	_velocity.value = Vector2.ZERO
 	_disabler.disable_below(self)
@@ -86,6 +94,7 @@ func _finish_attack() -> void:
 	
 	if not _enabled: _combo_next = false
 	
+	_attacking = false
 	_combo_count = 0
 	_gravity.remove_filter(get_parent().get_path_to(self))
 	
@@ -95,7 +104,7 @@ func _finish_attack() -> void:
 	emit_signal('combo_finished')
 
 func _reduce_gravity(value: float) -> float:
-	return value / 5.0
+	return value * _lower_gravtiy_factor
 
 
 
