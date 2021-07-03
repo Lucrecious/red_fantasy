@@ -210,7 +210,6 @@ func _on_target_changed() -> void:
 		_actioner.stop()
 
 func _on_attack_started(animation: String, rect: Rect2, sec_to_impact: float) -> void:
-	return
 	if _dash.is_dodging(): return
 	
 	var this_rect := _extents.get_as_global_rect()
