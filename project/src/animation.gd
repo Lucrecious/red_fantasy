@@ -1,10 +1,12 @@
 class_name Component_PriorityAnimationPlayer
 extends AnimationPlayer
 
+signal animation_changEd(old, new)
+
 func _ready() -> void:
+	connect('animation_changEd', self, '_on_animation_changEd')
 	connect('animation_finished', self, '_on_animation_finished')
 	connect('animation_changed', self, '_on_animation_changed')
-	connect('animation_started', self, '_on_animation_started')
 	
 	for child in get_children():
 		var signal_expression := child as SignalExpression
@@ -27,13 +29,19 @@ func play(name: String = "", custom_blend: float = -1, custom_speed: float = 1.0
 	assert(has_animation(name))
 	var old := current_animation
 	.play(name, custom_blend, custom_speed, from_end)
-	
+	emit_signal('animation_changEd', old, name)
 
 func stop(reset := true) -> void:
 	if not is_playing(): return
 	var current := current_animation
 	.stop(reset)
-	emit_signal('animation_finished', current)
+	emit_signal('animation_changEd', current, '')
+
+func _on_animation_finished(animation: String) -> void:
+	emit_signal('animation_changEd', animation, '')
+
+func _on_animation_changed(old: String, new: String) -> void:
+	emit_signal('animation_changEd', old, new)
 
 var _playing_for_callback := false
 var _play_priority := -1
@@ -59,13 +67,7 @@ func callback_on_finished(animation_name: String, sender: Node, object: Object, 
 	_callback_object = object
 	_callback_method = callback
 
-func _on_animation_finished(_animation_name: String) -> void:
-	_animation_callback()
-
-func _on_animation_changed(_old_animation: String, _new_animation: String) -> void:
-	_animation_callback()
-
-func _on_animation_started(_animation_name: String) -> void:
+func _on_animation_changEd(_old_animation: String, _new_animation: String) -> void:
 	_animation_callback()
 
 func _animation_callback() -> void:

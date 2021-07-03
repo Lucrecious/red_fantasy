@@ -22,12 +22,14 @@ func run() -> void:
 	if _running: return
 	_running = true
 	
+	_index = 0
+	
 	_run_link(_index)
 	
 	_index += 1
 
-func _run_link(index: int) -> void:
-	if index >= _links.size(): return
+func _run_link(index: int) -> bool:
+	if index >= _links.size(): return false
 	
 	var link := _links[index] as Dictionary
 	ObjEct.connect_once(link.object, link.finish_signal, self, '_on_finish_signal', [link.object, link.finish_signal])
@@ -38,6 +40,7 @@ func _run_link(index: int) -> void:
 		args_realized[i] = args_realized[i].call_func()
 	
 	link.object.callv(link.method, args_realized)
+	return true
 
 func _on_finish_signal(sender: Object, finish_signal: String) -> void:
 	ObjEct.disconnect_once(sender, finish_signal, self, '_on_finish_signal')
@@ -48,7 +51,9 @@ func _on_finish_signal(sender: Object, finish_signal: String) -> void:
 	
 	yield(get_tree(), 'idle_frame')
 	
-	_run_link(_index)
+	if not _run_link(_index):
+		clear()
+		return
 	
 	_index += 1
 

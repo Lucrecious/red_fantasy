@@ -45,7 +45,7 @@
 extents = Vector2( 9, 15 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 21.9579, 9.88102 )
+extents = Vector2( 15.2398, 11.5073 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 8 )
@@ -1707,8 +1707,8 @@ _root_sprite_path = NodePath("../RootSprite")
 [node name="Listener" type="Node" parent="Turner"]
 script = ExtResource( 23 )
 _animation_player_path = NodePath("../../AnimationPlayer")
-_animation_names = [ "walk", "attack_combo1", "attack_combo2", "attack_combo3", "dash" ]
-_turn_bys = [ 1, 1, 1, 1, 1 ]
+_animation_names = [ "walk", "attack_combo1", "attack_combo2", "attack_combo3", "dash", "jump_attack", "jump_smash", "spin_attack" ]
+_turn_bys = [ 1, 1, 1, 1, 1, 1, 1, 1 ]
 
 [node name="RootSprite" type="Node2D" parent="."]
 script = ExtResource( 4 )
@@ -1719,7 +1719,7 @@ collision_layer = 0
 script = ExtResource( 34 )
 
 [node name="Collision" type="CollisionShape2D" parent="RootSprite/Hitbox"]
-position = Vector2( 0.101665, -1.21974 )
+position = Vector2( 12.7817, 3.19246 )
 shape = SubResource( 2 )
 disabled = true
 
@@ -1729,7 +1729,7 @@ position = Vector2( 15.3485, -0.203293 )
 [node name="Sprite" type="AnimatedSprite" parent="RootSprite"]
 position = Vector2( 0, -13 )
 frames = SubResource( 218 )
-animation = "dash"
+animation = "jump_smash"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/attack_combo1 = SubResource( 219 )

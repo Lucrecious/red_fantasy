@@ -13,8 +13,21 @@ func attack_combo_by_name(node_name: String, node: Node2D) -> void:
 	var attack_combo := NodE.get_child_by_name(_body, node_name) as Component_AttackCombo
 	assert(attack_combo, 'this must exist')
 	
+	var direction := sign(node.global_position.x - _body.global_position.x)
+	
+	if direction > 0:
+		_virtual_input.release('left_move')
+		_virtual_input.flash_press('right_move')
+	else:
+		_virtual_input.release('right_move')
+		_virtual_input.flash_press('left_move')
+	
+	var signal_detector := SignalDetector.new(attack_combo, 'combo_started')
 	attack_combo.attack()
-	_turner.direction = sign(node.global_position.x - _body.global_position.x)
+	
+	if not signal_detector.raised():
+		emit_signal('finished')
+		return
 	ObjEct.connect_once(attack_combo, 'combo_finished', self, '_on_combo_finished', [attack_combo])
 	_connections[attack_combo] = true
 

@@ -44,8 +44,11 @@ func _on_action_just_pressed(action: String) -> void:
 	if not can_dodge(): return
 	
 	_disabler.disable_below(self)
+	_dodge.enable()
 	
-	if not _dodge.dodge(_controller.direction.x, true, _priority_node):
+	_dodge.dodge(_controller.direction.x, _priority_node)
+	
+	if not _dodge.is_dodging():
 		_disabler.enable_below(self)
 		return
 	

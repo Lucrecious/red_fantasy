@@ -37,7 +37,6 @@ func _ready() -> void:
 func _on_run_ended() -> void:
 	if not _awareness.target(): return
 	
-	print('_on_run_ended')
 	_move_to_attack(_chain)
 	_chain.run()
 
@@ -47,7 +46,7 @@ var _indices: Array
 func _move_to_attack(chain: AI_Chain) -> void:
 	if _indices.empty():
 		_indices = _rng.weighted_indices([.4, .2, .3, .1], 10)
-		#_indices = _rng.weighted_indices([.0, .0, .0, 1.0], 10)
+		#_indices = _rng.weighted_indices([.0, .0, 1.0, .0], 10)
 	
 	var index := _indices.pop_back() as int
 	
@@ -211,6 +210,9 @@ func _on_target_changed() -> void:
 		_actioner.stop()
 
 func _on_attack_started(animation: String, rect: Rect2, sec_to_impact: float) -> void:
+	return
+	if _dash.is_dodging(): return
+	
 	var this_rect := _extents.get_as_global_rect()
 	if not GEometry.rects_touch(rect, this_rect): return
 	var real := max(0, sec_to_impact - .1)
@@ -240,9 +242,7 @@ func _on_attack_started(animation: String, rect: Rect2, sec_to_impact: float) ->
 		_on_run_ended()
 		return
 	
-	print('waiting for dodge to end now..')
 	yield(_dash, 'dodge_ended')
-	print('dodge ended')
 	
 	_on_run_ended()
 	

@@ -55,18 +55,16 @@ func is_dodging() -> bool:
 
 var _dodge_direction := 0
 onready var _dodge_start_msec := 0
-func dodge(direction: int, force := false, priority_override: Node = null) -> bool:
-	if not _enabled and not force: return false
+func dodge(direction: int, priority_override: Node = null) -> bool:
+	if not _enabled: return false
 	if _dodge_direction != 0: return false
 	
 	direction = direction if direction else 1
-	if not force:
-		_disabler.disable_below(self)
+	_disabler.disable_below(self)
 	_dodge_direction = direction
 	_dodge_start_msec = OS.get_ticks_msec()
 	set_physics_process(true)
 	
-	assert(not force or priority_override)
 	var priority_node := _dodge_priority_node if not priority_override else priority_override
 	_animation_player.callback_on_finished(_dodge_animation_name, priority_node, self, '_callback_finish_dodge')
 	emit_signal('dodge_started')
