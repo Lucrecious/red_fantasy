@@ -1,0 +1,11 @@
+[gd_resource type="Resource" load_steps=2 format=2]
+
+[ext_resource path="res://lut-godot/input/bindings/directional.gd" type="Script" id=1]
+
+[resource]
+script = ExtResource( 1 )
+action_name = "dodge"
+direction_type = "none"
+direction = Vector2( 0, 1 )
+angle_deg = 45.0
+x_symmetry = true

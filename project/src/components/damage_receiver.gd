@@ -21,7 +21,11 @@ func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 		var blink := Tweener.blink(_body, 1, .5, Color.crimson, true)
 		Tweener.add_one_off(blink, _body)
 		
-		_health.current_set(_health.current - hit_data.damage, sender)
+		var damage := hit_data.damage as int
+		if get_parent().name == 'Knight':
+			damage = 1
+		
+		_health.current_set(_health.current - damage, sender)
 	
 	if is_dodge_immune: pass
 	else:

@@ -77,9 +77,12 @@ func _animation_callback() -> void:
 	var index := _play_priority
 	_play_priority = -1
 	
-	_callback_object.call(_callback_method)
+	var object := _callback_object
+	var method := _callback_method
 	_callback_object = null
 	_callback_method = ''
+	object.call(method)
+	
 	
 	_play_next_highest_priority_expression(index)
 

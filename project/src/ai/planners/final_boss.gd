@@ -12,6 +12,8 @@ onready var _virtual_input := NodE.get_child_with_error(_controller, Input_Virtu
 onready var _attack_combo := NodE.get_sibling_by_name(self, 'AttackCombo') as Component_AttackCombo
 onready var _spin_attack := NodE.get_sibling_by_name(self, 'SpinAttack') as Component_Dodge
 
+onready var _health := NodE.get_sibling_with_error(self, Component_Health) as Component_Health
+
 onready var _dash := NodE.get_sibling_by_name(self, 'Dash') as Component_Dodge
 onready var _disabler := NodE.get_sibling_with_error(self, Component_Disabler) as Component_Disabler
 onready var _extents := NodE.get_sibling_with_error(self, Component_Extents) as Component_Extents
@@ -33,7 +35,32 @@ onready var _animation_player := NodE.get_sibling_with_error(self, Component_Pri
 
 func _ready() -> void:
 	_awareness.connect('target_changed', self, '_on_target_changed')
+	
+	_health.connect('damaged', self, '_on_damaged')
 
+var _add_cheer := false
+func _on_damaged(amount: int) -> void:
+	var lower := _health.current
+	var upper := lower + amount
+	
+	if MathE.is_between_inclusive(17, lower, upper):
+		_indices.clear()
+		_phase += 1
+		_add_cheer = true
+		return
+	
+	if MathE.is_between_inclusive(10, lower, upper):
+		_indices.clear()
+		_phase += 1
+		_add_cheer = true
+		return
+	
+	if MathE.is_between_inclusive(2, lower, upper):
+		_indices.clear()
+		_phase += 1
+		_add_cheer = true
+		return
+	
 func _on_run_ended() -> void:
 	if not _awareness.target(): return
 	
@@ -43,12 +70,35 @@ func _on_run_ended() -> void:
 var _rng := RNG.new()
 var _indices: Array
 
+var _phase := 0
+var _dodge_percent := 0.0
 func _move_to_attack(chain: AI_Chain) -> void:
 	if _indices.empty():
-		_indices = _rng.weighted_indices([.4, .2, .3, .1], 10)
+		if _phase > 3:
+			_phase = 0
+		
+		match _phase:
+			0:
+				_indices = _rng.weighted_indices([.4, .2, .4, 0], 10)
+				_dodge_percent = 0.0
+			1:
+				_indices = _rng.weighted_indices([.4, .2, .3, .1], 10)
+				_dodge_percent = .2
+			2:
+				_indices = _rng.weighted_indices([.4, .2, .2, .2], 10)
+				_dodge_percent = .5
+			3:
+				_indices = _rng.weighted_indices([.25, .25, .25, .25], 10)
+				_dodge_percent = 1.0
 		#_indices = _rng.weighted_indices([.0, .0, 1.0, .0], 10)
 	
 	var index := _indices.pop_back() as int
+	
+	if _add_cheer:
+		_add_cheer = false
+		_chain.add(_actioner, 'attack_combo_by_name', ['Cheer', funcref(_awareness, 'target')], 'finished')
+		if _phase == 1:
+			_chain.add(_actioner, 'attack_combo_by_name', ['JumpAttack', funcref(_awareness, 'target')], 'finished')
 	
 	match index:
 		0:
@@ -219,6 +269,9 @@ func _on_attack_started(animation: String, rect: Rect2, sec_to_impact: float) ->
 		yield(get_tree().create_timer(real), 'timeout')
 	
 	if not _awareness.target(): return
+	
+	if _dodge_percent + randf() < 1: return
+	
 	var target_position := _awareness.target().global_position
 	
 	var away_dir := (_body.global_position - target_position).sign().x

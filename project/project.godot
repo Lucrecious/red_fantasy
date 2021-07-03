@@ -185,6 +185,11 @@ _global_script_classes=[ {
 "path": "res://lut-godot/input/virtual_input.gd"
 }, {
 "base": "Reference",
+"class": "MathE",
+"language": "GDScript",
+"path": "res://lut-godot/extension/math_extension.gd"
+}, {
+"base": "Reference",
 "class": "NodE",
 "language": "GDScript",
 "path": "res://lut-godot/extension/node_extension.gd"
@@ -285,6 +290,7 @@ _global_script_class_icons={
 "Input_ActionBinding_Directional": "",
 "Input_User": "",
 "Input_Virtual": "",
+"MathE": "",
 "NodE": "",
 "ObjEct": "",
 "Parameters_Run": "",
