@@ -514,6 +514,7 @@ position = Vector2( 258.589, 202.995 )
 script = ExtResource( 11 )
 _jump_smash_check_sec = 1.12
 _jump_attack_check_sec = 1.12
+_walls = 4
 
 [node name="MoveTo" type="Node2D" parent="FinalBoss/Planner"]
 script = ExtResource( 2 )

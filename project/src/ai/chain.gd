@@ -52,7 +52,7 @@ func _on_finish_signal(sender: Object, finish_signal: String) -> void:
 	
 	_index += 1
 
-func clear() -> void:
+func clear(signal_end := true) -> void:
 	var was_running := _running
 	
 	_running = false
@@ -62,6 +62,8 @@ func clear() -> void:
 	_index = 0
 	
 	if not was_running: return
+	
+	if not signal_end: return
 	
 	emit_signal('run_ended')
 

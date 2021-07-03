@@ -4,6 +4,7 @@ signal finished_something()
 
 export(float) var _jump_smash_check_sec := .5
 export(float) var _jump_attack_check_sec := .5
+export(int, LAYERS_2D_PHYSICS) var _walls := 0
 
 onready var _awareness := NodE.get_child_with_error(self, AI_Awareness) as AI_Awareness
 onready var _controller := NodE.get_sibling_with_error(self, Component_Controller) as Component_Controller
@@ -11,6 +12,8 @@ onready var _virtual_input := NodE.get_child_with_error(_controller, Input_Virtu
 onready var _attack_combo := NodE.get_sibling_by_name(self, 'AttackCombo') as Component_AttackCombo
 onready var _spin_attack := NodE.get_sibling_by_name(self, 'SpinAttack') as Component_Dodge
 
+onready var _dash := NodE.get_sibling_by_name(self, 'Dash') as Component_Dodge
+onready var _disabler := NodE.get_sibling_with_error(self, Component_Disabler) as Component_Disabler
 onready var _extents := NodE.get_sibling_with_error(self, Component_Extents) as Component_Extents
 
 onready var _jump_smash := NodE.get_sibling_by_name(self, 'JumpSmash') as Component_AttackCombo
@@ -26,12 +29,15 @@ onready var _jump_smash_range := $JumpSmashRange as ReferenceRect
 onready var _spin_attack_range := $SpinAttackRange as ReferenceRect
 onready var _jump_attack_range := $JumpAttackRange as ReferenceRect
 
+onready var _animation_player := NodE.get_sibling_with_error(self, Component_PriorityAnimationPlayer) as Component_PriorityAnimationPlayer
+
 func _ready() -> void:
 	_awareness.connect('target_changed', self, '_on_target_changed')
 
 func _on_run_ended() -> void:
 	if not _awareness.target(): return
 	
+	print('_on_run_ended')
 	_move_to_attack(_chain)
 	_chain.run()
 
@@ -178,8 +184,23 @@ func _within_combo_range() -> bool:
 	return true
 
 var _previous_target: Node2D
+var _attack_hints: Component_AttackHints
 func _on_target_changed() -> void:
 	_chain.clear()
+	
+	if _previous_target == _awareness.target(): return
+	
+	if _previous_target:
+		if _attack_hints:
+			_attack_hints.disconnect('attack_started', self, '_on_attack_started')
+			_attack_hints = null
+	
+	_previous_target = _awareness.target()
+	
+	if _previous_target:
+		_attack_hints = NodE.get_child(_previous_target, Component_AttackHints) as Component_AttackHints
+		if _attack_hints:
+			_attack_hints.connect('attack_started', self, '_on_attack_started')
 	
 	if _awareness.target():
 		_move_to_attack(_chain)
@@ -188,5 +209,47 @@ func _on_target_changed() -> void:
 		_dynamic_move_to.stop()
 		_move_to.stop()
 		_actioner.stop()
+
+func _on_attack_started(animation: String, rect: Rect2, sec_to_impact: float) -> void:
+	var this_rect := _extents.get_as_global_rect()
+	if not GEometry.rects_touch(rect, this_rect): return
+	var real := max(0, sec_to_impact - .1)
+	if real > 0:
+		yield(get_tree().create_timer(real), 'timeout')
 	
-	_previous_target = _awareness.target()
+	if not _awareness.target(): return
+	var target_position := _awareness.target().global_position
+	
+	var away_dir := (_body.global_position - target_position).sign().x
+	
+	var space := get_world_2d().direct_space_state
+	var results := space.intersect_ray(global_position, global_position + Vector2.RIGHT * away_dir * 32, [], _walls)
+	if not results.empty():
+		away_dir *= -1
+		
+	_chain.clear(false)
+	
+	if away_dir > 0:
+		_virtual_input.flash_press('right_move')
+	elif away_dir < 0:
+		_virtual_input.flash_press('left_move')
+	
+	_virtual_input.flash_press('dodge')
+	
+	if not _dash.is_dodging():
+		_on_run_ended()
+		return
+	
+	print('waiting for dodge to end now..')
+	yield(_dash, 'dodge_ended')
+	print('dodge ended')
+	
+	_on_run_ended()
+	
+	
+
+
+
+
+
+

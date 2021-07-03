@@ -4,6 +4,7 @@ extends AnimationPlayer
 func _ready() -> void:
 	connect('animation_finished', self, '_on_animation_finished')
 	connect('animation_changed', self, '_on_animation_changed')
+	connect('animation_started', self, '_on_animation_started')
 	
 	for child in get_children():
 		var signal_expression := child as SignalExpression
@@ -26,8 +27,9 @@ func play(name: String = "", custom_blend: float = -1, custom_speed: float = 1.0
 	assert(has_animation(name))
 	var old := current_animation
 	.play(name, custom_blend, custom_speed, from_end)
+	
 
-func stop(reset := false) -> void:
+func stop(reset := true) -> void:
 	if not is_playing(): return
 	var current := current_animation
 	.stop(reset)
@@ -63,6 +65,9 @@ func _on_animation_finished(_animation_name: String) -> void:
 func _on_animation_changed(_old_animation: String, _new_animation: String) -> void:
 	_animation_callback()
 
+func _on_animation_started(_animation_name: String) -> void:
+	_animation_callback()
+
 func _animation_callback() -> void:
 	if not _playing_for_callback: return
 	_playing_for_callback = false
@@ -86,6 +91,10 @@ func _on_conditions_unmet(sender: SignalExpression) -> void:
 func play_default() -> void:
 	_play_priority = -1
 	_play_next_highest_priority_expression(get_child_count())
+
+func reset_and_stop() -> void:
+	_play_priority = -1
+	stop()
 
 func _play_next_highest_priority_expression(index: int) -> void:
 	for i in range(0, index):

@@ -1,6 +1,7 @@
 class_name Component_AttackCombo
 extends Node2D
 
+signal combo_started(animation)
 signal combo_finished()
 
 export(Resource) var _input_binding: Resource = null
@@ -59,6 +60,7 @@ func attack() -> void:
 		_start_attack()
 		var animation := _attack_combo[_combo_count]
 		_animation_player.callback_on_finished(animation, _priority_node, self, '_finish_attack')
+		emit_signal('combo_started', animation)
 	
 	if _combo_count > 0 and _combo_count < _attack_combo.size():
 		var msec_elapsed := OS.get_ticks_msec() - _msec_since_last_attack
@@ -71,6 +73,7 @@ func attack() -> void:
 		
 		var animation := _attack_combo[_combo_count]
 		_animation_player.callback_on_finished(animation, _priority_node, self, '_finish_attack')
+		emit_signal('combo_started', animation)
 		
 		
 	_combo_next = false

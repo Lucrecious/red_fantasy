@@ -4,7 +4,7 @@ extends Node2D
 signal dodge_started()
 signal dodge_ended()
 
-export(Resource) var _input_binding: Resource = null
+export(Resource) var input_binding: Resource = null
 export(String) var _dodge_animation_name := ''
 export(float) var _max_speed := 3.0
 export(CurveTexture) var _speed_curve: CurveTexture = null
@@ -21,7 +21,7 @@ onready var _dodge_priority_node := get_node_or_null(_dodge_priority_node_path) 
 func _ready() -> void:
 	set_physics_process(false)
 	
-	assert(_input_binding, 'must be set')
+	assert(input_binding, 'must be set')
 	assert(_disabler, 'must be set')
 	assert(_controller, 'must be set')
 	assert(_velocity, 'must be set')
@@ -45,7 +45,8 @@ func disable() -> void:
 func _on_action_just_pressed(action: String) -> void:
 	if not _enabled: return
 	
-	if not _input_binding.is_pressed(_controller): return
+	if not input_binding.is_pressed(_controller): return
+	
 	
 	dodge(sign(_controller.direction.x))
 
@@ -54,17 +55,20 @@ func is_dodging() -> bool:
 
 var _dodge_direction := 0
 onready var _dodge_start_msec := 0
-func dodge(direction: int) -> bool:
-	if not _enabled: return false
+func dodge(direction: int, force := false, priority_override: Node = null) -> bool:
+	if not _enabled and not force: return false
 	if _dodge_direction != 0: return false
 	
 	direction = direction if direction else 1
-	_disabler.disable_below(self)
+	if not force:
+		_disabler.disable_below(self)
 	_dodge_direction = direction
 	_dodge_start_msec = OS.get_ticks_msec()
 	set_physics_process(true)
 	
-	_animation_player.callback_on_finished(_dodge_animation_name, _dodge_priority_node, self, '_callback_finish_dodge')
+	assert(not force or priority_override)
+	var priority_node := _dodge_priority_node if not priority_override else priority_override
+	_animation_player.callback_on_finished(_dodge_animation_name, priority_node, self, '_callback_finish_dodge')
 	emit_signal('dodge_started')
 	
 	return true
@@ -86,7 +90,7 @@ func _callback_finish_dodge() -> void:
 	emit_signal('dodge_ended')
 
 func _physics_process(_delta: float) -> void:
-	if not _enabled: return
+	#if not _enabled: return
 	
 	if _speed_curve:
 		var percent := clamp((OS.get_ticks_msec() - _dodge_start_msec) / (1000.0 * _curve_sec), 0.0, 1.0)
