@@ -35,6 +35,16 @@ _global_script_classes=[ {
 "path": "res://src/ai/move_to.gd"
 }, {
 "base": "Area2D",
+"class": "CameraBox_Game",
+"language": "GDScript",
+"path": "res://src/camera/box.gd"
+}, {
+"base": "Node2D",
+"class": "Camera_Game",
+"language": "GDScript",
+"path": "res://src/camera/camera.gd"
+}, {
+"base": "Area2D",
 "class": "Collision_Hitbox",
 "language": "GDScript",
 "path": "res://src/collision/hitbox.gd"
@@ -189,6 +199,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut-godot/input/virtual_input.gd"
 }, {
+"base": "Node",
+"class": "Math",
+"language": "GDScript",
+"path": "res://src/math.gd"
+}, {
 "base": "Reference",
 "class": "MathE",
 "language": "GDScript",
@@ -265,6 +280,8 @@ _global_script_class_icons={
 "AI_Chain": "",
 "AI_DynamicMoveTo": "",
 "AI_MoveTo": "",
+"CameraBox_Game": "",
+"Camera_Game": "",
 "Collision_Hitbox": "",
 "Component_AttackCombo": "",
 "Component_AttackHints": "",
@@ -296,6 +313,7 @@ _global_script_class_icons={
 "Input_ActionBinding_Directional": "",
 "Input_User": "",
 "Input_Virtual": "",
+"Math": "",
 "MathE": "",
 "NodE": "",
 "ObjEct": "",
