@@ -1,0 +1,17 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/particles/bleed.gd" type="Script" id=1]
+
+[node name="Bleed" type="CPUParticles2D"]
+position = Vector2( 1.38846, -12.9706 )
+emitting = false
+amount = 7
+randomness = 1.0
+lifetime_randomness = 0.5
+local_coords = false
+angle = 720.0
+angle_random = 1.0
+scale_amount = 2.0
+scale_amount_random = 1.0
+color = Color( 0.490196, 0.129412, 0.129412, 1 )
+script = ExtResource( 1 )

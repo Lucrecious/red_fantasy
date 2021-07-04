@@ -10,8 +10,16 @@ func block() -> void:
 	initial_velocity = _block_velocity
 	modulate = _block_color
 	emitting = true
+	yield(get_tree().create_timer(.2), 'timeout')
+	emitting = false
 
 func parry() -> void:
 	initial_velocity = _parry_velocity
 	modulate = _parry_color
 	emitting = true
+	yield(get_tree().create_timer(.2), 'timeout')
+	emitting = false
+
+
+
+
