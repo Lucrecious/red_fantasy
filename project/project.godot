@@ -155,6 +155,11 @@ _global_script_classes=[ {
 "path": "res://src/collision/damage.gd"
 }, {
 "base": "Reference",
+"class": "FuncREf",
+"language": "GDScript",
+"path": "res://lut-godot/funcref.gd"
+}, {
+"base": "Reference",
 "class": "GEometry",
 "language": "GDScript",
 "path": "res://lut-godot/extension/geometry_extension.gd"
@@ -284,6 +289,7 @@ _global_script_class_icons={
 "Component_Turner": "",
 "Component_Velocity": "",
 "Data_Damage": "",
+"FuncREf": "",
 "GEometry": "",
 "Input_Abstract": "",
 "Input_ActionBinding": "",

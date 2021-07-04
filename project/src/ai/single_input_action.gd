@@ -1,15 +1,13 @@
 class_name AI_Actioner
 extends Node
 
-signal finished()
-
 onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
 onready var _turner := NodE.get_child(_body, Component_Turner) as Component_Turner
 onready var _virtual_input := NodE.get_child_with_error(NodE.get_child_with_error(_body, Component_Controller), Input_Virtual) as Input_Virtual
 
 var _connections := {}
 
-func attack_combo_by_name(node_name: String, node: Node2D) -> void:
+func attack_combo_by_name(node_name: String, node: Node2D, done_event: FuncREf) -> void:
 	var attack_combo := NodE.get_child_by_name(_body, node_name) as Component_AttackCombo
 	assert(attack_combo, 'this must exist')
 	
@@ -26,9 +24,10 @@ func attack_combo_by_name(node_name: String, node: Node2D) -> void:
 	attack_combo.attack()
 	
 	if not signal_detector.raised():
-		emit_signal('finished')
+		done_event.call_func()
 		return
-	ObjEct.connect_once(attack_combo, 'combo_finished', self, '_on_combo_finished', [attack_combo])
+	
+	ObjEct.connect_once(attack_combo, 'combo_finished', self, '_on_combo_finished', [attack_combo, done_event])
 	_connections[attack_combo] = true
 
 func stop() -> void:
@@ -36,6 +35,6 @@ func stop() -> void:
 		ObjEct.disconnect_once(attack_combo, 'combo_finished', self, '_on_combo_finished')
 	_connections.clear()
 
-func _on_combo_finished(attack_combo: Component_AttackCombo) -> void:
+func _on_combo_finished(attack_combo: Component_AttackCombo, done_event: FuncREf) -> void:
 	ObjEct.disconnect_once(attack_combo, 'combo_finished', self, '_on_combo_finished')
-	emit_signal('finished')
+	done_event.call_func()

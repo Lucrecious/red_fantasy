@@ -56,8 +56,8 @@ func _on_conditions_met(sender: SignalExpression) -> void:
 
 var _callback_object: Object = null
 var _callback_method := ''
-func callback_on_finished(animation_name: String, sender: Node, object: Object, callback: String) -> void:
-	if _play_priority > sender.get_index(): return
+func callback_on_finished(animation_name: String, sender: Node, object: Object, callback: String) -> bool:
+	if _play_priority > sender.get_index(): return false
 	
 	stop()
 	play(animation_name)
@@ -66,6 +66,8 @@ func callback_on_finished(animation_name: String, sender: Node, object: Object, 
 	_playing_for_callback = true
 	_callback_object = object
 	_callback_method = callback
+	
+	return true
 
 func _on_animation_changEd(_old_animation: String, _new_animation: String) -> void:
 	_animation_callback()

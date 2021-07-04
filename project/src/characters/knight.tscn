@@ -1205,7 +1205,7 @@ script = ExtResource( 32 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 28 )
-current = 10
+current = 2
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )

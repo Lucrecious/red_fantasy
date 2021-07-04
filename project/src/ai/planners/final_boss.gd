@@ -96,25 +96,38 @@ func _move_to_attack(chain: AI_Chain) -> void:
 	
 	if _add_cheer:
 		_add_cheer = false
-		_chain.add(_actioner, 'attack_combo_by_name', ['Cheer', funcref(_awareness, 'target')], 'finished')
+		_chain.add(_actioner, 'attack_combo_by_name', ['Cheer', funcref(_awareness, 'target')])
 		if _phase == 1:
-			_chain.add(_actioner, 'attack_combo_by_name', ['JumpAttack', funcref(_awareness, 'target')], 'finished')
+			index = 3
 	
 	match index:
 		0:
-			_chain.add(_dynamic_move_to, 'target', [funcref(_awareness, 'target'), _attack_combo_range, 1.0/20.0], 'caught_node')
-			_chain.add(self, '_attack_combo_action', [.7, .77], 'finished_something')
+			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _attack_combo_range, 1.0/20.0])
+			_chain.add(self, '_attack_combo_action', [.7, .77])
 		1:
-			_chain.add(_dynamic_move_to, 'target', [funcref(_awareness, 'target'), _jump_smash_range, 1.0/20.0], 'caught_node')
-			_chain.add(self, '_start_smash_target_update_timer', [_jump_smash_check_sec], 'finished_something')
-			_chain.add(_actioner, 'attack_combo_by_name', ['JumpSmash', funcref(_awareness, 'target')], 'finished')
+			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _jump_smash_range, 1.0/20.0])
+			_chain.add(self, '_start_smash_target_update_timer', [_jump_smash_check_sec])
+			_chain.add(_actioner, 'attack_combo_by_name', ['JumpSmash', funcref(_awareness, 'target')])
 		2:
-			_chain.add(_dynamic_move_to, 'target', [funcref(_awareness, 'target'), _spin_attack_range, 1.0/20.0], 'caught_node')
-			_chain.add(self, '_spin_attack', [], 'finished_something')
+			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _spin_attack_range, 1.0/20.0])
+			_chain.add(self, '_spin_attack', [])
 		3:
-			_chain.add(_dynamic_move_to, 'target', [funcref(_awareness, 'target'), _jump_attack_range, 1.0/20.0], 'caught_node')
-			_chain.add(self, '_start_jump_attack_target_update_timer', [_jump_attack_check_sec], 'finished_something')
-			_chain.add(_actioner, 'attack_combo_by_name', ['JumpAttack', funcref(_awareness, 'target')], 'finished')
+			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _jump_attack_range, 1.0/20.0])
+			_chain.add(self, '_start_jump_attack_target_update_timer', [_jump_attack_check_sec])
+			_chain.add(_actioner, 'attack_combo_by_name', ['JumpAttack', funcref(_awareness, 'target')])
+
+func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: float, done_event: FuncREf) -> void:
+	_dynamic_move_to.stop()
+	
+	var signal_detector := SignalDetector.new(_dynamic_move_to, 'caught_node')
+	_dynamic_move_to.target(target, rect, update_sec)
+	if signal_detector.raised():
+		done_event.call_func()
+		return
+	
+	yield(_dynamic_move_to, 'caught_node')
+	
+	done_event.call_func()
 
 onready var _jump_attack_update_timer := NodE.add_child(self, TimEr.repeated(.05, self, '_update_jump_attack_direction')) as Timer
 func _update_jump_attack_direction() -> void:
@@ -125,10 +138,10 @@ func _update_jump_attack_direction() -> void:
 	
 	_jump_attack_functions.direction = (_awareness.target().global_position - (_body.global_position + Vector2(dir_x * _extents.value.x * 2, 0))).normalized()
 
-func _start_jump_attack_target_update_timer(sec: float) -> void:
+func _start_jump_attack_target_update_timer(sec: float, done_event: FuncREf) -> void:
 	_jump_attack_update_timer.start()
 	
-	emit_signal('finished_something')
+	done_event.call_func()
 	
 	yield(get_tree().create_timer(sec), 'timeout')
 	
@@ -143,18 +156,18 @@ func _update_jump_smash_point() -> void:
 	
 	_jump_smash_functions.strike_point_relative = target_pos - (_body.global_position + Vector2(dir_x * _extents.value.x * 2.0, 0))
 
-func _start_smash_target_update_timer(sec: float) -> void:
+func _start_smash_target_update_timer(sec: float, done_event: FuncREf) -> void:
 	_smash_update_timer.start()
 	
-	emit_signal('finished_something')
+	done_event.call_func()
 	
 	yield(get_tree().create_timer(sec), 'timeout')
 	
 	_smash_update_timer.stop()
 
-func _spin_attack() -> void:
+func _spin_attack(done_event: FuncREf) -> void:
 	if not _awareness.target():
-		emit_signal('finished_something')
+		done_event.call_func()
 		return
 	
 	_turn_towards(_awareness.target().global_position, true, .1)
@@ -162,15 +175,19 @@ func _spin_attack() -> void:
 	var success := _spin_attack.dodge(sign(_awareness.target().global_position.x - _body.global_position.x))
 	
 	if not success:
-		emit_signal('finished_something')
+		done_event.call_func()
 		return
 	
+	var signal_detector := SignalDetector.new(_chain, 'run_ended')
 	yield(_spin_attack, 'dodge_ended')
-	emit_signal('finished_something')
+	
+	if signal_detector.raised(): return
+	
+	done_event.call_func()
 
-func _attack_combo_action(check1_sec: float, check2_sec: float) -> void:
+func _attack_combo_action(check1_sec: float, check2_sec: float, done_event: FuncREf) -> void:
 	if not _awareness.target():
-		emit_signal('finished_something')
+		done_event.call_func()
 		return
 	
 	_virtual_input.release('left_move')
@@ -189,7 +206,7 @@ func _attack_combo_action(check1_sec: float, check2_sec: float) -> void:
 			if _attack_combo.is_attacking():
 				yield(_attack_combo, 'combo_finished')
 			
-			emit_signal('finished_something')
+			done_event.call_func()
 			return
 		
 		yield(get_tree().create_timer(check), 'timeout')
@@ -198,10 +215,10 @@ func _attack_combo_action(check1_sec: float, check2_sec: float) -> void:
 			if _attack_combo.is_attacking():
 				yield(_attack_combo, 'combo_finished')
 		
-			emit_signal('finished_something')
+			done_event.call_func()
 			return
 	
-	emit_signal('finished_something')
+	done_event.call_func()
 
 func _turn_towards(position: Vector2, hold := false, hold_sec := 0.0) -> void:
 	var side := sign(position.x - _body.global_position.x)
@@ -297,11 +314,3 @@ func _on_attack_started(animation: String, rect: Rect2, sec_to_impact: float) ->
 	yield(_dash, 'dodge_ended')
 	
 	_on_run_ended()
-	
-	
-
-
-
-
-
-

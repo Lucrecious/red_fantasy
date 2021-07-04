@@ -8,17 +8,19 @@ var _links := []
 var _index := 0
 var _running := false
 
-func add(object: Object, method: String, args: Array, finish_signal: String) -> void:
+var _generation := 0
+
+func add(object: Object, method: String, args: Array) -> void:
 	var link := {
 		object = object,
 		method = method,
-		 args = args.duplicate(),
-		finish_signal = finish_signal,
+		args = args.duplicate(),
 	}
 	
 	_links.push_back(link)
 
 func run() -> void:
+	if _links.empty(): return
 	if _running: return
 	_running = true
 	
@@ -32,18 +34,18 @@ func _run_link(index: int) -> bool:
 	if index >= _links.size(): return false
 	
 	var link := _links[index] as Dictionary
-	ObjEct.connect_once(link.object, link.finish_signal, self, '_on_finish_signal', [link.object, link.finish_signal])
 	
 	var args_realized := link.args.duplicate() as Array
 	for i in args_realized.size():
 		if not args_realized[i] is FuncRef: continue
 		args_realized[i] = args_realized[i].call_func()
 	
+	args_realized.push_back(FuncREf.new(self, '_notify_next', [_generation]))
 	link.object.callv(link.method, args_realized)
 	return true
 
-func _on_finish_signal(sender: Object, finish_signal: String) -> void:
-	ObjEct.disconnect_once(sender, finish_signal, self, '_on_finish_signal')
+func _notify_next(generation: int) -> void:
+	if _generation != generation: return
 	
 	if _index >= _links.size():
 		clear()
@@ -61,8 +63,7 @@ func clear(signal_end := true) -> void:
 	var was_running := _running
 	
 	_running = false
-	for link in _links:
-		ObjEct.disconnect_once(link.object, link.finish_signal, self, '_on_finish_signal')
+	_generation += 1
 	_links.clear()
 	_index = 0
 	

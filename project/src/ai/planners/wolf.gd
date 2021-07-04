@@ -13,8 +13,21 @@ func _on_run_ended() -> void:
 	_chain.run()
 
 func _move_to_attack(chain: AI_Chain) -> void:
-	_chain.add(_dynamic_move_to, 'target', [funcref(_awareness, 'target'), $BiteRect, 1.0/20.0], 'caught_node')
-	_chain.add(_actioner, 'attack_combo_by_name', ['Bite', funcref(_awareness, 'target')], 'finished')
+	_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), $BiteRect, 1.0/20.0])
+	_chain.add(_actioner, 'attack_combo_by_name', ['Bite', funcref(_awareness, 'target')])
+
+func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: float, done_event: FuncREf) -> void:
+	_dynamic_move_to.stop()
+	
+	var signal_detector := SignalDetector.new(_dynamic_move_to, 'caught_node')
+	_dynamic_move_to.target(target, rect, update_sec)
+	if signal_detector.raised():
+		done_event.call_func()
+		return
+	
+	yield(_dynamic_move_to, 'caught_node')
+	
+	done_event.call_func()
 
 var _previous_target: Node2D
 func _on_target_changed() -> void:

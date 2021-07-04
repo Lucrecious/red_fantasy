@@ -66,7 +66,13 @@ func dodge(direction: int, priority_override: Node = null) -> bool:
 	set_physics_process(true)
 	
 	var priority_node := _dodge_priority_node if not priority_override else priority_override
-	_animation_player.callback_on_finished(_dodge_animation_name, priority_node, self, '_callback_finish_dodge')
+	var success := _animation_player.callback_on_finished(_dodge_animation_name, priority_node, self, '_callback_finish_dodge')
+	if not success:
+		_disabler.enable_below(self)
+		_dodge_direction = 0
+		set_physics_process(false)
+		return false
+	
 	emit_signal('dodge_started')
 	
 	return true
