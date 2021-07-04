@@ -1,4 +1,4 @@
-[gd_scene load_steps=151 format=2]
+[gd_scene load_steps=152 format=2]
 
 [ext_resource path="res://lut-godot/signal_expression.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/knight/roll.png" type="Texture" id=2]
@@ -35,6 +35,7 @@
 [ext_resource path="res://src/components/attack_hints.gd" type="Script" id=33]
 [ext_resource path="res://lut-godot/nodes/reference_rect.gd" type="Script" id=34]
 [ext_resource path="res://src/characters/knight/bleed.gd" type="Script" id=35]
+[ext_resource path="res://src/characters/knight/shield_hit.tscn" type="PackedScene" id=36]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 7, 12 )
@@ -1192,7 +1193,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=113]
-extents = Vector2( 20.5, 12.5 )
+extents = Vector2( 15, 10 )
 
 [sub_resource type="Curve" id=114]
 _data = [ Vector2( 0.00392928, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.119843, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.819254, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.897839, 0 ), 0.0, 0.0, 0, 0 ]
@@ -1298,7 +1299,7 @@ script = ExtResource( 23 )
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 112 )
 animation = "shield"
-frame = 3
+frame = 5
 script = ExtResource( 24 )
 
 [node name="Hitbox" type="Area2D" parent="Sprite"]
@@ -1308,7 +1309,7 @@ collision_mask = 2
 script = ExtResource( 25 )
 
 [node name="Collision" type="CollisionShape2D" parent="Sprite/Hitbox"]
-position = Vector2( 30, -1 )
+position = Vector2( 24, -2 )
 shape = SubResource( 113 )
 disabled = true
 
@@ -1331,7 +1332,7 @@ script = ExtResource( 34 )
 _extents = Vector2( 20, 12 )
 
 [node name="Bleed" type="CPUParticles2D" parent="Sprite"]
-position = Vector2( 0.129381, -12.9444 )
+position = Vector2( 1.38846, -12.9706 )
 emitting = false
 amount = 7
 randomness = 1.0
@@ -1341,6 +1342,9 @@ scale_amount = 2.0
 scale_amount_random = 1.0
 color = Color( 0.490196, 0.129412, 0.129412, 1 )
 script = ExtResource( 35 )
+
+[node name="ShieldHit" parent="Sprite" instance=ExtResource( 36 )]
+position = Vector2( 6.70055, -6.84465 )
 
 [node name="Turner" type="Node2D" parent="."]
 script = ExtResource( 17 )
@@ -1399,10 +1403,12 @@ _priority_node_path = NodePath("../AnimationPlayer/Sheild")
 [node name="Pusher" type="Node2D" parent="."]
 position = Vector2( -253.901, -175.228 )
 script = ExtResource( 16 )
+x = 3.5
 
 [node name="Death" type="Node2D" parent="."]
 script = ExtResource( 27 )
 
+[connection signal="damage_blocked" from="DamageReceiver" to="Sprite/ShieldHit" method="set" binds= [ "emitting", true ]]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Jump" method="on_condition_changed"]
