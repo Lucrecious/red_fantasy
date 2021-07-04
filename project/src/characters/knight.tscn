@@ -557,7 +557,7 @@ tracks/2/keys = {
 }
 
 [sub_resource type="Animation" id=11]
-length = 0.28
+length = 0.14
 step = 0.07
 tracks/0/type = "value"
 tracks/0/path = NodePath("Sprite:animation")
@@ -578,10 +578,10 @@ tracks/1/loop_wrap = false
 tracks/1/imported = false
 tracks/1/enabled = true
 tracks/1/keys = {
-"times": PoolRealArray( 0, 0.07, 0.14 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ 4, 3, 2 ]
+"values": [ 4, 3 ]
 }
 tracks/2/type = "value"
 tracks/2/path = NodePath("Sprite/Bleed:position")
@@ -590,10 +590,22 @@ tracks/2/loop_wrap = false
 tracks/2/imported = false
 tracks/2/enabled = true
 tracks/2/keys = {
-"times": PoolRealArray( 0, 0.07, 0.14 ),
-"transitions": PoolRealArray( 1, 1, 1 ),
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
 "update": 1,
-"values": [ Vector2( -2.10024, -11.4492 ), Vector2( 0.129381, -12.9444 ), Vector2( 0.758921, -14.3346 ) ]
+"values": [ Vector2( -2.10024, -11.4492 ), Vector2( 0.129381, -12.9444 ) ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("Pusher:x")
+tracks/3/interp = 0
+tracks/3/loop_wrap = false
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0, 0.07 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ 3.0, 0.0 ]
 }
 
 [sub_resource type="Animation" id=12]
@@ -1205,7 +1217,7 @@ script = ExtResource( 32 )
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 28 )
-current = 20
+current = 2
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
@@ -1285,8 +1297,8 @@ script = ExtResource( 23 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 112 )
-animation = "roll"
-frame = 10
+animation = "shield"
+frame = 3
 script = ExtResource( 24 )
 
 [node name="Hitbox" type="Area2D" parent="Sprite"]
@@ -1319,7 +1331,7 @@ script = ExtResource( 34 )
 _extents = Vector2( 20, 12 )
 
 [node name="Bleed" type="CPUParticles2D" parent="Sprite"]
-position = Vector2( 0.496612, -12.4984 )
+position = Vector2( 0.129381, -12.9444 )
 emitting = false
 amount = 7
 randomness = 1.0

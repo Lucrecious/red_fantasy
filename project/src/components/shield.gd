@@ -78,12 +78,23 @@ func _start_block_loop() -> void:
 	_parrying = false
 	
 	emit_signal('blocking_started')
+	
+	if _controller.is_action_pressed('dodge'): return
+	
+	yield(get_tree(), 'idle_frame')
+	
+	_start_parry()
 
 func _on_action_just_released(action: String) -> void:
 	if not _enabled: return
-	
-	if not _shielding: return
 	if action != 'dodge': return
+	
+	_start_parry()
+
+func _start_parry() -> void:
+	if _parrying: return
+	if not _blocking: return
+	if not _shielding: return
 	
 	_shielding = true
 	_blocking = false
