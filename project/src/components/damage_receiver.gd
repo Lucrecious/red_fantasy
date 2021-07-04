@@ -8,6 +8,12 @@ onready var _shield := NodE.get_sibling(self, Component_Shield) as Component_Shi
 onready var _turner := NodE.get_sibling(self, Component_Turner) as Component_Turner
 
 func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
+	if _shield and _shield.is_parrying():
+		var damage_receiver := NodE.get_child(sender, get_script())
+		if not damage_receiver: return
+		damage_receiver.bleed_attack(_body, hit_data)
+		return
+	
 	var dir := _body.global_position - sender.global_position
 	dir.y = -abs(dir.y)
 	
