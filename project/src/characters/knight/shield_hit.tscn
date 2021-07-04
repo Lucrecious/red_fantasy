@@ -1,4 +1,6 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://src/characters/knight/shield_hit.gd" type="Script" id=1]
 
 [sub_resource type="Gradient" id=1]
 offsets = PoolRealArray( 0, 0.438547, 1 )
@@ -18,3 +20,7 @@ initial_velocity_random = 0.5
 scale_amount = 2.0
 scale_amount_random = 1.0
 color_ramp = SubResource( 1 )
+script = ExtResource( 1 )
+_block_velocity = 50.0
+_parry_velocity = 75.0
+_parry_color = Color( 0.258824, 0.733333, 0.870588, 1 )

@@ -2,6 +2,7 @@ class_name Component_DamageReceiver
 extends Node
 
 signal damage_blocked()
+signal attack_parried()
 
 onready var _body := NodE.get_ancestor_with_error(self, KinematicBody2D) as KinematicBody2D
 onready var _health := NodE.get_sibling_with_error(self, Component_Health) as Component_Health
@@ -13,7 +14,9 @@ func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 	if _is_parrying(sender):
 		var damage_receiver := NodE.get_child(sender, get_script())
 		if not damage_receiver: return
+		
 		damage_receiver.bleed_attack(_body, hit_data)
+		emit_signal('attack_parried')
 		return
 	
 	var dir := _body.global_position - sender.global_position
@@ -34,7 +37,7 @@ func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 		var damage := hit_data.damage as int
 		if get_parent().name == 'Knight':
 			damage = 1
-		
+	
 		_health.current_set(_health.current - damage, sender)
 	
 	if is_dodge_immune: pass
