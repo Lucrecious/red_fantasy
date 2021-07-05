@@ -59,7 +59,8 @@ func attack() -> void:
 	if _combo_count == 0:
 		_start_attack()
 		var animation := _attack_combo[_combo_count]
-		_animation_player.callback_on_finished(animation, _priority_node, self, '_finish_attack')
+		var success := _animation_player.callback_on_finished(animation, _priority_node, self, '_finish_attack')
+		if not success: return
 		emit_signal('combo_started', animation)
 	
 	if _combo_count > 0 and _combo_count < _attack_combo.size():
@@ -72,7 +73,8 @@ func attack() -> void:
 			if not _enabled: return
 		
 		var animation := _attack_combo[_combo_count]
-		_animation_player.callback_on_finished(animation, _priority_node, self, '_finish_attack')
+		var success := _animation_player.callback_on_finished(animation, _priority_node, self, '_finish_attack')
+		if not success: return
 		emit_signal('combo_started', animation)
 		
 		

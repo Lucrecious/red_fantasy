@@ -19,12 +19,17 @@ func attack_combo_by_name(node_name: String, node: Node2D, done_event: FuncREf) 
 		_virtual_input.flash_press('left_move')
 	
 	var signal_detector := SignalDetector.new(attack_combo, 'combo_started')
+	var test_detector := SignalDetector.new(attack_combo, 'combo_finished')
 	attack_combo.attack()
 	
 	if not signal_detector.raised():
 		done_event.call_func()
 		return
 	
+	if test_detector.raised():
+		print('on combo finished was already raised')
+		return
+	__diff += 1
 	ObjEct.connect_once(attack_combo, 'combo_finished', self, '_on_combo_finished', [attack_combo, done_event])
 
 func stop() -> void:

@@ -88,7 +88,7 @@ func _move_to_attack(chain: AI_Chain) -> void:
 				_indices = _rng.weighted_indices([.4, .2, .2, .2], 10)
 				_dodge_percent = .5
 			3:
-				_indices = _rng.weighted_indices([0, .5, .25, .25], 10)
+				_indices = _rng.weighted_indices([0, .7, .0, .3], 10)
 				_dodge_percent = 1.0
 		#_indices = _rng.weighted_indices([.0, .0, .0, 1.0], 10)
 	
