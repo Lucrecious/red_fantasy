@@ -29,7 +29,6 @@ func attack_combo_by_name(node_name: String, node: Node2D, done_event: FuncREf) 
 	if test_detector.raised():
 		print('on combo finished was already raised')
 		return
-	__diff += 1
 	ObjEct.connect_once(attack_combo, 'combo_finished', self, '_on_combo_finished', [attack_combo, done_event])
 
 func stop() -> void:
