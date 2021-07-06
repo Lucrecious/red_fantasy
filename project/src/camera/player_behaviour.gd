@@ -59,15 +59,15 @@ func _on_area_entered(area: Area2D) -> void:
 	
 	_margins = _camera.view_rect()
 	
-	var pixels_per_second := 1000.0
+	var pixels_per_second := 2000.0
 	
 	var position_sec := (_margins.position - rect.position).length() / pixels_per_second
 	var size_sec := (_margins.size - rect.size).length() / pixels_per_second
 	
-	_tween.interpolate_property(self, '_margins:position:x', _margins.position.x, rect.position.x, position_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	_tween.interpolate_property(self, '_margins:position:y', _margins.position.y, rect.position.y, position_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	_tween.interpolate_property(self, '_margins:size:x', _margins.size.x, rect.size.x, size_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
-	_tween.interpolate_property(self, '_margins:size:y', _margins.size.y, rect.size.y, size_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:position:x', _margins.position.x, rect.position.x, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:position:y', _margins.position.y, rect.position.y, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:size:x', _margins.size.x, rect.size.x, size_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:size:y', _margins.size.y, rect.size.y, size_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	_tween.start()
 
 func _on_area_exited(area: Area2D) -> void:
