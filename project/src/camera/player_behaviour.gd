@@ -21,6 +21,8 @@ func _exit_tree() -> void:
 	if not _focus_area: return
 	_focus_area.queue_free()
 
+onready var _tween := Tween.new()
+
 func _ready() -> void:
 	assert(_camera, 'must be parent')
 	assert(_main_focus, 'must be set')
@@ -30,6 +32,8 @@ func _ready() -> void:
 	_main_focus.add_child(_focus_area)
 	_main_focus.move_child(_focus_area, 0)
 	_focus_area.global_position = _main_focus.global_position
+	
+	add_child(_tween)
 	
 	yield(_camera, 'ready')
 	
@@ -44,21 +48,30 @@ func _ready() -> void:
 
 var _current_area: Area2D = null
 var _margins := Rect2(-INF, -INF, INF, INF)
-var _margin_offset := Vector2.ZERO
-var _margin_interpolate_sec := 0.0
-var _margin_interpolate_max_sec := .5
-func _on_area_entered(area: Area2D) -> void :
+func _on_area_entered(area: Area2D) -> void:
+	var previous_area := _current_area
 	_current_area = area
 	var rect := _get_rect_from_area(area)
 	assert(rect.size.length_squared() > 0, 'must return rectangle with size')
-	_margins = rect
 	
-	_margin_interpolate_sec = 0
+	_tween.stop_all()
+	_tween.remove_all()
+	
+	_margins = _camera.view_rect()
+	
+	var pixels_per_second := 1000.0
+	
+	var position_sec := (_margins.position - rect.position).length() / pixels_per_second
+	var size_sec := (_margins.size - rect.size).length() / pixels_per_second
+	
+	_tween.interpolate_property(self, '_margins:position:x', _margins.position.x, rect.position.x, position_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:position:y', _margins.position.y, rect.position.y, position_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:size:x', _margins.size.x, rect.size.x, size_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_tween.interpolate_property(self, '_margins:size:y', _margins.size.y, rect.size.y, size_sec, Tween.TRANS_LINEAR, Tween.EASE_IN_OUT)
+	_tween.start()
 
 func _on_area_exited(area: Area2D) -> void:
 	if _current_area != area: return
-	
-	_margin_interpolate_sec = 0
 	
 	var overlapping_areas := _focus_area.get_overlapping_areas()
 	overlapping_areas.erase(_current_area)
@@ -86,14 +99,14 @@ func _get_rect_from_area(area: Area2D) -> Rect2:
 func _physics_process(delta: float) -> void:
 	_shake(delta)
 	
-	_smoothing()
+	var smoothed_position := _smoothing()
 	
 	var offset := _get_margin_offset()
 	
-	_margin_offset = _margin_offset.linear_interpolate(offset, _margin_interpolate_sec / _margin_interpolate_max_sec)
-	_margin_interpolate_sec = clamp(_margin_interpolate_sec + delta, 0, _margin_interpolate_max_sec)
+	var current_position := _camera.global_position
+	var interpolated_position := smoothed_position + offset
 	
-	_camera.global_position += _margin_offset
+	_camera.global_position = interpolated_position
 	
 
 func _get_margin_offset() -> Vector2:
@@ -130,10 +143,10 @@ func _shake(delta: float) -> void:
 	
 	_time_passed_msec += round(delta * 1000.0)
 
-func _smoothing() -> void:
+func _smoothing() -> Vector2:
 	var threshold_rect := _get_threshold_rect()
 	
-	if threshold_rect.has_point(_main_focus.global_position): return
+	if threshold_rect.has_point(_main_focus.global_position): return _camera.global_position
 	
 	var pos := _main_focus.global_position
 	
@@ -146,13 +159,13 @@ func _smoothing() -> void:
 	_camera.global_position.y = lerp(_camera.global_position.y, target_position.y, 0.1)
 	
 	var max_view_rect := _get_max_view_rect()
-	if max_view_rect.has_point(pos): return
+	if max_view_rect.has_point(pos): return _camera.global_position
 	
 	box_point = Math.get_closest_point_on_rect(max_view_rect, _main_focus.global_position)
 	delta = _main_focus.global_position - box_point
 	target_position = _camera.global_position + delta
 	
-	_camera.global_position = target_position
+	return target_position
 
 func _get_threshold_rect() -> Rect2:
 	var rect := Rect2(Vector2.ZERO - _threshold_extents, _threshold_extents * 2.0)

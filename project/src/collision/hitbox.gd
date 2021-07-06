@@ -1,7 +1,10 @@
 class_name Collision_Hitbox
 extends Area2D
 
-onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
+export(bool) var _use_self_as_body := false
+export(Resource) var _initial_hit_data
+
+onready var _body := self if _use_self_as_body else NodE.get_ancestor(self, CollisionObject2D) as CollisionObject2D
 onready var _health := NodE.get_child(_body, Component_Health) as Component_Health
 onready var _collision := NodE.get_child(self, CollisionShape2D) as CollisionShape2D
 
@@ -10,6 +13,8 @@ func _ready():
 	assert(_collision, 'must be present')
 	
 	connect('body_entered', self, '_on_body_entered')
+	
+	set_hit_data(_initial_hit_data)
 
 func flash() -> void:
 	_collision.disabled = false

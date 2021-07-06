@@ -341,6 +341,10 @@ config/icon="res://icon.png"
 ParticleInstancer="*res://src/particles/particles.gd"
 Tweener="*res://src/tweeners/tweeners.gd"
 
+[debug]
+
+shapes/collision/shape_color=Color( 0.305882, 0.521569, 0.556863, 0.180392 )
+
 [display]
 
 window/size/width=480
