@@ -1416,3 +1416,4 @@ script = ExtResource( 27 )
 [connection signal="parry_started" from="Shield" to="AnimationPlayer/Sheild" method="on_condition_changed"]
 [connection signal="shielding_ended" from="Shield" to="AnimationPlayer/Sheild" method="on_condition_changed"]
 [connection signal="died" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]
+[connection signal="revived" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]

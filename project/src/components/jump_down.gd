@@ -13,7 +13,7 @@ func _on_action_just_pressed(action: String) -> void:
 	if _controller.direction.y <= 0: return
 	if action != 'jump': return
 	
-	_velocity.y = 0
+	_velocity.value = Vector2.ZERO
 	_body.global_position.y += 5
 	
 	# This makes sure that the jump component skips the jump input... hopefully

@@ -3,6 +3,8 @@ extends Node2D
 
 const distance_threshold_pixels := 6.0
 
+signal arrived_at_target()
+
 var _moving := false
 var _target: Vector2
 
@@ -29,16 +31,17 @@ func target(location: Vector2) -> void:
 	set_physics_process(true)
 
 func stop() -> void:
+	if not _moving: return
 	_moving = false
+	set_physics_process(false)
+	_input.release('left_move')
+	_input.release('right_move')
+	emit_signal('arrived_at_target')
 
 func _physics_process(_delta: float) -> void:
-	if is_at_location(_target) or not _moving:
-		_moving = false
-		set_physics_process(false)
-		_input.release('left_move')
-		_input.release('right_move')
+	if is_at_location(_target):
+		stop()
 		return
-	
 
 func _stop_moving() -> void:
 	_input.release('left_move')

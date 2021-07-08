@@ -20,6 +20,7 @@ func appear() -> void:
 	_tween.start()
 
 func disappear() -> void:
+	if not _tween.is_inside_tree(): return # For some reason, on close, this is called
 	if not _showing: return
 	_showing = false
 	

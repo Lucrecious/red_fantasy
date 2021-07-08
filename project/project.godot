@@ -30,6 +30,11 @@ _global_script_classes=[ {
 "path": "res://src/ai/dynamic_move_to.gd"
 }, {
 "base": "Node2D",
+"class": "AI_Guard",
+"language": "GDScript",
+"path": "res://src/ai/guard.gd"
+}, {
+"base": "Node2D",
 "class": "AI_MoveTo",
 "language": "GDScript",
 "path": "res://src/ai/move_to.gd"
@@ -279,6 +284,7 @@ _global_script_class_icons={
 "AI_Awareness": "",
 "AI_Chain": "",
 "AI_DynamicMoveTo": "",
+"AI_Guard": "",
 "AI_MoveTo": "",
 "CameraBox_Game": "",
 "Camera_Game": "",
@@ -340,6 +346,7 @@ config/icon="res://icon.png"
 
 ParticleInstancer="*res://src/particles/particles.gd"
 Tweener="*res://src/tweeners/tweeners.gd"
+FadeInOuter="*res://src/fade_in_outer.tscn"
 
 [debug]
 
