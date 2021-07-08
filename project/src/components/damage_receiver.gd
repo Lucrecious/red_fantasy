@@ -35,7 +35,13 @@ func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 		Tweener.add_one_off(blink, _body)
 		
 		var damage := hit_data.damage as int
-		if get_parent().name == 'Knight':
+		
+		# This is a special case wherein knight only gets dealt 1 damage if
+		# the damage is small enough. The reason for this is because I want
+		# parrys to copy the damage the attack do, and this is just an easy
+		# way to do it... But should be fixed. But  this also allows for instant
+		# death if something is dealing a lot of damage (like the spikes)
+		if get_parent().name == 'Knight' and damage < 100:
 			damage = 1
 	
 		_health.current_set(_health.current - damage, sender)

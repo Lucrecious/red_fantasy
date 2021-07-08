@@ -1,3 +1,4 @@
+class_name Component_Initializer
 extends Node
 
 
@@ -36,3 +37,6 @@ func _do_init() -> void:
 		'right':
 			_turner.direction = 1
 		_: assert(false, 'one or the other')
+
+
+

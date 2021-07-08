@@ -5,5 +5,5 @@
 [resource]
 script = ExtResource( 1 )
 damage = 3
-knockback = Vector2( 0, 0 )
-knockback_msec = 0
+knockback = Vector2( 3, 0 )
+knockback_msec = 100

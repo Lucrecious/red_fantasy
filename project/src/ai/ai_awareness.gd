@@ -64,8 +64,13 @@ func _sees_target() -> void:
 	
 	for t in _possible_targets:
 		var delta := (t.global_position - eye_pos) as Vector2
+		
 		if not ((delta.x < 0 and _turner.direction < 0) or (delta.x > 0 and _turner.direction > 0)): continue
-		if rad2deg(_eyes.global_position.angle_to_point(t.global_position)) > _max_angle_deg: continue
+		
+		var angle_from_x := abs(_eyes.global_position.angle_to_point(t.global_position))
+		if angle_from_x > (PI / 2.0):
+			angle_from_x = PI - angle_from_x
+		if rad2deg(angle_from_x) > _max_angle_deg: continue
 		
 		var results := space.intersect_ray(eye_pos, t.global_position, [], _collision)
 		if not results.empty(): continue

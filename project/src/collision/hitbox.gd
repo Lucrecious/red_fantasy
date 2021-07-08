@@ -17,17 +17,17 @@ func _ready():
 	set_hit_data(_initial_hit_data)
 
 func flash() -> void:
-	_collision.disabled = false
+	_collision.set_deferred('disabled', false)
 	yield(get_tree(), 'idle_frame')
 	yield(get_tree(), 'idle_frame')
-	_collision.disabled = true
+	_collision.set_deferred('disabled', true)
 
 func enable_sec(sec: float) -> void:
-	_collision.disabled = false
+	_collision.set_deferred('disabled', false)
 	
 	yield(get_tree().create_timer(sec), 'timeout')
 	
-	_collision.disabled = true
+	_collision.set_deferred('disabled', true)
 
 var _hit_data: Resource
 func set_hit_data(data: Resource) -> void:
