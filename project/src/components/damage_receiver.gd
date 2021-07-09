@@ -10,6 +10,27 @@ onready var _dodge := NodE.get_sibling(self, Component_Dodge) as Component_Dodge
 onready var _shield := NodE.get_sibling(self, Component_Shield) as Component_Shield
 onready var _turner := NodE.get_sibling(self, Component_Turner) as Component_Turner
 
+# Returns if it hit
+func projectile(sender: Node2D, hit_data: Data_Damage) -> bool:
+	if _is_parrying(sender):
+		var velocity := NodE.get_child_with_error(sender, Component_Velocity) as Component_Velocity
+		velocity.x = abs(velocity.x) * _turner.direction
+		emit_signal('attack_parried')
+		return false
+	
+	if _dodge and _dodge.is_immune(): return false
+	
+	var dir := _body.global_position - sender.global_position
+	dir.y = -abs(dir.y)
+	_do_knockback(hit_data, sign(dir.x))
+	
+	if not _is_blocking(sender):
+		_do_damage(hit_data.damage, sender, dir)
+	else:
+		emit_signal('damage_blocked')
+	
+	return true
+
 func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 	if _is_parrying(sender):
 		var damage_receiver := NodE.get_child(sender, get_script())
@@ -29,29 +50,32 @@ func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 		if is_blocking:
 			emit_signal('damage_blocked')
 	else:
-		ParticleInstancer.blood(_body, dir, 0)
-		ParticleInstancer.blood(_body, dir, 1)
-		var blink := Tweener.blink(_body, 1, .5, Color.crimson, true)
-		Tweener.add_one_off(blink, _body)
-		
-		var damage := hit_data.damage as int
-		
-		# This is a special case wherein knight only gets dealt 1 damage if
-		# the damage is small enough. The reason for this is because I want
-		# parrys to copy the damage the attack do, and this is just an easy
-		# way to do it... But should be fixed. But  this also allows for instant
-		# death if something is dealing a lot of damage (like the spikes)
-		if get_parent().name == 'Knight' and damage < 100:
-			damage = 1
+		_do_damage(hit_data.damage, sender, dir)
 	
-		_health.current_set(_health.current - damage, sender)
+	if not is_dodge_immune:
+		_do_knockback(hit_data, sign(dir.x))
+
+func _do_damage(damage: int, sender: Node2D, attack_dir: Vector2) -> void:
+	ParticleInstancer.blood(_body, attack_dir, 0)
+	ParticleInstancer.blood(_body, attack_dir, 1)
+	var blink := Tweener.blink(_body, 1, .5, Color.crimson, true)
+	Tweener.add_one_off(blink, _body)
 	
-	if is_dodge_immune: pass
-	else:
-		if hit_data.knockback_msec != 0 and hit_data.knockback != Vector2.ZERO:
-			var knockback := Tweener.knockback(_body, hit_data.knockback, hit_data.knockback_msec, sign(dir.x) * _turner.direction)
-			Tweener.add_one_off(knockback, _body)
-	
+	# This is a special case wherein knight only gets dealt 1 damage if
+	# the damage is small enough. The reason for this is because I want
+	# parrys to copy the damage the attack do, and this is just an easy
+	# way to do it... But should be fixed. But  this also allows for instant
+	# death if something is dealing a lot of damage (like the spikes)
+	if get_parent().name == 'Knight' and damage < 100:
+		damage = 1
+
+	_health.current_set(_health.current - damage, sender)
+
+func _do_knockback(hit_data: Data_Damage, attack_direction: int) -> void:
+	if hit_data.knockback_msec != 0 and hit_data.knockback != Vector2.ZERO:
+		var knockback := Tweener.knockback(_body, hit_data.knockback, hit_data.knockback_msec, attack_direction * _turner.direction)
+		Tweener.add_one_off(knockback, _body)
+
 func _is_parrying(sender: Node2D) -> bool:
 	if not _shield: return false
 	if not _turner: return false

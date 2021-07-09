@@ -1,0 +1,466 @@
+[gd_scene load_steps=72 format=2]
+
+[ext_resource path="res://lut-godot/components/extents.gd" type="Script" id=1]
+[ext_resource path="res://assets/characters/witch/idle.png" type="Texture" id=2]
+[ext_resource path="res://assets/characters/witch/walk.png" type="Texture" id=3]
+[ext_resource path="res://assets/characters/witch/death.png" type="Texture" id=4]
+[ext_resource path="res://assets/characters/witch/throw.png" type="Texture" id=5]
+[ext_resource path="res://src/animation.gd" type="Script" id=6]
+[ext_resource path="res://lut-godot/components/root_sprite.gd" type="Script" id=7]
+[ext_resource path="res://lut-godot/input/controller.gd" type="Script" id=8]
+[ext_resource path="res://lut-godot/components/gravity.gd" type="Script" id=9]
+[ext_resource path="res://lut-godot/components/disabler.gd" type="Script" id=10]
+[ext_resource path="res://lut-godot/input/virtual_input.gd" type="Script" id=11]
+[ext_resource path="res://lut-godot/components/run.gd" type="Script" id=12]
+[ext_resource path="res://lut-godot/components/velocity.gd" type="Script" id=13]
+[ext_resource path="res://lut-godot/signal_expression.gd" type="Script" id=14]
+[ext_resource path="res://lut-godot/components/turner.gd" type="Script" id=15]
+[ext_resource path="res://lut-godot/components/turner_listener.gd" type="Script" id=16]
+[ext_resource path="res://lut-godot/signal_animation_finished_callback.gd" type="Script" id=17]
+[ext_resource path="res://src/components/attack_combo.gd" type="Script" id=18]
+[ext_resource path="res://src/characters/input_bindings/neutral_attack.tres" type="Resource" id=19]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 10, 13 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 5 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 5 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 5 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 5 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 5 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 5 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 5 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 5 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 5 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 5 )
+region = Rect2( 576, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 5 )
+region = Rect2( 640, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 5 )
+region = Rect2( 704, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 5 )
+region = Rect2( 768, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=22]
+atlas = ExtResource( 5 )
+region = Rect2( 832, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=23]
+atlas = ExtResource( 5 )
+region = Rect2( 896, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=24]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 5 )
+region = Rect2( 1024, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 5 )
+region = Rect2( 1088, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=29]
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 3 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 3 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 4 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 4 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 4 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 4 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 4 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 4 )
+region = Rect2( 384, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 4 )
+region = Rect2( 448, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 4 )
+region = Rect2( 512, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 4 )
+region = Rect2( 576, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 4 )
+region = Rect2( 640, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 4 )
+region = Rect2( 704, 0, 64, 64 )
+
+[sub_resource type="SpriteFrames" id=47]
+animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "idle",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"loop": true,
+"name": "throw",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"loop": true,
+"name": "walk",
+"speed": 12.0
+}, {
+"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"loop": true,
+"name": "death",
+"speed": 12.0
+} ]
+
+[sub_resource type="GDScript" id=52]
+script/source = "extends Position2D
+
+const Potion := preload('res://src/characters/witch_potion.tscn')
+
+onready var _turner := NodE.get_sibling_with_error(get_parent(), Component_Turner) as Component_Turner
+
+func shoot() -> void:
+	var potion := Potion.instance()
+	
+	var root := get_tree().root
+	var world := root.get_child(root.get_child_count() - 1) as Node2D
+	
+	if not world:
+		assert(false, 'last root child should be node 2d')
+		return
+	
+	root.add_child(potion)
+	
+	potion.global_position = global_position
+	
+	var velocity := NodE.get_child_with_error(potion, Component_Velocity) as Component_Velocity
+	
+	velocity.value = _turner.direction * Vector2.RIGHT * 10
+"
+
+[sub_resource type="Animation" id=48]
+resource_name = "death"
+length = 1.08
+step = 0.09
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "death" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.18, 0.27, 0.36, 0.45, 0.54, 0.63, 0.72, 0.81, 0.9, 0.99 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
+}
+
+[sub_resource type="Animation" id=49]
+resource_name = "idle"
+length = 0.63
+loop = true
+step = 0.09
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "idle" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.18, 0.27, 0.36, 0.45, 0.54 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6 ]
+}
+
+[sub_resource type="Animation" id=50]
+resource_name = "throw"
+length = 1.71
+step = 0.09
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "throw" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.18, 0.27, 0.36, 0.45, 0.54, 0.63, 0.72, 0.81, 0.9, 0.99, 1.08, 1.17, 1.26, 1.35, 1.44, 1.53, 1.62 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("Sprite/PotionSpawnHint")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 1.17 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "shoot"
+} ]
+}
+
+[sub_resource type="Animation" id=51]
+resource_name = "walk"
+length = 0.72
+loop = true
+step = 0.09
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:animation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 1,
+"values": [ "walk" ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("Sprite:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = false
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 0.09, 0.18, 0.27, 0.36, 0.45, 0.54, 0.63 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 4, 5, 6, 7 ]
+}
+
+[node name="Witch" type="KinematicBody2D"]
+collision_layer = 2
+collision_mask = 4
+
+[node name="Controller" type="Node" parent="."]
+script = ExtResource( 8 )
+
+[node name="Input_Virtual" type="Node" parent="Controller"]
+script = ExtResource( 11 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+position = Vector2( -1, -1 )
+shape = SubResource( 1 )
+script = ExtResource( 1 )
+
+[node name="Turner" type="Node2D" parent="."]
+script = ExtResource( 15 )
+_root_sprite_path = NodePath("../Sprite")
+
+[node name="Listener" type="Node" parent="Turner"]
+script = ExtResource( 16 )
+_animation_player_path = NodePath("../../AnimationPlayer")
+_animation_names = [ "walk" ]
+_turn_bys = [ 1 ]
+
+[node name="Sprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 47 )
+animation = "throw"
+frame = 12
+script = ExtResource( 7 )
+
+[node name="PotionSpawnHint" type="Position2D" parent="Sprite"]
+position = Vector2( 25, -6 )
+script = SubResource( 52 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/death = SubResource( 48 )
+anims/idle = SubResource( 49 )
+anims/throw = SubResource( 50 )
+anims/walk = SubResource( 51 )
+script = ExtResource( 6 )
+
+[node name="Idle" type="Node" parent="AnimationPlayer"]
+script = ExtResource( 14 )
+condition_key = "idle"
+_expression_format = "true"
+
+[node name="Walk" type="Node" parent="AnimationPlayer"]
+script = ExtResource( 14 )
+condition_key = "walk"
+_nodes_path = [ NodePath("../../Controller") ]
+_properties = [ "direction.x" ]
+_expression_format = "{0} != 0"
+
+[node name="Throw" type="Node" parent="AnimationPlayer"]
+script = ExtResource( 17 )
+
+[node name="Velocity" type="Node2D" parent="."]
+script = ExtResource( 13 )
+units = 32.0
+
+[node name="Gravity" type="Node2D" parent="."]
+script = ExtResource( 9 )
+
+[node name="Disabler" type="Node" parent="."]
+script = ExtResource( 10 )
+
+[node name="Run" type="Node2D" parent="."]
+script = ExtResource( 12 )
+speed = 3.0
+
+[node name="Throw" type="Node2D" parent="."]
+script = ExtResource( 18 )
+_input_binding = ExtResource( 19 )
+_attack_combo = PoolStringArray( "throw" )
+_priority_node_path = NodePath("../AnimationPlayer/Throw")
+_animation_ends = PoolRealArray( 0.63 )
+_lower_gravtiy_factor = 1.0
+
+[connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]

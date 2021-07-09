@@ -5,6 +5,21 @@ onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
 onready var _turner := NodE.get_child(_body, Component_Turner) as Component_Turner
 onready var _virtual_input := NodE.get_child_with_error(NodE.get_child_with_error(_body, Component_Controller), Input_Virtual) as Input_Virtual
 
+onready var _dynamic_move_to := NodE.get_sibling_with_error(self, AI_DynamicMoveTo) as AI_DynamicMoveTo
+
+func dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: float, done_event: FuncREf) -> void:
+	_dynamic_move_to.stop()
+	
+	var signal_detector := SignalDetector.new(_dynamic_move_to, 'caught_node')
+	_dynamic_move_to.target(target, rect, update_sec)
+	if signal_detector.raised():
+		done_event.call_func()
+		return
+	
+	yield(_dynamic_move_to, 'caught_node')
+	
+	done_event.call_func()
+
 func wait(sec: float, direction: int, done_event: FuncREf) -> void:
 	_virtual_input.flash_direction_x(direction)
 	

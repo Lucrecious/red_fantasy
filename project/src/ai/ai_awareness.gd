@@ -53,7 +53,7 @@ func _sees_target() -> void:
 		return
 	
 	if not _eyes:
-		_current_target_set(_possible_targets[0])
+		_current_target_set(_possible_targets.keys()[0])
 		return
 		
 	var space := get_world_2d().direct_space_state

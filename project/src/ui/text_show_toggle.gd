@@ -1,6 +1,6 @@
 extends Label
 
-const letters_per_sec := 20.0
+const letters_per_sec := 40.0
 
 var _showing := false
 

@@ -1,0 +1,118 @@
+[gd_scene load_steps=10 format=2]
+
+[ext_resource path="res://lut-godot/components/velocity.gd" type="Script" id=1]
+[ext_resource path="res://assets/characters/witch/potion.png" type="Texture" id=2]
+[ext_resource path="res://src/components/projectile_hitbox.gd" type="Script" id=3]
+[ext_resource path="res://src/characters/witch_potion.tres" type="Resource" id=4]
+
+[sub_resource type="GDScript" id=2]
+script/source = "extends KinematicBody2D
+
+onready var _sprite := $Sprite as Sprite
+
+func _ready() -> void:
+	var timer := Timer.new()
+	timer.wait_time = 5.0
+	timer.autostart = true
+	timer.one_shot = true
+	add_child(timer)
+	
+	yield(timer, 'timeout')
+	
+	queue_free()
+
+var _queued_to_be_freed := false
+func queue_free() -> void:
+	if _queued_to_be_freed: return
+	_queued_to_be_freed = true
+	
+	var trails := [$Sprite/Trail1, $Sprite/Trail2]
+	for t in trails:
+		t.get_parent().remove_child(t)
+		get_parent().add_child(t)
+		t.emitting = false
+	
+	$Collision.set_deferred('disabled', true)
+	visible = false
+	
+	yield(get_tree().create_timer(1.0), 'timeout')
+	
+	for t in trails:
+		t.queue_free()
+	
+	.queue_free()
+
+func _physics_process(delta: float) -> void:
+	_sprite.rotation += TAU * 3 * delta 
+"
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1, 1 )
+
+[sub_resource type="Gradient" id=4]
+offsets = PoolRealArray( 0, 0.633508, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="Gradient" id=5]
+offsets = PoolRealArray( 0, 0.58377, 1 )
+colors = PoolColorArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
+
+[sub_resource type="CircleShape2D" id=3]
+radius = 2.0
+
+[node name="WitchPotion" type="KinematicBody2D"]
+collision_layer = 0
+collision_mask = 0
+script = SubResource( 2 )
+
+[node name="Collision" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+disabled = true
+
+[node name="Sprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="Trail1" type="CPUParticles2D" parent="Sprite"]
+modulate = Color( 0.4, 0.2, 0.356863, 1 )
+position = Vector2( 0, -3 )
+emitting = false
+amount = 30
+lifetime = 0.8
+local_coords = false
+direction = Vector2( 0, -1 )
+spread = 26.6
+initial_velocity = 13.33
+scale_amount = 2.0
+scale_amount_random = 1.0
+color_ramp = SubResource( 4 )
+
+[node name="Trail2" type="CPUParticles2D" parent="Sprite"]
+modulate = Color( 0.196078, 0.101961, 0.176471, 1 )
+position = Vector2( 0, -3 )
+emitting = false
+amount = 30
+lifetime = 0.8
+local_coords = false
+direction = Vector2( 0, -1 )
+spread = 26.6
+initial_velocity = 13.33
+scale_amount = 2.0
+scale_amount_random = 1.0
+color_ramp = SubResource( 5 )
+
+[node name="Velocity" type="Node2D" parent="."]
+script = ExtResource( 1 )
+units = 32.0
+
+[node name="Hitbox" type="Area2D" parent="."]
+monitorable = false
+collision_layer = 0
+script = ExtResource( 3 )
+hit_data = ExtResource( 4 )
+_exposion_colors = [ Color( 0.4, 0.2, 0.356863, 1 ), Color( 0.196078, 0.101961, 0.176471, 1 ) ]
+
+[node name="Collision" type="CollisionShape2D" parent="Hitbox"]
+shape = SubResource( 3 )
+
+[connection signal="ready" from="Sprite/Trail1" to="Sprite/Trail1" method="set" binds= [ "emitting", true ]]
+[connection signal="ready" from="Sprite/Trail2" to="Sprite/Trail2" method="set" binds= [ "emitting", true ]]
