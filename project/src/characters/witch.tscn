@@ -485,3 +485,4 @@ script = ExtResource( 22 )
 
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]
 [connection signal="died" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]
+[connection signal="revived" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]

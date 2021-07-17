@@ -50,6 +50,7 @@ func _update_target_position() -> void:
 	var pos := _get_target_pos(_target_node.global_position, _rect_range.get_rect())
 	
 	if _move_to.is_at_location(pos):
+		if not _target_node: return
 		target(null, null)
 		emit_signal('caught_node')
 		return
