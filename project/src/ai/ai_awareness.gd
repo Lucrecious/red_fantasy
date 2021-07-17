@@ -3,14 +3,13 @@ extends Node2D
 
 signal target_changed()
 
-export(NodePath) var _awareness_area_path := NodePath()
 export(NodePath) var _eyes_path := NodePath()
 export(float) var _max_angle_deg := 45
 export(int, LAYERS_2D_PHYSICS) var _collision := 0
 
 onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
 onready var _turner := NodE.get_child(_body, Component_Turner) as Component_Turner
-onready var _awareness_area := get_node_or_null(_awareness_area_path) as Area2D
+onready var _awareness_area: Area2D
 onready var _eyes := get_node_or_null(_eyes_path) as Node2D
 
 var _possible_targets := {}
@@ -18,11 +17,21 @@ var _current_target: Node2D
 
 func _ready() -> void:
 	assert(_body, 'must be present')
-	assert(_awareness_area, 'must be set')
 	assert(_turner, 'must be present')
 	
-	_awareness_area.connect('body_entered', self, '_on_body_entered')
-	_awareness_area.connect('body_exited', self, '_on_body_exited')
+	yield(_body, 'ready')
+	
+	var space := get_world_2d().direct_space_state
+	
+	var results := space.intersect_point(_body.global_position, 10, [_body], 0x7FFFFFFF, false, true)
+	for r in results:
+		if not r.collider.is_in_group('awareness_area'): continue
+		_awareness_area = r.collider
+		break
+	
+	if _awareness_area:
+		_awareness_area.connect('body_entered', self, '_on_body_entered')
+		_awareness_area.connect('body_exited', self, '_on_body_exited')
 	
 	var health := NodE.get_child(_body, Component_Health) as Component_Health
 	if health:

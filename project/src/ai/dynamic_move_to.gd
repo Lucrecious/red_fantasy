@@ -3,6 +3,8 @@ extends Node2D
 
 signal caught_node()
 
+export(int, LAYERS_2D_PHYSICS) var _walk_throughs := 0
+
 onready var _body := NodE.get_ancestor(self, KinematicBody2D) as KinematicBody2D
 onready var _move_to := NodE.get_sibling(self, AI_MoveTo) as AI_MoveTo
 
@@ -65,14 +67,20 @@ func _get_target_pos(center: Vector2, box_local: Rect2) -> Vector2:
 	
 	var center_left := (ranges.left_right + (ranges.left_left - ranges.left_right) / 2.0) as float
 	var center_right := (ranges.right_right + (ranges.right_left - ranges.right_right) / 2.0) as float
-	var left_result := space.intersect_point(Vector2(center_left, center.y), 1, [_body])
-	var right_result := space.intersect_point(Vector2(center_right, center.y), 1, [_body])
+	var left_result := space.intersect_point(Vector2(center_left, center.y), 1, [_body], _walk_throughs)
+	var right_result := space.intersect_point(Vector2(center_right, center.y), 1, [_body], _walk_throughs)
 	
 	if not left_result.empty() and left_result[0].collider.get_instance_id() < _body.get_instance_id():
 		left_result.clear()
 	
 	if not right_result.empty() and right_result[0].collider.get_instance_id() < _body.get_instance_id():
 		right_result.clear()
+	
+	if _body.test_move(_body.transform, Vector2(center_left, _body.global_position.y) - _body.global_position):
+		left_result.push_back(null)
+	
+	if _body.test_move(_body.transform, Vector2(center_right, _body.global_position.y) - _body.global_position):
+		right_result.push_back(null)
 	
 	var left_is_closer := abs(_body.global_position.x - center_left) < abs(_body.global_position.x - center_right)
 	

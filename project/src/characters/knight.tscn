@@ -38,7 +38,7 @@
 [ext_resource path="res://src/characters/knight/shield_hit.tscn" type="PackedScene" id=36]
 [ext_resource path="res://src/components/jump_down.gd" type="Script" id=37]
 
-[sub_resource type="CapsuleShape2D" id=1]
+[sub_resource type="CapsuleShape2D" id=116]
 height = 8.0
 
 [sub_resource type="Animation" id=2]
@@ -1216,6 +1216,7 @@ _secs_until_hit = [ 0.14, 0.14, 0.21 ]
 
 [node name="DamageReceiver" type="Node" parent="."]
 script = ExtResource( 32 )
+_parry_collision = 2
 
 [node name="Health" type="Node" parent="."]
 script = ExtResource( 28 )
@@ -1223,7 +1224,7 @@ current = 2
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 position = Vector2( 0, -2 )
-shape = SubResource( 1 )
+shape = SubResource( 116 )
 script = ExtResource( 31 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -1406,12 +1407,12 @@ script = ExtResource( 27 )
 [connection signal="attack_parried" from="DamageReceiver" to="Sprite/ShieldHit" method="parry"]
 [connection signal="damage_blocked" from="DamageReceiver" to="Sprite/ShieldHit" method="block"]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Run" method="on_condition_changed"]
-[connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Jump" method="on_condition_changed"]
-[connection signal="floor_left" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
+[connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="floor_left" from="Velocity" to="AnimationPlayer/Jump" method="on_condition_changed"]
-[connection signal="y_direction_changed" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
+[connection signal="floor_left" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="y_direction_changed" from="Velocity" to="AnimationPlayer/Jump" method="on_condition_changed"]
+[connection signal="y_direction_changed" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]
 [connection signal="blocking_started" from="Shield" to="AnimationPlayer/Sheild" method="on_condition_changed"]
 [connection signal="parry_started" from="Shield" to="AnimationPlayer/Sheild" method="on_condition_changed"]
 [connection signal="shielding_ended" from="Shield" to="AnimationPlayer/Sheild" method="on_condition_changed"]

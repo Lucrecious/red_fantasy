@@ -11,6 +11,10 @@ onready var _input := NodE.get_child_with_error(NodE.get_child_with_error(_body,
 onready var location := _body.global_position as Vector2
 
 func get_in_position(done_event: FuncREf) -> void:
+	if _move_to.is_at_location(location):
+		done_event.call_func()
+		return
+	
 	_move_to.target(location)
 	
 	yield(_move_to, 'arrived_at_target')

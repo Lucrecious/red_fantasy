@@ -4,6 +4,8 @@ extends Node
 signal damage_blocked()
 signal attack_parried()
 
+export(int, LAYERS_2D_PHYSICS) var _parry_collision := 0
+
 onready var _body := NodE.get_ancestor_with_error(self, KinematicBody2D) as KinematicBody2D
 onready var _health := NodE.get_sibling_with_error(self, Component_Health) as Component_Health
 onready var _dodge := NodE.get_sibling(self, Component_Dodge) as Component_Dodge
@@ -15,6 +17,11 @@ func projectile(sender: Node2D, hit_data: Data_Damage) -> bool:
 	if _is_parrying(sender):
 		var velocity := NodE.get_child_with_error(sender, Component_Velocity) as Component_Velocity
 		velocity.x = abs(velocity.x) * _turner.direction
+		
+		var hitbox := NodE.get_child(sender, load('res://src/components/projectile_hitbox.gd')) as Area2D
+		if hitbox:
+			hitbox.collision_mask = _parry_collision
+		
 		emit_signal('attack_parried')
 		return false
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=2]
+[gd_scene load_steps=75 format=2]
 
 [ext_resource path="res://lut-godot/components/extents.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/witch/idle.png" type="Texture" id=2]
@@ -19,6 +19,9 @@
 [ext_resource path="res://lut-godot/signal_animation_finished_callback.gd" type="Script" id=17]
 [ext_resource path="res://src/components/attack_combo.gd" type="Script" id=18]
 [ext_resource path="res://src/characters/input_bindings/neutral_attack.tres" type="Resource" id=19]
+[ext_resource path="res://lut-godot/components/health.gd" type="Script" id=20]
+[ext_resource path="res://src/components/damage_receiver.gd" type="Script" id=21]
+[ext_resource path="res://lut-godot/components/death.gd" type="Script" id=22]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 13 )
@@ -388,6 +391,13 @@ tracks/1/keys = {
 collision_layer = 2
 collision_mask = 4
 
+[node name="DamageReceiver" type="Node" parent="."]
+script = ExtResource( 21 )
+
+[node name="Health" type="Node" parent="."]
+script = ExtResource( 20 )
+current = 3
+
 [node name="Controller" type="Node" parent="."]
 script = ExtResource( 8 )
 
@@ -441,6 +451,13 @@ _expression_format = "{0} != 0"
 [node name="Throw" type="Node" parent="AnimationPlayer"]
 script = ExtResource( 17 )
 
+[node name="Death" type="Node" parent="AnimationPlayer"]
+script = ExtResource( 14 )
+condition_key = "death"
+_nodes_path = [ NodePath("../../Death") ]
+_properties = [ "is_dead()" ]
+_expression_format = "{0}"
+
 [node name="Velocity" type="Node2D" parent="."]
 script = ExtResource( 13 )
 units = 32.0
@@ -463,4 +480,8 @@ _priority_node_path = NodePath("../AnimationPlayer/Throw")
 _animation_ends = PoolRealArray( 0.63 )
 _lower_gravtiy_factor = 1.0
 
+[node name="Death" type="Node2D" parent="."]
+script = ExtResource( 22 )
+
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]
+[connection signal="died" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]
