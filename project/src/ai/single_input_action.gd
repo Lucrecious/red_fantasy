@@ -36,7 +36,7 @@ func attack_combo_by_name(node_name: String, node: Node2D, done_event: FuncREf) 
 	_virtual_input.flash_direction_x(direction)
 	
 	var signal_detector := SignalDetector.new(attack_combo, 'combo_started')
-	attack_combo.attack()
+	_virtual_input.flash_press('attack')
 	
 	if not signal_detector.raised():
 		done_event.call_func()

@@ -1,0 +1,36 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://src/ai/ai_awareness.gd" type="Script" id=1]
+[ext_resource path="res://src/ai/dynamic_move_to.gd" type="Script" id=2]
+[ext_resource path="res://src/ai/move_to.gd" type="Script" id=3]
+[ext_resource path="res://src/ai/single_input_action.gd" type="Script" id=4]
+[ext_resource path="res://src/ai/planners/wolf.gd" type="Script" id=5]
+
+[node name="Planner" type="Node2D"]
+script = ExtResource( 5 )
+
+[node name="MoveTo" type="Node2D" parent="."]
+script = ExtResource( 3 )
+
+[node name="DynamicMoveTo" type="Node2D" parent="."]
+script = ExtResource( 2 )
+
+[node name="Actioner" type="Node" parent="."]
+script = ExtResource( 4 )
+
+[node name="Awareness" type="Node2D" parent="."]
+script = ExtResource( 1 )
+_eyes_path = NodePath("../Eyes")
+_collision = 4
+
+[node name="BiteRect" type="ReferenceRect" parent="."]
+margin_left = 22.0
+margin_top = -6.0
+margin_right = 41.0
+margin_bottom = 9.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Eyes" type="Position2D" parent="."]
+position = Vector2( 16.8633, 2.2427 )
