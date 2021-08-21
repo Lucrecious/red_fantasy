@@ -344,7 +344,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Fantasy Game"
+config/name="Red Fantasy"
 run/main_scene="res://src/main.tscn"
 config/icon="res://icon.png"
 
