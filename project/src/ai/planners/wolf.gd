@@ -28,8 +28,8 @@ func _move_to(location: Vector2, done_event: FuncREf) -> void:
 	done_event.call_func()
 
 func _move_to_attack(chain: AI_Chain) -> void:
-	_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), $BiteRect, 1.0/20.0])
-	_chain.add(_actioner, 'attack_combo_by_name', ['Bite', funcref(_awareness, 'target')])
+	chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), $BiteRect, 1.0/20.0])
+	chain.add(_actioner, 'attack_combo_by_name', ['Bite', funcref(_awareness, 'target'), []])
 
 func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: float, done_event: FuncREf) -> void:
 	_dynamic_move_to.stop()

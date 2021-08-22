@@ -27,17 +27,23 @@ func wait(sec: float, direction: int, done_event: FuncREf) -> void:
 	
 	done_event.call_func()
 
-func attack_combo_by_name(node_name: String, node: Node2D, done_event: FuncREf) -> void:
+func attack_combo_by_name(node_name: String, node: Node2D, other_input: PoolStringArray, done_event: FuncREf) -> void:
 	var attack_combo := NodE.get_child_by_name(_body, node_name) as Component_AttackCombo
 	assert(attack_combo, 'this must exist')
 	
 	var direction := sign(node.global_position.x - _body.global_position.x)
 	
-	_virtual_input.flash_direction_x(direction)
+	_virtual_input.flash_direction_x(int(direction))
+
+	for i in 4:
+		yield(get_tree(), 'idle_frame')
 	
 	var signal_detector := SignalDetector.new(attack_combo, 'combo_started')
+	for input in other_input:
+		_virtual_input.flash_press(input);
+
 	_virtual_input.flash_press('attack')
-	
+
 	if not signal_detector.raised():
 		done_event.call_func()
 		return

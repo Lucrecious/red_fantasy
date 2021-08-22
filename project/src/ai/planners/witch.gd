@@ -16,10 +16,10 @@ func _on_run_ended() -> void:
 		return
 	
 	if _only_throw:
-		_chain.add(_actioner, 'attack_combo_by_name', ['Throw', _awareness.target()])
+		_chain.add(_actioner, 'attack_combo_by_name', ['Throw', _awareness.target(), []])
 	else:
 		_chain.add(_actioner, 'dynamic_move_to_target', [_awareness.target(), $ThrowRect, 1.0/20.0])
-		_chain.add(_actioner, 'attack_combo_by_name', ['Throw', _awareness.target()])
+		_chain.add(_actioner, 'attack_combo_by_name', ['Throw', _awareness.target(), []])
 	
 	_chain.run()
 

@@ -13,7 +13,7 @@ func _on_run_ended() -> void:
 	
 	if _awareness.target():
 		if not _previous_target:
-			_chain.add(_actioner, 'attack_combo_by_name', ['BangHands', funcref(_awareness, 'target')])
+			_chain.add(_actioner, 'attack_combo_by_name', ['BangHands', funcref(_awareness, 'target'), ['down_move']])
 		
 		_move_to_attack(_chain)
 		_chain.run()
@@ -27,8 +27,8 @@ func _on_run_ended() -> void:
 	
 
 func _move_to_attack(chain: AI_Chain) -> void:
-	_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), $PunchRect, 1.0/20.0])
-	_chain.add(_actioner, 'attack_combo_by_name', ['Punch', funcref(_awareness, 'target')])
+	chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), $PunchRect, 1.0/20.0])
+	chain.add(_actioner, 'attack_combo_by_name', ['Punch', funcref(_awareness, 'target'), []])
 
 func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: float, done_event: FuncREf) -> void:
 	_dynamic_move_to.stop()

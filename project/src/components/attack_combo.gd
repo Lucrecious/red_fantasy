@@ -46,9 +46,12 @@ func _ready() -> void:
 var _combo_count := 0
 var _msec_since_last_attack := 0
 var _combo_next := false
-func _on_action_just_pressed(action: String) -> void:
-	if not _enabled: return
-	if not _input_binding.is_pressed(_controller): return
+func _on_action_just_pressed(_action: String) -> void:
+	if not _enabled:
+		return
+
+	if not _input_binding.is_pressed(_controller):
+		return
 	
 	attack()
 

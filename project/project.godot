@@ -356,6 +356,7 @@ FadeInOuter="*res://src/fade_in_outer.tscn"
 
 [debug]
 
+gdscript/warnings/return_value_discarded=false
 shapes/collision/shape_color=Color( 0.305882, 0.521569, 0.556863, 0.180392 )
 
 [display]

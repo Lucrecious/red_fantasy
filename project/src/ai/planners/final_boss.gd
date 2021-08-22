@@ -96,7 +96,7 @@ func _move_to_attack(chain: AI_Chain) -> void:
 	
 	if _add_cheer:
 		_add_cheer = false
-		_chain.add(_actioner, 'attack_combo_by_name', ['Cheer', funcref(_awareness, 'target')])
+		_chain.add(_actioner, 'attack_combo_by_name', ['Cheer', funcref(_awareness, 'target'), []])
 		if _phase == 1:
 			index = 3
 	
@@ -107,14 +107,14 @@ func _move_to_attack(chain: AI_Chain) -> void:
 		1:
 			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _jump_smash_range, 1.0/20.0])
 			_chain.add(self, '_start_smash_target_update_timer', [_jump_smash_check_sec])
-			_chain.add(_actioner, 'attack_combo_by_name', ['JumpSmash', funcref(_awareness, 'target')])
+			_chain.add(_actioner, 'attack_combo_by_name', ['JumpSmash', funcref(_awareness, 'target'), []])
 		2:
 			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _spin_attack_range, 1.0/20.0])
 			_chain.add(self, '_spin_attack', [])
 		3:
 			_chain.add(self, '_dynamic_move_to_target', [funcref(_awareness, 'target'), _jump_attack_range, 1.0/20.0])
 			_chain.add(self, '_start_jump_attack_target_update_timer', [_jump_attack_check_sec])
-			_chain.add(_actioner, 'attack_combo_by_name', ['JumpAttack', funcref(_awareness, 'target')])
+			_chain.add(_actioner, 'attack_combo_by_name', ['JumpAttack', funcref(_awareness, 'target'), []])
 
 func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: float, done_event: FuncREf) -> void:
 	_dynamic_move_to.stop()

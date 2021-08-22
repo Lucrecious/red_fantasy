@@ -18,8 +18,8 @@ func _ready():
 
 func flash() -> void:
 	_collision.set_deferred('disabled', false)
-	yield(get_tree(), 'idle_frame')
-	yield(get_tree(), 'idle_frame')
+	yield(get_tree(), 'physics_frame')
+	yield(get_tree(), 'physics_frame')
 	_collision.set_deferred('disabled', true)
 
 func enable_sec(sec: float) -> void:
