@@ -102,8 +102,8 @@ __meta__ = {
 
 [node name="Area" type="Area2D" parent="BackgroundMap/Move"]
 position = Vector2( 57, 92 )
-monitorable = false
 collision_layer = 0
+monitorable = false
 script = ExtResource( 22 )
 
 [node name="Collision" type="CollisionShape2D" parent="BackgroundMap/Move/Area"]
@@ -448,8 +448,8 @@ tile_data = PoolIntArray( 2621746, 2, 3, 2621850, 2, 0, 2621851, 2, 1, 2621852, 
 "awareness_area",
 ]]
 position = Vector2( 1793, 367 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest2"]
 position = Vector2( -32, 0 )
@@ -459,8 +459,8 @@ shape = SubResource( 5 )
 "awareness_area",
 ]]
 position = Vector2( 3137, 82 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest3"]
 position = Vector2( 0, 40 )
@@ -470,8 +470,8 @@ shape = SubResource( 6 )
 "awareness_area",
 ]]
 position = Vector2( 3614, 90 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest4"]
 position = Vector2( 3, 25 )
@@ -481,8 +481,8 @@ shape = SubResource( 7 )
 "awareness_area",
 ]]
 position = Vector2( 1314, 135 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest"]
 position = Vector2( -50, 0 )
@@ -492,8 +492,8 @@ shape = SubResource( 8 )
 "awareness_area",
 ]]
 position = Vector2( 4114, 83 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest5"]
 position = Vector2( -5, 33 )
@@ -503,8 +503,8 @@ shape = SubResource( 9 )
 "awareness_area",
 ]]
 position = Vector2( 4483.05, -3.83643 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest7"]
 position = Vector2( -15.7607, 35.8316 )
@@ -514,8 +514,8 @@ shape = SubResource( 12 )
 "awareness_area",
 ]]
 position = Vector2( 4714, 130 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest6"]
 position = Vector2( -136, 48 )

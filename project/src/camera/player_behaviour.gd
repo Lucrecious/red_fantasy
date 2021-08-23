@@ -47,7 +47,7 @@ func _ready() -> void:
 	_smooth_noise.seed = randi()
 
 var _current_area: Area2D = null
-var _margins := Rect2(-INF, -INF, INF, INF)
+var _margins := Rect2(-1e8, -1e8, 2e8, 2e8)
 func _on_area_entered(area: Area2D) -> void:
 	var previous_area := _current_area
 	_current_area = area
@@ -62,7 +62,7 @@ func _on_area_entered(area: Area2D) -> void:
 	var pixels_per_second := 2000.0
 	
 	var position_sec := (_margins.position - rect.position).length() / pixels_per_second
-	var size_sec := (_margins.size - rect.size).length() / pixels_per_second
+	var size_sec := max((_margins.size - rect.size).length() / pixels_per_second, .1)
 	
 	_tween.interpolate_property(self, '_margins:position:x', _margins.position.x, rect.position.x, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
 	_tween.interpolate_property(self, '_margins:position:y', _margins.position.y, rect.position.y, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
@@ -77,7 +77,7 @@ func _on_area_exited(area: Area2D) -> void:
 	overlapping_areas.erase(_current_area)
 	if overlapping_areas.empty():
 		_current_area = null
-		_margins = Rect2(-INF, -INF, INF, INF)
+		_margins = Rect2(-1e8, -1e8, 2e8, 2e8)
 		return
 	
 	_on_area_entered(overlapping_areas[0])
@@ -103,11 +103,9 @@ func _physics_process(delta: float) -> void:
 	
 	var offset := _get_margin_offset()
 	
-	var current_position := _camera.global_position
 	var interpolated_position := smoothed_position + offset
 	
 	_camera.global_position = interpolated_position
-	
 
 func _get_margin_offset() -> Vector2:
 	var view := _camera.view_rect()
