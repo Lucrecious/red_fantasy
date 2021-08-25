@@ -370,7 +370,7 @@ _direction = "left"
 [node name="Planner" parent="Golem3" instance=ExtResource( 3 )]
 
 [node name="Knight" parent="." instance=ExtResource( 10 )]
-position = Vector2( 10753.1, 668.084 )
+position = Vector2( 2640.03, 124.495 )
 
 [node name="Initializer" type="Node" parent="Knight"]
 script = ExtResource( 24 )

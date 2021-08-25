@@ -1,6 +1,8 @@
 class_name Component_Initializer
 extends Node
 
+signal reinited()
+
 
 export(String, 'right', 'left') var _direction := 'right'
 export(bool) var _use_custom_health := false
@@ -10,6 +12,8 @@ onready var _body := NodE.get_ancestor_with_error(self, KinematicBody2D) as Kine
 onready var _turner := NodE.get_sibling_with_error(self, Component_Turner) as Component_Turner
 onready var _health := NodE.get_sibling_with_error(self, Component_Health) as Component_Health
 onready var _velocity := NodE.get_sibling_with_error(self, Component_Velocity) as Component_Velocity
+
+onready var _virtual_input := NodE.get_child(NodE.get_child(_body, Component_Controller), Input_Virtual) as Input_Virtual
 
 onready var spawn_position :=_body.global_position
 
@@ -30,6 +34,9 @@ func _do_init() -> void:
 	_velocity.value = Vector2.ZERO
 	
 	_health.current_set(_init_health, _body)
+
+	if _virtual_input:
+		_virtual_input.release_all()
 	
 	match _direction:
 		'left':
@@ -37,6 +44,8 @@ func _do_init() -> void:
 		'right':
 			_turner.direction = 1
 		_: assert(false, 'one or the other')
+	
+	emit_signal('reinited')
 
 
 

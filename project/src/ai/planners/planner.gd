@@ -17,6 +17,16 @@ func _ready() -> void:
 	add_child(_chain)
 	_chain.connect('run_ended', self, '_on_run_ended')
 
+	var initializer := NodE.get_sibling(self, Component_Initializer) as Component_Initializer
+	if not initializer:
+		return
+	
+	initializer.connect('reinited', self, '_on_reinited')
+	
+
+func _on_reinited() -> void:
+	_chain.clear()
+
 func _on_run_ended() -> void:
 	assert(false, 'must be implemented')
 

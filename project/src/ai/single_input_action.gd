@@ -16,8 +16,10 @@ func dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: flo
 		done_event.call_func()
 		return
 	
-	yield(_dynamic_move_to, 'caught_node')
-	
+	ObjEct.connect_once(_dynamic_move_to, 'caught_node', self, '_on_caught_node', [done_event])
+
+func _on_caught_node(done_event: FuncREf) -> void:
+	ObjEct.disconnect_once(_dynamic_move_to, 'caught_node', self, '_on_caught_node')
 	done_event.call_func()
 
 func wait(sec: float, direction: int, done_event: FuncREf) -> void:
