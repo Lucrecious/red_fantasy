@@ -30,6 +30,12 @@ func wait(sec: float, direction: int, done_event: FuncREf) -> void:
 	done_event.call_func()
 
 func attack_combo_by_name(node_name: String, node: Node2D, other_input: PoolStringArray, done_event: FuncREf) -> void:
+	_attack_combo_by_name(node_name, node, other_input, 'attack', done_event)
+
+func dodge_combo_by_name(node_name: String, node: Node2D, other_input: PoolStringArray, done_event: FuncREf) -> void:
+	_attack_combo_by_name(node_name, node, other_input, 'dodge', done_event)
+
+func _attack_combo_by_name(node_name: String, node: Node2D, other_input: PoolStringArray, action: String, done_event: FuncREf) -> void:
 	var attack_combo := NodE.get_child_by_name(_body, node_name) as Component_AttackCombo
 	assert(attack_combo, 'this must exist')
 	
@@ -44,7 +50,7 @@ func attack_combo_by_name(node_name: String, node: Node2D, other_input: PoolStri
 	for input in other_input:
 		_virtual_input.flash_press(input);
 
-	_virtual_input.flash_press('attack')
+	_virtual_input.flash_press(action)
 
 	if not signal_detector.raised():
 		done_event.call_func()

@@ -38,6 +38,16 @@ func _ready() -> void:
 	
 	_health.connect('damaged', self, '_on_damaged')
 
+	var initializer := NodE.get_sibling(self, Component_Initializer) as Component_Initializer
+	if not initializer:
+		return
+	
+	initializer.connect('reinited', self, '_on_reinit')
+
+func _on_reinit() -> void:
+	_phase = 0
+	_dodge_percent = 0.0
+
 var _add_cheer := false
 func _on_damaged(amount: int) -> void:
 	var lower := _health.current
@@ -96,7 +106,7 @@ func _move_to_attack(chain: AI_Chain) -> void:
 	
 	if _add_cheer:
 		_add_cheer = false
-		_chain.add(_actioner, 'attack_combo_by_name', ['Cheer', funcref(_awareness, 'target'), []])
+		_chain.add(_actioner, 'dodge_combo_by_name', ['Cheer', funcref(_awareness, 'target'), []])
 		if _phase == 1:
 			index = 3
 	
@@ -269,6 +279,8 @@ func _on_target_changed() -> void:
 			_attack_hints.connect('attack_started', self, '_on_attack_started')
 	
 	if _awareness.target():
+		for i in 2:
+			_chain.add(_actioner, 'dodge_combo_by_name', ['Cheer', funcref(_awareness, 'target'), []])
 		_move_to_attack(_chain)
 		_chain.run()
 	else:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=2]
+[gd_scene load_steps=60 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -24,6 +24,7 @@
 [ext_resource path="res://src/ui/no_arg_signals_area2d.gd" type="Script" id=22]
 [ext_resource path="res://src/main.gd" type="Script" id=23]
 [ext_resource path="res://src/components/initializer.gd" type="Script" id=24]
+[ext_resource path="res://src/obstacles/door.tscn" type="PackedScene" id=25]
 [ext_resource path="res://lut-godot/nodes/reference_rect.gd" type="Script" id=26]
 [ext_resource path="res://src/characters/witch.tscn" type="PackedScene" id=27]
 [ext_resource path="res://src/ai/planners/witch.tscn" type="PackedScene" id=28]
@@ -412,7 +413,7 @@ _direction = "left"
 [node name="Planner" parent="Golem3" instance=ExtResource( 3 )]
 
 [node name="Knight" parent="." instance=ExtResource( 10 )]
-position = Vector2( 137, 211 )
+position = Vector2( 10799, 608 )
 
 [node name="Initializer" type="Node" parent="Knight"]
 script = ExtResource( 24 )
@@ -827,6 +828,9 @@ frame = 0
 position = Vector2( 10799, 672 )
 animation = "big"
 frame = 0
+
+[node name="Door" parent="." instance=ExtResource( 25 )]
+position = Vector2( 11098, 701 )
 
 [node name="Foreground" type="TileMap" parent="."]
 position = Vector2( 1, 0 )
