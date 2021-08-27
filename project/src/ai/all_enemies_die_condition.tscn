@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://src/ai/all_enemies_die_condition.gd" type="Script" id=1]
+
+[node name="AllEnemiesDieCondition" type="Node" groups=[
+"condition",
+]]
+script = ExtResource( 1 )

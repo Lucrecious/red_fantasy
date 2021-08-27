@@ -19,7 +19,7 @@ margin_bottom = 270.0
 texture = ExtResource( 3 )
 
 [node name="Knight" parent="." instance=ExtResource( 4 )]
-position = Vector2( 367, 208 )
+position = Vector2( 76, 62 )
 
 [node name="NotParented" type="Node" parent="."]
 
@@ -27,8 +27,8 @@ position = Vector2( 367, 208 )
 "awareness_area",
 ]]
 position = Vector2( 236, 181 )
-monitorable = false
 collision_layer = 524288
+monitorable = false
 
 [node name="Collision" type="CollisionShape2D" parent="NotParented/AreaOfInterest"]
 shape = SubResource( 1 )
@@ -37,6 +37,11 @@ shape = SubResource( 1 )
 position = Vector2( 100, 211 )
 
 [node name="Planner" parent="Witch" instance=ExtResource( 5 )]
+
+[node name="Witch2" parent="." instance=ExtResource( 1 )]
+position = Vector2( 191, 209 )
+
+[node name="Planner" parent="Witch2" instance=ExtResource( 5 )]
 
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )

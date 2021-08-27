@@ -29,6 +29,7 @@ func _on_player_died(controller: Component_Controller, virtual_input: Input_Abst
 	
 	get_tree().call_group('initializer', 'reinit')
 	get_tree().call_group('door', 'reset')
+	get_tree().call_group('condition', 'reset')
 	
 	FadeInOuter.fade_in(1.2)
 	

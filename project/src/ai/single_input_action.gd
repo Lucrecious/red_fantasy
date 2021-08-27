@@ -51,7 +51,7 @@ func _attack_combo_by_name(node_name: String, node: Node2D, other_input: PoolStr
 		_virtual_input.flash_press(input);
 
 	_virtual_input.flash_press(action)
-
+	
 	if not signal_detector.raised():
 		done_event.call_func()
 		return

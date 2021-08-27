@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=2]
+[gd_scene load_steps=62 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -29,6 +29,8 @@
 [ext_resource path="res://src/characters/witch.tscn" type="PackedScene" id=27]
 [ext_resource path="res://src/ai/planners/witch.tscn" type="PackedScene" id=28]
 [ext_resource path="res://src/obstacles/fireplace.tscn" type="PackedScene" id=29]
+[ext_resource path="res://src/obstacles/trapdoor.tscn" type="PackedScene" id=30]
+[ext_resource path="res://src/ai/all_enemies_die_condition.tscn" type="PackedScene" id=31]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 44, 16 )
@@ -413,7 +415,7 @@ _direction = "left"
 [node name="Planner" parent="Golem3" instance=ExtResource( 3 )]
 
 [node name="Knight" parent="." instance=ExtResource( 10 )]
-position = Vector2( 10799, 608 )
+position = Vector2( 9982, -120 )
 
 [node name="Initializer" type="Node" parent="Knight"]
 script = ExtResource( 24 )
@@ -804,6 +806,78 @@ _direction = "left"
 
 [node name="Planner" parent="Witch15" instance=ExtResource( 28 )]
 
+[node name="Witch16" parent="." instance=ExtResource( 27 )]
+position = Vector2( 10139, 172 )
+
+[node name="Initializer" type="Node" parent="Witch16"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Witch16" instance=ExtResource( 28 )]
+
+[node name="Witch17" parent="." instance=ExtResource( 27 )]
+position = Vector2( 10197, 171 )
+
+[node name="Initializer" type="Node" parent="Witch17"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Witch17" instance=ExtResource( 28 )]
+
+[node name="Witch18" parent="." instance=ExtResource( 27 )]
+position = Vector2( 10265, 170 )
+
+[node name="Initializer" type="Node" parent="Witch18"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Witch18" instance=ExtResource( 28 )]
+
+[node name="Witch19" parent="." instance=ExtResource( 27 )]
+position = Vector2( 10332, 169 )
+
+[node name="Initializer" type="Node" parent="Witch19"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Witch19" instance=ExtResource( 28 )]
+
+[node name="Golem18" parent="." instance=ExtResource( 1 )]
+position = Vector2( 10484, -117 )
+
+[node name="Initializer" type="Node" parent="Golem18"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Golem18" instance=ExtResource( 3 )]
+
+[node name="Golem19" parent="." instance=ExtResource( 1 )]
+position = Vector2( 10426, -117 )
+
+[node name="Initializer" type="Node" parent="Golem19"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Golem19" instance=ExtResource( 3 )]
+
+[node name="Golem20" parent="." instance=ExtResource( 1 )]
+position = Vector2( 10370, -119 )
+
+[node name="Initializer" type="Node" parent="Golem20"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Golem20" instance=ExtResource( 3 )]
+
+[node name="Golem21" parent="." instance=ExtResource( 1 )]
+position = Vector2( 10311, -119 )
+
+[node name="Initializer" type="Node" parent="Golem21"]
+script = ExtResource( 24 )
+_direction = "left"
+
+[node name="Planner" parent="Golem21" instance=ExtResource( 3 )]
+
 [node name="Camera_Game" type="Node2D" parent="."]
 position = Vector2( 240, 135 )
 script = ExtResource( 13 )
@@ -831,6 +905,32 @@ frame = 0
 
 [node name="Door" parent="." instance=ExtResource( 25 )]
 position = Vector2( 11098, 701 )
+
+[node name="TrapDoor2" parent="." instance=ExtResource( 30 )]
+position = Vector2( 10240, -96 )
+
+[node name="AllEnemiesDieCondition" parent="TrapDoor2" instance=ExtResource( 31 )]
+_enemy_paths = [ NodePath("../../Golem18"), NodePath("../../Golem19"), NodePath("../../Golem20"), NodePath("../../Golem21") ]
+
+[node name="TrapDoor3" parent="." instance=ExtResource( 30 )]
+position = Vector2( 10464, 192 )
+
+[node name="AllEnemiesDieCondition" parent="TrapDoor3" instance=ExtResource( 31 )]
+_enemy_paths = [ NodePath("../../Witch16"), NodePath("../../Witch17"), NodePath("../../Witch18"), NodePath("../../Witch19") ]
+
+[node name="TrapDoor4" parent="." instance=ExtResource( 30 )]
+position = Vector2( 10112, 448 )
+
+[node name="AllEnemiesDieCondition" parent="TrapDoor4" instance=ExtResource( 31 )]
+
+[node name="TrapDoor5" parent="." instance=ExtResource( 30 )]
+position = Vector2( 10529, 705 )
+rotation = -1.5708
+
+[node name="AllEnemiesDieCondition" parent="TrapDoor5" instance=ExtResource( 31 )]
+
+[node name="Door2" parent="." instance=ExtResource( 25 )]
+position = Vector2( 10126, -97 )
 
 [node name="Foreground" type="TileMap" parent="."]
 position = Vector2( 1, 0 )
@@ -1695,6 +1795,10 @@ shape = SubResource( 12 )
 [connection signal="body_Entered" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="appear"]
 [connection signal="body_Exited" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="disappear"]
 [connection signal="timeout" from="BackgroundMap/Move/Area/Timer" to="BackgroundMap/Move/Area/Collision" method="set" binds= [ "disabled", false ]]
+[connection signal="all_enemies_just_died" from="TrapDoor2/AllEnemiesDieCondition" to="TrapDoor2" method="open"]
+[connection signal="all_enemies_just_died" from="TrapDoor3/AllEnemiesDieCondition" to="TrapDoor3" method="open"]
+[connection signal="all_enemies_just_died" from="TrapDoor4/AllEnemiesDieCondition" to="TrapDoor4" method="open"]
+[connection signal="all_enemies_just_died" from="TrapDoor5/AllEnemiesDieCondition" to="TrapDoor5" method="open"]
 [connection signal="body_Entered" from="Foreground/Jump/Area" to="Foreground/Jump" method="appear"]
 [connection signal="body_Exited" from="Foreground/Jump/Area" to="Foreground/Jump" method="disappear"]
 [connection signal="body_Entered" from="Foreground/Attack/Area" to="Foreground/Attack" method="appear"]

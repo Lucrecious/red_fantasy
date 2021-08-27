@@ -45,7 +45,9 @@ func _run_link(index: int) -> bool:
 	return true
 
 func _notify_next(generation: int) -> void:
-	if _generation != generation: return
+	if _generation != generation:
+		clear()
+		return
 	
 	if _index >= _links.size():
 		clear()
@@ -66,6 +68,7 @@ func clear(signal_end := true) -> void:
 	_generation += 1
 	_links.clear()
 	_index = 0
+	
 	
 	if not was_running: return
 	
