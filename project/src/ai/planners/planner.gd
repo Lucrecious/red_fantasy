@@ -23,7 +23,6 @@ func _ready() -> void:
 	
 	initializer.connect('reinited', self, '_on_reinited')
 	
-
 func _on_reinited() -> void:
 	_chain.clear()
 

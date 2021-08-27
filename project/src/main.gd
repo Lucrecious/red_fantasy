@@ -1,6 +1,5 @@
 extends Node2D
 
-
 func _ready():
 	FadeInOuter.to_opaque()
 	
@@ -23,13 +22,15 @@ func _on_player_died(controller: Component_Controller, virtual_input: Input_Abst
 	yield(get_tree().create_timer(2.0), 'timeout')
 	
 	FadeInOuter.fade_out(1.2)
-	yield(get_tree().create_timer(1.2), 'timeout')
 	
-	yield(get_tree().create_timer(1.0), 'timeout')
+	yield(get_tree().create_timer(1.2), 'timeout')
 	
 	get_tree().call_group('initializer', 'reinit')
 	get_tree().call_group('door', 'reset')
 	get_tree().call_group('condition', 'reset')
+	
+	yield(get_tree().create_timer(.25), 'timeout')
+	
 	
 	FadeInOuter.fade_in(1.2)
 	

@@ -10,6 +10,8 @@ onready var _move_to := NodE.get_sibling(self, AI_MoveTo) as AI_MoveTo
 
 var _update_timer: Timer
 
+var _update_preferred_side_timer: Timer
+
 func _ready():
 	assert(_move_to, 'must be sibling')
 	
@@ -18,9 +20,22 @@ func _ready():
 	_update_timer.autostart = false
 	_update_timer.connect('timeout', self, '_update_target_position')
 	add_child(_update_timer)
+	
+	_update_preferred_side_timer = Timer.new()
+	_update_preferred_side_timer.one_shot = false
+	_update_preferred_side_timer.autostart = true
+	_update_preferred_side_timer.connect('timeout', self, '_update_preferred_side')
+	_update_preferred_side_timer.wait_time = 5.0
+	add_child(_update_preferred_side_timer)
+
+func _update_preferred_side() -> void:
+		_go_left = false if randf() < .5 else true
+		_side_percent = randf()
 
 var _target_node: Node2D
 var _rect_range: ReferenceRect
+var _go_left := false
+var _side_percent := 0.0
 func target(node: Node2D, rect: ReferenceRect, update_sec := 0.0) -> void:
 	assert((node and rect) or (not node and not rect))
 	if node == _target_node:
@@ -66,54 +81,13 @@ func _get_target_pos(center: Vector2, box_local: Rect2) -> Vector2:
 	var ranges := _get_ranges(center, box_right)
 	var space := get_world_2d().direct_space_state
 	
-	var center_left := (ranges.left_right + (ranges.left_left - ranges.left_right) / 2.0) as float
-	var center_right := (ranges.right_right + (ranges.right_left - ranges.right_right) / 2.0) as float
-	var left_result := space.intersect_point(Vector2(center_left, center.y), 1, [_body], _walk_throughs)
-	var right_result := space.intersect_point(Vector2(center_right, center.y), 1, [_body], _walk_throughs)
+	var center_left := (ranges.left_right + (ranges.left_left - ranges.left_right) * _side_percent) as float
+	var center_right := (ranges.right_right + (ranges.right_left - ranges.right_right) * _side_percent) as float
 	
-	if not left_result.empty() and left_result[0].collider.get_instance_id() < _body.get_instance_id():
-		left_result.clear()
+	var left_side := Vector2(center_left, center.y)
+	var right_side := Vector2(center_right, center.y)
 	
-	if not right_result.empty() and right_result[0].collider.get_instance_id() < _body.get_instance_id():
-		right_result.clear()
-	
-	if _body.test_move(_body.transform, Vector2(center_left, _body.global_position.y) - _body.global_position):
-		left_result.push_back(null)
-	
-	if _body.test_move(_body.transform, Vector2(center_right, _body.global_position.y) - _body.global_position):
-		right_result.push_back(null)
-	
-	var left_is_closer := abs(_body.global_position.x - center_left) < abs(_body.global_position.x - center_right)
-	
-	var left := false
-	
-	if (left_result.empty() and right_result.empty())\
-	or (not left_result.empty() and not right_result.empty()):
-		if left_is_closer:
-			left = true
-		else:
-			left = false
-	elif left_result.empty() and not right_result.empty():
-		left = true
-	elif not left_result.empty() and right_result.empty():
-		left = false
-	
-	var box_left := box_local
-	box_left.position *= -1
-	box_left.size *= -1
-	box_left = box_left.abs()
-	box_left.position += _body.global_position
-	
-	var rect := Rect2(center - Vector2.ONE * .5, Vector2.ONE)
-	var extents := NodE.get_child(_target_node, Component_Extents) as Component_Extents
-	if extents:
-		rect = extents.get_as_global_rect()
-	
-	if not left and (box_left.encloses(rect) or box_left.intersects(rect)):
-		return _body.global_position
-	
-	if left and (box_right.encloses(rect) or box_right.intersects(rect)):
-		return _body.global_position
+	var left := _go_left
 	
 	if left:
 		return Vector2(center_left, center.y)

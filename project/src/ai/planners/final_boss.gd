@@ -279,8 +279,7 @@ func _on_target_changed() -> void:
 			_attack_hints.connect('attack_started', self, '_on_attack_started')
 	
 	if _awareness.target():
-		for i in 2:
-			_chain.add(_actioner, 'dodge_combo_by_name', ['Cheer', funcref(_awareness, 'target'), []])
+		_chain.add(_actioner, 'dodge_combo_by_name', ['Cheer', funcref(_awareness, 'target'), []])
 		_move_to_attack(_chain)
 		_chain.run()
 	else:

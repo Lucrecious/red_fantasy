@@ -52,16 +52,12 @@ func _on_action_just_pressed(action: String) -> void:
 		_disabler.enable_below(self)
 		return
 	
-	
-	yield(_dodge, 'dodge_ended')
-	
-	if not _enabled: return
-	
-	_finish_dodge_override()
+	_dodge.connect('dodge_ended', self, '_finish_dodge_override', [], CONNECT_ONESHOT)
 
 func _finish_dodge_override() -> void:
-	if _enabled:
-		_disabler.enable_below(self)
+	if not _enabled:
+		return
+	_disabler.enable_below(self)
 
 func can_dodge() -> bool:
 	if not _enabled: return false

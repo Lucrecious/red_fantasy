@@ -17,8 +17,10 @@ func get_in_position(done_event: FuncREf) -> void:
 	
 	_move_to.target(location)
 	
-	yield(_move_to, 'arrived_at_target')
-	
+	ObjEct.disconnect_once(_move_to, 'arrived_at_target', self, '_pick_direction_and_call_done')
+	_move_to.connect('arrived_at_target', self, '_pick_direction_and_call_done', [done_event], CONNECT_ONESHOT)
+
+func _pick_direction_and_call_done(done_event: FuncREf) -> void:
 	if look_direction < 0:
 		_input.flash_press('left_move')
 	else:

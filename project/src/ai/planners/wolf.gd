@@ -24,7 +24,10 @@ func _on_run_ended() -> void:
 
 func _move_to(location: Vector2, done_event: FuncREf) -> void:
 	_move_to.target(location)
-	yield(_move_to, 'arrived_at_target')
+	ObjEct.disconnect_once(_move_to, 'arrived_at_target', self, '_call_func')
+	_move_to.connect('arrived_at_target', self, '_call_func', [done_event], CONNECT_ONESHOT)
+
+func _call_func(done_event: FuncREf) -> void:
 	done_event.call_func()
 
 func _move_to_attack(chain: AI_Chain) -> void:
@@ -40,9 +43,8 @@ func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: fl
 		done_event.call_func()
 		return
 	
-	yield(_dynamic_move_to, 'caught_node')
-	
-	done_event.call_func()
+	ObjEct.disconnect_once(_dynamic_move_to, 'caught_node', self, '_call_func')
+	_dynamic_move_to.connect('caught_node', self, '_call_func', [done_event], CONNECT_ONESHOT)
 
 func _on_target_changed() -> void:
 	_chain.clear(false)

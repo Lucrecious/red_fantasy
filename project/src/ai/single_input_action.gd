@@ -16,10 +16,10 @@ func dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: flo
 		done_event.call_func()
 		return
 	
-	ObjEct.connect_once(_dynamic_move_to, 'caught_node', self, '_on_caught_node', [done_event])
+	ObjEct.disconnect_once(_dynamic_move_to, 'caught_node', self, '_on_caught_node')
+	_dynamic_move_to.connect('caught_node', self, '_on_caught_node', [done_event], CONNECT_ONESHOT)
 
 func _on_caught_node(done_event: FuncREf) -> void:
-	ObjEct.disconnect_once(_dynamic_move_to, 'caught_node', self, '_on_caught_node')
 	done_event.call_func()
 
 func wait(sec: float, direction: int, done_event: FuncREf) -> void:
@@ -56,11 +56,10 @@ func _attack_combo_by_name(node_name: String, node: Node2D, other_input: PoolStr
 		done_event.call_func()
 		return
 	
-	ObjEct.connect_once(attack_combo, 'combo_finished', self, '_on_combo_finished', [attack_combo, done_event])
+	attack_combo.connect('combo_finished', self, '_on_combo_finished', [attack_combo, done_event], CONNECT_ONESHOT)
 
 func stop() -> void:
 	pass
 
 func _on_combo_finished(attack_combo: Component_AttackCombo, done_event: FuncREf) -> void:
-	ObjEct.disconnect_once(attack_combo, 'combo_finished', self, '_on_combo_finished')
 	done_event.call_func()

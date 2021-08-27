@@ -46,7 +46,7 @@ func _run_link(index: int) -> bool:
 
 func _notify_next(generation: int) -> void:
 	if _generation != generation:
-		clear()
+		call_deferred('clear')
 		return
 	
 	if _index >= _links.size():
@@ -73,6 +73,8 @@ func clear(signal_end := true) -> void:
 	if not was_running: return
 	
 	if not signal_end: return
+	
+	yield(get_tree(), 'idle_frame')
 	
 	emit_signal('run_ended')
 

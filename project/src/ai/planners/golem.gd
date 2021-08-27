@@ -39,8 +39,10 @@ func _dynamic_move_to_target(target: Node2D, rect: ReferenceRect, update_sec: fl
 		done_event.call_func()
 		return
 	
-	yield(_dynamic_move_to, 'caught_node')
-	
+	ObjEct.disconnect_once(_dynamic_move_to, 'caught_node', self, '_on_call_func')
+	_dynamic_move_to.connect('caught_node', self, '_on_call_func', [done_event], CONNECT_ONESHOT)
+
+func _on_call_func(done_event: FuncREf) -> void:
 	done_event.call_func()
 
 var _previous_target: Node2D
