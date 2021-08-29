@@ -1,5 +1,7 @@
 extends Node2D
 
+export(NodePath) var _custom_spawn_location_path := NodePath()
+
 func _ready():
 	FadeInOuter.to_opaque()
 	
@@ -13,6 +15,19 @@ func _ready():
 	var controller := NodE.get_child_with_error(player, Component_Controller)
 	var virtual_input := Input_Virtual.new()
 	death.connect('died', self, '_on_player_died', [controller, virtual_input])
+	
+	if _custom_spawn_location_path.is_empty():
+		return
+	
+	var location := get_node_or_null(_custom_spawn_location_path) as Node2D
+	if not location:
+		return
+	
+	yield(get_tree(), 'idle_frame')
+	player.global_position = location.global_position
+	var initializer := NodE.get_child(player, Component_Initializer) as Component_Initializer
+	initializer.spawn_position = global_position
+	
 
 func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract) -> void:
 	var input := NodE.get_child_with_error(controller, Input_Abstract) as Input_Abstract

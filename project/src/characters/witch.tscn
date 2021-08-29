@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=2]
+[gd_scene load_steps=77 format=2]
 
 [ext_resource path="res://lut-godot/components/extents.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/witch/idle.png" type="Texture" id=2]
@@ -22,6 +22,8 @@
 [ext_resource path="res://lut-godot/components/health.gd" type="Script" id=20]
 [ext_resource path="res://src/components/damage_receiver.gd" type="Script" id=21]
 [ext_resource path="res://lut-godot/components/death.gd" type="Script" id=22]
+[ext_resource path="res://src/audio/sound_trigger.gd" type="Script" id=23]
+[ext_resource path="res://src/components/sound_player.gd" type="Script" id=24]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 13 )
@@ -55,156 +57,156 @@ atlas = ExtResource( 2 )
 region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=9]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=10]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=11]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=12]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=13]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=14]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=15]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=16]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 448, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=17]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 512, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=18]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 576, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=19]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 640, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=20]
-atlas = ExtResource( 5 )
+atlas = ExtResource( 4 )
 region = Rect2( 704, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=21]
-atlas = ExtResource( 5 )
-region = Rect2( 768, 0, 64, 64 )
+atlas = ExtResource( 3 )
+region = Rect2( 0, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=22]
-atlas = ExtResource( 5 )
-region = Rect2( 832, 0, 64, 64 )
+atlas = ExtResource( 3 )
+region = Rect2( 64, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=23]
-atlas = ExtResource( 5 )
-region = Rect2( 896, 0, 64, 64 )
+atlas = ExtResource( 3 )
+region = Rect2( 128, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=24]
-atlas = ExtResource( 5 )
-region = Rect2( 960, 0, 64, 64 )
+atlas = ExtResource( 3 )
+region = Rect2( 192, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 5 )
-region = Rect2( 1024, 0, 64, 64 )
+atlas = ExtResource( 3 )
+region = Rect2( 256, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 5 )
-region = Rect2( 1088, 0, 64, 64 )
+atlas = ExtResource( 3 )
+region = Rect2( 320, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=27]
 atlas = ExtResource( 3 )
-region = Rect2( 0, 0, 64, 64 )
+region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=28]
 atlas = ExtResource( 3 )
-region = Rect2( 64, 0, 64, 64 )
+region = Rect2( 448, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=29]
-atlas = ExtResource( 3 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=30]
-atlas = ExtResource( 3 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=31]
-atlas = ExtResource( 3 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=32]
-atlas = ExtResource( 3 )
-region = Rect2( 320, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=33]
-atlas = ExtResource( 3 )
-region = Rect2( 384, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=34]
-atlas = ExtResource( 3 )
-region = Rect2( 448, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=35]
-atlas = ExtResource( 4 )
+atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=36]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=30]
+atlas = ExtResource( 5 )
 region = Rect2( 64, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=37]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=31]
+atlas = ExtResource( 5 )
 region = Rect2( 128, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=38]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=32]
+atlas = ExtResource( 5 )
 region = Rect2( 192, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=39]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=33]
+atlas = ExtResource( 5 )
 region = Rect2( 256, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=40]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=34]
+atlas = ExtResource( 5 )
 region = Rect2( 320, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=41]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=35]
+atlas = ExtResource( 5 )
 region = Rect2( 384, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=42]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=36]
+atlas = ExtResource( 5 )
 region = Rect2( 448, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=43]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=37]
+atlas = ExtResource( 5 )
 region = Rect2( 512, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=44]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=38]
+atlas = ExtResource( 5 )
 region = Rect2( 576, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=45]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=39]
+atlas = ExtResource( 5 )
 region = Rect2( 640, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=46]
-atlas = ExtResource( 4 )
+[sub_resource type="AtlasTexture" id=40]
+atlas = ExtResource( 5 )
 region = Rect2( 704, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=41]
+atlas = ExtResource( 5 )
+region = Rect2( 768, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=42]
+atlas = ExtResource( 5 )
+region = Rect2( 832, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=43]
+atlas = ExtResource( 5 )
+region = Rect2( 896, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=44]
+atlas = ExtResource( 5 )
+region = Rect2( 960, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=45]
+atlas = ExtResource( 5 )
+region = Rect2( 1024, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=46]
+atlas = ExtResource( 5 )
+region = Rect2( 1088, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
@@ -213,23 +215,23 @@ animations = [ {
 "name": "idle",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ) ],
+"frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
-"name": "throw",
+"name": "death",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 27 ), SubResource( 28 ), SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ) ],
+"frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "walk",
 "speed": 12.0
 }, {
-"frames": [ SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
+"frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
 "loop": true,
-"name": "death",
+"name": "throw",
 "speed": 12.0
 } ]
 
-[sub_resource type="GDScript" id=52]
+[sub_resource type="GDScript" id=48]
 script/source = "extends Position2D
 
 const Potion := preload('res://src/characters/witch_potion.tscn')
@@ -255,8 +257,7 @@ func shoot() -> void:
 	velocity.value = _turner.direction * Vector2.RIGHT * 10
 "
 
-[sub_resource type="Animation" id=48]
-resource_name = "death"
+[sub_resource type="Animation" id=49]
 length = 1.08
 step = 0.09
 tracks/0/type = "value"
@@ -284,8 +285,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 }
 
-[sub_resource type="Animation" id=49]
-resource_name = "idle"
+[sub_resource type="Animation" id=50]
 length = 0.63
 loop = true
 step = 0.09
@@ -314,8 +314,7 @@ tracks/1/keys = {
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
 }
 
-[sub_resource type="Animation" id=50]
-resource_name = "throw"
+[sub_resource type="Animation" id=51]
 length = 1.71
 step = 0.09
 tracks/0/type = "value"
@@ -357,8 +356,7 @@ tracks/2/keys = {
 } ]
 }
 
-[sub_resource type="Animation" id=51]
-resource_name = "walk"
+[sub_resource type="Animation" id=52]
 length = 0.72
 loop = true
 step = 0.09
@@ -390,6 +388,13 @@ tracks/1/keys = {
 [node name="Witch" type="KinematicBody2D"]
 collision_layer = 2
 collision_mask = 4
+
+[node name="SoundPlayer" type="Node2D" parent="."]
+script = ExtResource( 24 )
+
+[node name="Hit" type="Node" parent="SoundPlayer"]
+script = ExtResource( 23 )
+sound_name = "Hit1"
 
 [node name="DamageReceiver" type="Node" parent="."]
 script = ExtResource( 21 )
@@ -427,13 +432,13 @@ script = ExtResource( 7 )
 
 [node name="PotionSpawnHint" type="Position2D" parent="Sprite"]
 position = Vector2( 25, -6 )
-script = SubResource( 52 )
+script = SubResource( 48 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/death = SubResource( 48 )
-anims/idle = SubResource( 49 )
-anims/throw = SubResource( 50 )
-anims/walk = SubResource( 51 )
+anims/death = SubResource( 49 )
+anims/idle = SubResource( 50 )
+anims/throw = SubResource( 51 )
+anims/walk = SubResource( 52 )
 script = ExtResource( 6 )
 
 [node name="Idle" type="Node" parent="AnimationPlayer"]
@@ -483,6 +488,7 @@ _lower_gravtiy_factor = 1.0
 [node name="Death" type="Node2D" parent="."]
 script = ExtResource( 22 )
 
+[connection signal="damage_received" from="DamageReceiver" to="SoundPlayer/Hit" method="play"]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]
 [connection signal="died" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]
 [connection signal="revived" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]

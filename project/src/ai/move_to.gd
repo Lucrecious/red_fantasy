@@ -23,6 +23,7 @@ func target(location: Vector2) -> void:
 	_target = location
 	
 	var delta := (_target - _body.global_position)
+	delta.x = 1 if not delta.x else delta.x
 	_move(sign(delta.x))
 	
 	if _moving: return

@@ -1269,7 +1269,7 @@ animations = [ {
 } ]
 
 [sub_resource type="RectangleShape2D" id=113]
-extents = Vector2( 20.5, 12.5 )
+extents = Vector2( 15, 16 )
 
 [sub_resource type="Curve" id=114]
 _data = [ Vector2( 0.00392928, 0 ), 0.0, 0.0, 0, 0, Vector2( 0.119843, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.819254, 1 ), 0.0, 0.0, 0, 0, Vector2( 0.897839, 0 ), 0.0, 0.0, 0, 0 ]
@@ -1294,6 +1294,10 @@ sound_name = "Jump1"
 [node name="Land" type="Node" parent="SoundPlayer"]
 script = ExtResource( 39 )
 sound_name = "Land1"
+
+[node name="Hit" type="Node" parent="SoundPlayer"]
+script = ExtResource( 39 )
+sound_name = "KnightHit"
 
 [node name="AttackHints" type="Node2D" parent="."]
 script = ExtResource( 33 )
@@ -1389,8 +1393,8 @@ script = ExtResource( 23 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 112 )
-animation = "roll"
-frame = 3
+animation = "attack_combo"
+frame = 10
 script = ExtResource( 24 )
 
 [node name="Hitbox" type="Area2D" parent="Sprite"]
@@ -1400,7 +1404,7 @@ collision_mask = 2
 script = ExtResource( 25 )
 
 [node name="Collision" type="CollisionShape2D" parent="Sprite/Hitbox"]
-position = Vector2( 30, -1 )
+position = Vector2( 23, -7 )
 shape = SubResource( 113 )
 disabled = true
 
@@ -1423,7 +1427,7 @@ script = ExtResource( 34 )
 _extents = Vector2( 20, 12 )
 
 [node name="Bleed" parent="Sprite" instance=ExtResource( 35 )]
-position = Vector2( 10.0709, 6.70253 )
+position = Vector2( 3.40823, -10.3213 )
 
 [node name="ShieldHit" parent="Sprite" instance=ExtResource( 36 )]
 position = Vector2( 6.70055, -6.84465 )
@@ -1488,12 +1492,14 @@ _priority_node_path = NodePath("../AnimationPlayer/Sheild")
 [node name="Pusher" type="Node2D" parent="."]
 position = Vector2( -253.901, -175.228 )
 script = ExtResource( 16 )
+x = 3.5
 
 [node name="Death" type="Node2D" parent="."]
 script = ExtResource( 27 )
 
 [connection signal="attack_parried" from="DamageReceiver" to="Sprite/ShieldHit" method="parry"]
 [connection signal="damage_blocked" from="DamageReceiver" to="Sprite/ShieldHit" method="block"]
+[connection signal="damage_received" from="DamageReceiver" to="SoundPlayer/Hit" method="play"]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Run" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Jump" method="on_condition_changed"]
 [connection signal="floor_hit" from="Velocity" to="AnimationPlayer/Fall" method="on_condition_changed"]

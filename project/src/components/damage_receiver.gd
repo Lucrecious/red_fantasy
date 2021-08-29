@@ -3,6 +3,7 @@ extends Node
 
 signal damage_blocked()
 signal attack_parried()
+signal damage_received(damage)
 
 export(int, LAYERS_2D_PHYSICS) var _parry_collision := 0
 
@@ -75,8 +76,10 @@ func _do_damage(damage: int, sender: Node2D, attack_dir: Vector2) -> void:
 	# death if something is dealing a lot of damage (like the spikes)
 	if get_parent().name == 'Knight' and damage < 100:
 		damage = 1
-
+	
 	_health.current_set(_health.current - damage, sender)
+	
+	emit_signal('damage_received', damage)
 
 func _do_knockback(hit_data: Data_Damage, attack_direction: int) -> void:
 	if hit_data.knockback_msec != 0 and hit_data.knockback != Vector2.ZERO:

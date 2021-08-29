@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/knight_hit.wav-f0b25b0ca76754d1324a371ab532be61.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/knight_hit.wav"
+dest_files=[ "res://.import/knight_hit.wav-f0b25b0ca76754d1324a371ab532be61.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

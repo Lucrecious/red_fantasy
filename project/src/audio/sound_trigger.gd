@@ -1,3 +1,4 @@
+class_name SubComponent_SoundTrigger
 extends Node
 
 export(String) var sound_name := ''

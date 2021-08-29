@@ -16,6 +16,8 @@ func _ready():
 	_first_time.one_shot = true
 	_first_time.emitting = false
 	_fire.emitting = false
+	
+	$FireSound.play()
 
 func _on_body_entered(body: KinematicBody2D) -> void:
 	if gottened: return
@@ -24,6 +26,10 @@ func _on_body_entered(body: KinematicBody2D) -> void:
 	var initializer := NodE.get_child_with_error(body, Component_Initializer) as Component_Initializer
 	if initializer:
 		initializer.spawn_position = global_position
+	
+	var health := NodE.get_child_with_error(body, Component_Health) as Component_Health
+	if health:
+		health.current = 2 #TODO: Store somewhere better
 	
 	_fire.emitting = true
 	_first_time.emitting = true
