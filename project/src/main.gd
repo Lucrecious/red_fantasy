@@ -44,7 +44,12 @@ func _on_boss_died() -> void:
 	
 	$BackgroundMap/ThanksForPlaying.appear()
 
+var _dying := false
 func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract) -> void:
+	if _dying:
+		return
+	
+	_dying = true
 	var input := NodE.get_child_with_error(controller, Input_Abstract) as Input_Abstract
 	
 	controller.use_custom_input(virtual_input)
@@ -65,6 +70,8 @@ func _on_player_died(controller: Component_Controller, virtual_input: Input_Abst
 	FadeInOuter.fade_in(1.2)
 	
 	controller.use_custom_input(input)
+	
+	_dying = false
 
 
 

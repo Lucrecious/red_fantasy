@@ -39,7 +39,7 @@ func projectile(sender: Node2D, hit_data: Data_Damage) -> bool:
 	
 	return true
 
-func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
+func bleed_attack(sender: Node2D, hit_data: Data_Damage, unblockable_undodgeable := false) -> void:
 	if _is_parrying(sender):
 		var damage_receiver := NodE.get_child(sender, get_script())
 		if not damage_receiver: return
@@ -54,7 +54,7 @@ func bleed_attack(sender: Node2D, hit_data: Data_Damage) -> void:
 	var is_dodge_immune := _dodge and _dodge.is_immune()
 	var is_blocking := _is_blocking(sender)
 	
-	if is_dodge_immune or is_blocking:
+	if not unblockable_undodgeable and (is_dodge_immune or is_blocking):
 		if is_blocking:
 			emit_signal('damage_blocked')
 	else:

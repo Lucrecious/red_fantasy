@@ -4,13 +4,13 @@
 [ext_resource path="res://src/collision/hitbox.gd" type="Script" id=2]
 [ext_resource path="res://src/collision/damage.gd" type="Script" id=3]
 
-[sub_resource type="Resource" id=2]
+[sub_resource type="Resource" id=1]
 script = ExtResource( 3 )
 damage = 1000
 knockback = Vector2( 0, 0 )
 knockback_msec = 0
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 16, 21 )
 
 [node name="Spikes" type="Sprite"]
@@ -21,8 +21,9 @@ monitorable = false
 collision_layer = 0
 script = ExtResource( 2 )
 _use_self_as_body = true
-_initial_hit_data = SubResource( 2 )
+_initial_hit_data = SubResource( 1 )
+_impossible_to_miss = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Collision_Hitbox"]
 position = Vector2( 0, 9 )
-shape = SubResource( 1 )
+shape = SubResource( 2 )

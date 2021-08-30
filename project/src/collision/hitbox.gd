@@ -3,6 +3,7 @@ extends Area2D
 
 export(bool) var _use_self_as_body := false
 export(Resource) var _initial_hit_data
+export(bool) var _impossible_to_miss := false
 
 onready var _body := self if _use_self_as_body else NodE.get_ancestor(self, CollisionObject2D) as CollisionObject2D
 onready var _health := NodE.get_child(_body, Component_Health) as Component_Health
@@ -43,5 +44,5 @@ func _on_body_entered(body: KinematicBody2D) -> void:
 		
 		if not damage_receiver: return
 		
-		damage_receiver.bleed_attack(_body, _hit_data)
+		damage_receiver.bleed_attack(_body, _hit_data, _impossible_to_miss)
 	
