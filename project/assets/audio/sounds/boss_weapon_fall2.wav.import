@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/boss_weapon_fall2.wav-64a679fca6d89255824e074f3af9c024.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/boss_weapon_fall2.wav"
+dest_files=[ "res://.import/boss_weapon_fall2.wav-64a679fca6d89255824e074f3af9c024.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0

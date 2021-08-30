@@ -567,6 +567,20 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 4.0, 0.0 ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("SoundPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.77 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Punch1" ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=88]
 length = 0.63
@@ -595,23 +609,6 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6 ]
-}
-tracks/2/type = "method"
-tracks/2/path = NodePath("SoundPlayer")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/keys = {
-"times": PoolRealArray( 0.09, 0.36 ),
-"transitions": PoolRealArray( 1, 1 ),
-"values": [ {
-"args": [ "Footstep1" ],
-"method": "play"
-}, {
-"args": [ "Footstep2" ],
-"method": "play"
-} ]
 }
 
 [node name="Golem" type="KinematicBody2D"]
@@ -642,8 +639,8 @@ script = ExtResource( 18 )
 [node name="Sprite" type="AnimatedSprite" parent="RootSprite"]
 position = Vector2( -30, -32 )
 frames = SubResource( 82 )
-animation = "death"
-frame = 4
+animation = "walk"
+frame = 2
 centered = false
 
 [node name="PunchBox" type="Area2D" parent="RootSprite"]
@@ -744,6 +741,7 @@ script = ExtResource( 20 )
 
 [node name="Pusher" type="Node2D" parent="."]
 script = ExtResource( 21 )
+x = 4.0
 
 [connection signal="damage_received" from="DamageReceiver" to="SoundPlayer/Hit" method="play"]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]

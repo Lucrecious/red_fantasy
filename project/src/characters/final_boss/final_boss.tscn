@@ -49,7 +49,7 @@
 extents = Vector2( 9, 15 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16.6723, 19.9439 )
+extents = Vector2( 21.9579, 9.88102 )
 
 [sub_resource type="AtlasTexture" id=3]
 atlas = ExtResource( 8 )
@@ -1373,6 +1373,20 @@ tracks/2/keys = {
 "update": 1,
 "values": [ Vector2( -2.77412, -14.8693 ), Vector2( -0.364218, -11.6561 ), Vector2( 0.000921249, -8.88106 ), Vector2( -0.0721035, -9.61134 ), Vector2( -2.92018, -14.8693 ) ]
 }
+tracks/3/type = "method"
+tracks/3/path = NodePath("SoundPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.14 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "BossDash" ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=224]
 length = 2.8
@@ -1412,6 +1426,29 @@ tracks/2/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -2.84715, -14.9423 ), Vector2( -2.90192, -14.3764 ), Vector2( -2.70109, -13.4088 ), Vector2( -3.06623, -11.5831 ), Vector2( -2.92018, -13.1897 ), Vector2( -2.92018, -12.5324 ), Vector2( -2.92018, -11.5831 ), Vector2( -2.84715, -9.68436 ), Vector2( -2.84715, -10.8528 ), Vector2( -2.84715, -10.1956 ), Vector2( -2.84715, -10.5607 ), Vector2( -2.84715, -12.6055 ), Vector2( -2.62807, -19.9812 ), Vector2( -3.21229, -16.3299 ), Vector2( -1.31357, -16.3299 ), Vector2( 3.36019, -13.92 ), Vector2( 25.9257, 13.6844 ), Vector2( 25.9257, 13.0272 ) ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("SoundPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 0.35, 0.84, 1.47, 2.1 ),
+"transitions": PoolRealArray( 1, 1, 1, 1 ),
+"values": [ {
+"args": [ "BossWeaponFall1" ],
+"method": "play"
+}, {
+"args": [ "BossWeaponFall2" ],
+"method": "play"
+}, {
+"args": [ "BossDeath" ],
+"method": "play"
+}, {
+"args": [ "BossFall" ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=225]
@@ -1597,6 +1634,26 @@ tracks/9/keys = {
 "update": 1,
 "values": [ Vector2( -2.77412, -14.7233 ), Vector2( -2.26293, -14.7963 ), Vector2( -2.26293, -13.7739 ), Vector2( -2.11688, -10.1956 ), Vector2( -2.11688, -11.364 ), Vector2( -2.33596, -20.5655 ), Vector2( -2.92018, -11.291 ), Vector2( -2.92018, -8.80803 ), Vector2( -2.84715, -9.53831 ), Vector2( -2.84715, -10.7798 ), Vector2( -2.84715, -15.0154 ), Vector2( 3.28716, -6.32511 ), Vector2( -5.40311, 6.23562 ), Vector2( -17.3066, -2.01649 ), Vector2( -16.2112, -12.0212 ), Vector2( -19.9356, -13.5548 ), Vector2( -21.3961, -11.364 ), Vector2( -24.0251, -13.1167 ), Vector2( -24.9014, -13.4818 ), Vector2( -26.289, -14.3581 ), Vector2( -26.0699, -13.7739 ), Vector2( 7.81486, -6.47116 ), Vector2( 2.04569, -8.4429 ), Vector2( 2.48385, -8.66198 ), Vector2( 2.77596, -8.66198 ), Vector2( 2.33779, -8.36987 ), Vector2( -0.583307, -11.8752 ), Vector2( -1.53266, -13.7009 ), Vector2( -6.49853, -14.8693 ), Vector2( -7.59394, -14.2121 ), Vector2( -6.20642, -13.1897 ), Vector2( -3.28533, -13.6279 ), Vector2( -2.62808, -14.7233 ), Vector2( -2.92019, -14.4312 ), Vector2( -2.55505, -14.4312 ) ]
 }
+tracks/10/type = "method"
+tracks/10/path = NodePath("SoundPlayer")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.56, 1.19, 1.82 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"values": [ {
+"args": [ "BossJump1" ],
+"method": "play"
+}, {
+"args": [ "Throw1" ],
+"method": "play"
+}, {
+"args": [ "BossJumpAttack" ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=227]
 length = 1.75
@@ -1735,6 +1792,23 @@ tracks/9/keys = {
 "update": 1,
 "values": [ Vector2( -2.55505, -14.4312 ), Vector2( -2.40899, -13.5548 ), Vector2( -2.11689, -9.83043 ), Vector2( -2.04386, -11.8752 ), Vector2( 4.67467, -2.74676 ), Vector2( 4.67467, 5.1402 ), Vector2( 2.48384, 10.4712 ), Vector2( -7.00973, 6.23561 ), Vector2( -8.10513, -1.87044 ), Vector2( -8.10513, 1.12369 ), Vector2( -4.67284, -9.39227 ), Vector2( 3.65229, -5.08365 ), Vector2( -5.25706, -6.69025 ), Vector2( -6.57155, -9.83043 ), Vector2( -6.57155, -8.88107 ), Vector2( -6.57155, -9.53832 ), Vector2( -7.81302, -10.5607 ), Vector2( -6.13339, -12.8246 ), Vector2( -2.62807, -13.8469 ), Vector2( -2.62807, -14.7963 ), Vector2( -2.84715, -15.0884 ) ]
 }
+tracks/10/type = "method"
+tracks/10/path = NodePath("SoundPlayer")
+tracks/10/interp = 1
+tracks/10/loop_wrap = true
+tracks/10/imported = false
+tracks/10/enabled = true
+tracks/10/keys = {
+"times": PoolRealArray( 0.49, 1.05 ),
+"transitions": PoolRealArray( 1, 1 ),
+"values": [ {
+"args": [ "BossJump1" ],
+"method": "play"
+}, {
+"args": [ "BossSmashLand" ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=228]
 length = 2.03
@@ -1815,6 +1889,20 @@ tracks/5/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ Vector2( -2.84715, -14.6502 ), Vector2( -2.26293, -14.6502 ), Vector2( 0.366056, -14.7233 ), Vector2( 1.46147, -15.7457 ), Vector2( 2.77596, -16.2568 ), Vector2( 3.36019, -16.2568 ), Vector2( 0.366056, -16.768 ), Vector2( -0.145136, -17.8634 ), Vector2( 3.21413, -17.5713 ), Vector2( 1.31542, -19.1779 ), Vector2( 4.01744, -17.6444 ), Vector2( 2.04569, -17.1332 ), Vector2( 0.293039, -16.1838 ), Vector2( 0.000932693, -18.1556 ), Vector2( 2.70295, -17.8634 ), Vector2( 3.21414, -19.324 ), Vector2( 4.52864, -18.1556 ), Vector2( 3.06809, -17.3523 ), Vector2( 4.89378, -16.3299 ), Vector2( -2.04383, -13.993 ), Vector2( -3.79649, -13.4818 ), Vector2( -2.84713, -14.3581 ) ]
+}
+tracks/6/type = "method"
+tracks/6/path = NodePath("SoundPlayer")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/keys = {
+"times": PoolRealArray( 0.56 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "BossSpin" ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=229]
@@ -1938,7 +2026,7 @@ collision_layer = 0
 script = ExtResource( 34 )
 
 [node name="Collision" type="CollisionShape2D" parent="RootSprite/Hitbox"]
-position = Vector2( 9.24975, -6.81025 )
+position = Vector2( 0.101665, -1.21974 )
 shape = SubResource( 2 )
 disabled = true
 
@@ -1948,11 +2036,11 @@ position = Vector2( 15.3485, -0.203293 )
 [node name="Sprite" type="AnimatedSprite" parent="RootSprite"]
 position = Vector2( 0, -13 )
 frames = SubResource( 218 )
-animation = "walk"
-frame = 6
+animation = "death"
+frame = 21
 
 [node name="Bleed" parent="RootSprite" instance=ExtResource( 42 )]
-position = Vector2( -1.04926, -14.234 )
+position = Vector2( -2.62807, -19.9812 )
 _start = 18
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
@@ -2101,7 +2189,6 @@ script = ExtResource( 38 )
 
 [node name="Pusher" type="Node2D" parent="."]
 script = ExtResource( 13 )
-x = 5.0
 
 [connection signal="damage_received" from="DamageReceiver" to="SoundPlayer/Hit" method="play"]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]

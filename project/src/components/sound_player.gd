@@ -22,6 +22,21 @@ const _map := {
 	GolemClap = Sound.GolemClap,
 	GolemDeath = Sound.GolemDeath,
 	BossScream = Sound.BossScream,
+	Punch1 = Sound.Punch1,
+	Bite1 = Sound.Bite1,
+	WolfDeath = Sound.WolfDeath,
+	Throw1 = Sound.Throw1,
+	WitchDeath = Sound.WitchDeath,
+	BossDash = Sound.BossDash,
+	BossDeath = Sound.BossDeath,
+	BossFall = Sound.BossFall,
+	BossWeaponFall1 = Sound.BossWeaponFall1,
+	BossWeaponFall2 = Sound.BossWeaponFall2,
+	BossJump1 = Sound.BossJump1,
+	BossJumpAttack = Sound.BossJumpAttack,
+	BossSmashLand = Sound.BossSmashLand,
+	BossSpin = Sound.BossSpin,
+	HammerLand = Sound.HammerLand,
 }
 
 var _sound_name_to_last_msec_played := {}

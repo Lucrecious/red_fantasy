@@ -99,6 +99,20 @@ tracks/4/keys = {
 "update": 0,
 "values": [ 0.0, 5.0, 0.0 ]
 }
+tracks/5/type = "method"
+tracks/5/path = NodePath("SoundPlayer")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/keys = {
+"times": PoolRealArray( 0.56 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Bite1" ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=3]
 resource_name = "death"
@@ -127,6 +141,20 @@ tracks/1/keys = {
 "transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 ),
 "update": 1,
 "values": [ 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17 ]
+}
+tracks/2/type = "method"
+tracks/2/path = NodePath("SoundPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.16 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "WolfDeath" ],
+"method": "play"
+} ]
 }
 
 [sub_resource type="Animation" id=4]
@@ -480,12 +508,13 @@ _expression_format = "{0}"
 
 [node name="Pusher" type="Node2D" parent="."]
 script = ExtResource( 17 )
+x = 0.0991035
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( -0.754036, -11.5792 )
 frames = SubResource( 60 )
-animation = "attack"
-frame = 6
+animation = "death"
+frame = 5
 offset = Vector2( 0.754036, 11.5792 )
 script = ExtResource( 4 )
 

@@ -1835,7 +1835,7 @@ position = Vector2( 240, 135 )
 shape = SubResource( 30 )
 
 [node name="PlayerPosition" type="Node2D" parent="."]
-position = Vector2( 10719.5, 644.642 )
+position = Vector2( 10923.5, 664.642 )
 
 [connection signal="body_Entered" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="appear"]
 [connection signal="body_Exited" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="disappear"]

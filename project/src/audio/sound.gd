@@ -15,6 +15,21 @@ const GolemClap := preload('res://assets/audio/sounds/golem_clap.wav')
 const GolemDeath := preload('res://assets/audio/sounds/golem_death.wav')
 const Footstep1 := preload('res://assets/audio/sounds/footstep3.wav')
 const Footstep2 := preload('res://assets/audio/sounds/footstep4.wav')
+const Punch1 := preload('res://assets/audio/sounds/punch1.wav')
+const Bite1 := preload('res://assets/audio/sounds/bite1.wav')
+const WolfDeath := preload('res://assets/audio/sounds/wolf_death.mp3')
+const Throw1 := preload('res://assets/audio/sounds/throw1.wav')
+const WitchDeath := preload('res://assets/audio/sounds/witch_death.wav')
+const BossDash := preload('res://assets/audio/sounds/boss_dash.wav')
+const BossDeath := preload('res://assets/audio/sounds/boss_death.wav')
+const BossFall := preload('res://assets/audio/sounds/boss_fall.wav')
+const BossWeaponFall1 := preload('res://assets/audio/sounds/boss_weapon_fall1.wav')
+const BossWeaponFall2 := preload('res://assets/audio/sounds/boss_weapon_fall2.wav')
+const BossJump1 := preload('res://assets/audio/sounds/boss_jump.wav')
+const BossJumpAttack := preload('res://assets/audio/sounds/boss_jump_attack.wav')
+const BossSmashLand := preload('res://assets/audio/sounds/boss_smash_land.wav')
+const BossSpin := preload('res://assets/audio/sounds/boss_spin.wav')
+const HammerLand := preload('res://assets/audio/sounds/hammer_land.wav')
 
 const VolumeDB := {
 	KnightFootstep : -15.0,
@@ -32,6 +47,21 @@ const VolumeDB := {
 	GolemDeath : 0.0,
 	GolemClap : 0.0,
 	BossScream : 0.0,
+	Punch1 : -10.0,
+	Bite1 : -10.0, 
+	WolfDeath : -10.0,
+	Throw1 : -10.0,
+	WitchDeath : -10.0,
+	BossDash : -10.0,
+	BossDeath : -7.0,
+	BossFall : -5.0,
+	BossWeaponFall1 : -10.0,
+	BossWeaponFall2 : -10.0,
+	BossJump1 : -10.0,
+	BossJumpAttack : -7.0,
+	BossSmashLand : -7.0,
+	BossSpin : -10.0,
+	HammerLand : 0.0,
 }
 
 var _stream_pool2d := []

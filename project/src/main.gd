@@ -26,7 +26,7 @@ func _ready():
 	yield(get_tree(), 'idle_frame')
 	player.global_position = location.global_position
 	var initializer := NodE.get_child(player, Component_Initializer) as Component_Initializer
-	initializer.spawn_position = global_position
+	initializer.spawn_position = location.global_position
 	
 
 func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract) -> void:

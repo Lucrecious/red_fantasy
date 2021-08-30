@@ -284,6 +284,20 @@ tracks/1/keys = {
 "update": 1,
 "values": [ 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11 ]
 }
+tracks/2/type = "method"
+tracks/2/path = NodePath("SoundPlayer")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/keys = {
+"times": PoolRealArray( 0.27 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "WitchDeath" ],
+"method": "play"
+} ]
+}
 
 [sub_resource type="Animation" id=50]
 length = 0.63
@@ -353,6 +367,20 @@ tracks/2/keys = {
 "values": [ {
 "args": [  ],
 "method": "shoot"
+} ]
+}
+tracks/3/type = "method"
+tracks/3/path = NodePath("SoundPlayer")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/keys = {
+"times": PoolRealArray( 1.17 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [ "Throw1" ],
+"method": "play"
 } ]
 }
 
@@ -426,8 +454,8 @@ _turn_bys = [ 1 ]
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 47 )
-animation = "throw"
-frame = 12
+animation = "death"
+frame = 3
 script = ExtResource( 7 )
 
 [node name="PotionSpawnHint" type="Position2D" parent="Sprite"]

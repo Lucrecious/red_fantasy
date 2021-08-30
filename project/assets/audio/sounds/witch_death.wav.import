@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/witch_death.wav-34563a9def6535a1bd9d6fbf79198ace.sample"
+
+[deps]
+
+source_file="res://assets/audio/sounds/witch_death.wav"
+dest_files=[ "res://.import/witch_death.wav-34563a9def6535a1bd9d6fbf79198ace.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop=false
+compress/mode=0
