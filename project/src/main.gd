@@ -16,6 +16,10 @@ func _ready():
 	var virtual_input := Input_Virtual.new()
 	death.connect('died', self, '_on_player_died', [controller, virtual_input])
 	
+	var final_boss := get_tree().get_nodes_in_group('boss')[0] as KinematicBody2D
+	var boss_death := NodE.get_child_with_error(final_boss, Component_Death) as Component_Death
+	boss_death.connect('died', self, '_on_boss_died', [], CONNECT_ONESHOT)
+	
 	if _custom_spawn_location_path.is_empty():
 		return
 	
@@ -28,6 +32,17 @@ func _ready():
 	var initializer := NodE.get_child(player, Component_Initializer) as Component_Initializer
 	initializer.spawn_position = location.global_position
 	
+
+func _on_boss_died() -> void:
+	Music.play(Music.Wind1)
+	
+	yield(get_tree().create_timer(3.0), 'timeout')
+	
+	Sound.play(Sound.BossWin, null)
+	
+	yield(get_tree().create_timer(5.0), 'timeout')
+	
+	$BackgroundMap/ThanksForPlaying.appear()
 
 func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract) -> void:
 	var input := NodE.get_child_with_error(controller, Input_Abstract) as Input_Abstract

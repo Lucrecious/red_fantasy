@@ -30,6 +30,8 @@ const BossJumpAttack := preload('res://assets/audio/sounds/boss_jump_attack.wav'
 const BossSmashLand := preload('res://assets/audio/sounds/boss_smash_land.wav')
 const BossSpin := preload('res://assets/audio/sounds/boss_spin.wav')
 const HammerLand := preload('res://assets/audio/sounds/hammer_land.wav')
+const BossWin := preload('res://assets/audio/sounds/boss_win.mp3')
+const FireHit := preload('res://assets/audio/sounds/fire_hit.wav')
 
 const VolumeDB := {
 	KnightFootstep : -15.0,
@@ -62,6 +64,8 @@ const VolumeDB := {
 	BossSmashLand : -7.0,
 	BossSpin : -10.0,
 	HammerLand : 0.0,
+	BossWin : -10.0,
+	FireHit : -7.0,
 }
 
 var _stream_pool2d := []

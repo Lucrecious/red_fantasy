@@ -25,7 +25,7 @@ func _ready():
 	_update_preferred_side_timer.one_shot = false
 	_update_preferred_side_timer.autostart = true
 	_update_preferred_side_timer.connect('timeout', self, '_update_preferred_side')
-	_update_preferred_side_timer.wait_time = 5.0
+	_update_preferred_side_timer.wait_time = 2.0
 	add_child(_update_preferred_side_timer)
 
 func _update_preferred_side() -> void:

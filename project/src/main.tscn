@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=2]
+[gd_scene load_steps=63 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -116,10 +116,25 @@ extents = Vector2( 114.715, 35.1367 )
 [sub_resource type="RectangleShape2D" id=28]
 extents = Vector2( 199.041, 97.4593 )
 
-[sub_resource type="RectangleShape2D" id=29]
-extents = Vector2( 199.041, 97.4593 )
+[sub_resource type="GDScript" id=29]
+script/source = "extends Area2D
+
+
+func _ready() -> void:
+	connect('body_entered', self, '_on_body_entered', [], CONNECT_ONESHOT)
+
+func _on_body_entered(body: KinematicBody2D) -> void:
+	if not body:
+		assert(false, 'not possible, make sure player is the only thing in player collision group')
+		return
+	
+	Music.play(Music.Boss1)
+"
 
 [sub_resource type="RectangleShape2D" id=30]
+extents = Vector2( 199.041, 97.4593 )
+
+[sub_resource type="RectangleShape2D" id=31]
 extents = Vector2( 240, 135 )
 
 [node name="Main" type="Node2D"]
@@ -172,6 +187,18 @@ disabled = true
 wait_time = 3.0
 one_shot = true
 autostart = true
+
+[node name="ThanksForPlaying" type="Label" parent="BackgroundMap"]
+margin_left = 11134.3
+margin_top = 550.933
+margin_right = 11273.3
+margin_bottom = 564.933
+theme = ExtResource( 18 )
+text = "thank you for playing"
+script = ExtResource( 20 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Wolf" parent="." instance=ExtResource( 8 )]
 position = Vector2( 1337, 145 )
@@ -946,6 +973,10 @@ frame = 0
 [node name="Door" parent="." instance=ExtResource( 25 )]
 position = Vector2( 11098, 701 )
 
+[node name="Door3" parent="." instance=ExtResource( 25 )]
+position = Vector2( 10569.2, 701 )
+_no_reset = true
+
 [node name="TrapDoor2" parent="." instance=ExtResource( 30 )]
 position = Vector2( 10240, -96 )
 
@@ -1478,9 +1509,10 @@ shape = SubResource( 28 )
 position = Vector2( 11311.2, 631.488 )
 monitorable = false
 collision_layer = 524288
+script = SubResource( 29 )
 
 [node name="Collision" type="CollisionShape2D" parent="AreaOfInterest36"]
-shape = SubResource( 29 )
+shape = SubResource( 30 )
 
 [node name="Meta" type="Node2D" parent="."]
 
@@ -1492,7 +1524,7 @@ script = ExtResource( 16 )
 _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game"]
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game2" type="Area2D" parent="Meta"]
 position = Vector2( 720, 135 )
@@ -1502,7 +1534,7 @@ script = ExtResource( 16 )
 _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game2"]
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game3" type="Area2D" parent="Meta"]
 position = Vector2( 960, -60 )
@@ -1513,7 +1545,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game3"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game4" type="Area2D" parent="Meta"]
 position = Vector2( 1440, -60 )
@@ -1524,7 +1556,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game4"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game5" type="Area2D" parent="Meta"]
 position = Vector2( 1440, 210 )
@@ -1535,7 +1567,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game5"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game6" type="Area2D" parent="Meta"]
 position = Vector2( 1920, -60 )
@@ -1546,7 +1578,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game6"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game7" type="Area2D" parent="Meta"]
 position = Vector2( 1920, 210 )
@@ -1557,7 +1589,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game7"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game8" type="Area2D" parent="Meta"]
 position = Vector2( 2400, -60 )
@@ -1568,7 +1600,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game8"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game9" type="Area2D" parent="Meta"]
 position = Vector2( 2880, -60 )
@@ -1579,7 +1611,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game9"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game10" type="Area2D" parent="Meta"]
 position = Vector2( 3360, -60 )
@@ -1590,7 +1622,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game10"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game11" type="Area2D" parent="Meta"]
 position = Vector2( 3840, -60 )
@@ -1601,7 +1633,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game11"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game12" type="Area2D" parent="Meta"]
 position = Vector2( 4320, -60 )
@@ -1612,7 +1644,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game12"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game13" type="Area2D" parent="Meta"]
 position = Vector2( 4800, -60 )
@@ -1623,7 +1655,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game13"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game14" type="Area2D" parent="Meta"]
 position = Vector2( 5280, -60 )
@@ -1634,7 +1666,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game14"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game15" type="Area2D" parent="Meta"]
 position = Vector2( 5760, -60 )
@@ -1645,7 +1677,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game15"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game16" type="Area2D" parent="Meta"]
 position = Vector2( 5761, -330 )
@@ -1656,7 +1688,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game16"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game17" type="Area2D" parent="Meta"]
 position = Vector2( 6240, -330 )
@@ -1667,7 +1699,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game17"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game18" type="Area2D" parent="Meta"]
 position = Vector2( 6720, -330 )
@@ -1678,7 +1710,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game18"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game19" type="Area2D" parent="Meta"]
 position = Vector2( 7200, -60 )
@@ -1689,7 +1721,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game19"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game20" type="Area2D" parent="Meta"]
 position = Vector2( 6720, -60 )
@@ -1700,7 +1732,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game20"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game21" type="Area2D" parent="Meta"]
 position = Vector2( 7680, -60 )
@@ -1711,7 +1743,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game21"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game22" type="Area2D" parent="Meta"]
 position = Vector2( 8160, -60 )
@@ -1722,7 +1754,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game22"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game23" type="Area2D" parent="Meta"]
 position = Vector2( 8640, -60 )
@@ -1733,7 +1765,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game23"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game24" type="Area2D" parent="Meta"]
 position = Vector2( 9120, -60 )
@@ -1744,7 +1776,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game24"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game25" type="Area2D" parent="Meta"]
 position = Vector2( 9120, -330 )
@@ -1755,7 +1787,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game25"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game26" type="Area2D" parent="Meta"]
 position = Vector2( 9600, -330 )
@@ -1766,7 +1798,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game26"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game27" type="Area2D" parent="Meta"]
 position = Vector2( 10080, -330 )
@@ -1777,7 +1809,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game27"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game28" type="Area2D" parent="Meta"]
 position = Vector2( 10080, -60 )
@@ -1788,7 +1820,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game28"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game29" type="Area2D" parent="Meta"]
 position = Vector2( 10080, 210 )
@@ -1799,7 +1831,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game29"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game30" type="Area2D" parent="Meta"]
 position = Vector2( 10080, 480 )
@@ -1810,7 +1842,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game30"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game31" type="Area2D" parent="Meta"]
 position = Vector2( 10560, 480 )
@@ -1821,7 +1853,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game31"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="CameraBox_Game32" type="Area2D" parent="Meta"]
 position = Vector2( 11040, 480 )
@@ -1832,7 +1864,7 @@ _collision = 16384
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Meta/CameraBox_Game32"]
 position = Vector2( 240, 135 )
-shape = SubResource( 30 )
+shape = SubResource( 31 )
 
 [node name="PlayerPosition" type="Node2D" parent="."]
 position = Vector2( 10923.5, 664.642 )

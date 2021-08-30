@@ -23,6 +23,8 @@ func _on_body_entered(body: KinematicBody2D) -> void:
 	if gottened: return
 	gottened = true
 	
+	Sound.play(Sound.FireHit, self)
+	
 	var initializer := NodE.get_child_with_error(body, Component_Initializer) as Component_Initializer
 	if initializer:
 		initializer.spawn_position = global_position
