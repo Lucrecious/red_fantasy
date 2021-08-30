@@ -31,7 +31,7 @@ func _on_body_entered(body: KinematicBody2D) -> void:
 	
 	var health := NodE.get_child_with_error(body, Component_Health) as Component_Health
 	if health:
-		health.current = 2 #TODO: Store somewhere better
+		health.current_set(2, _area)
 	
 	_fire.emitting = true
 	_first_time.emitting = true
