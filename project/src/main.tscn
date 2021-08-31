@@ -165,6 +165,7 @@ extents = Vector2( 240, 135 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 23 )
+_custom_spawn_location_path = NodePath("PlayerPosition")
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
@@ -490,7 +491,6 @@ script = SubResource( 29 )
 _noise = SubResource( 31 )
 _maximum_offset = 50.0
 _speed_multiplier = 900.0
-_trauma = 1.0
 
 [node name="Witch" parent="." instance=ExtResource( 27 )]
 position = Vector2( 3231, 145 )
@@ -1697,7 +1697,7 @@ position = Vector2( 240, 135 )
 shape = SubResource( 28 )
 
 [node name="PlayerPosition" type="Node2D" parent="."]
-position = Vector2( 9289.42, 155.166 )
+position = Vector2( 6906.37, -140.651 )
 
 [connection signal="body_Entered" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="appear"]
 [connection signal="body_Exited" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="disappear"]

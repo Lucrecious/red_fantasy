@@ -11,7 +11,7 @@ knockback = Vector2( 0, 0 )
 knockback_msec = 0
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 16, 21 )
+extents = Vector2( 8.60507, 21 )
 
 [node name="Spikes" type="Sprite"]
 texture = ExtResource( 1 )

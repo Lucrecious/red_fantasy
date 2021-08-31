@@ -15,7 +15,7 @@ func _ready():
 	
 	var controller := NodE.get_child_with_error(player, Component_Controller)
 	var virtual_input := Input_Virtual.new()
-	death.connect('died', self, '_on_player_died', [controller, virtual_input])
+	death.connect('died', self, '_on_player_died', [controller, virtual_input, NodE.get_child_with_error(player, CollisionShape2D)])
 	
 	damage_receiver.connect('damage_received', self, '_shake_camera')
 	
@@ -51,12 +51,14 @@ func _on_boss_died() -> void:
 	$BackgroundMap/ThanksForPlaying.appear()
 
 var _dying := false
-func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract) -> void:
+func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract, collision: CollisionShape2D) -> void:
 	if _dying:
 		return
 	
 	_dying = true
 	var input := NodE.get_child_with_error(controller, Input_Abstract) as Input_Abstract
+	
+	collision.set_deferred('disabled', true)
 	
 	controller.use_custom_input(virtual_input)
 	
@@ -76,6 +78,8 @@ func _on_player_died(controller: Component_Controller, virtual_input: Input_Abst
 	FadeInOuter.fade_in(1.2)
 	
 	controller.use_custom_input(input)
+	
+	collision.set_deferred('disabled', false)
 	
 	_dying = false
 
