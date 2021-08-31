@@ -11,10 +11,13 @@ func _ready():
 	
 	var player := get_tree().get_nodes_in_group('player')[0] as KinematicBody2D
 	var death := NodE.get_child_with_error(player, Component_Death) as Component_Death
+	var damage_receiver := NodE.get_child_with_error(player, Component_DamageReceiver) as Component_DamageReceiver
 	
 	var controller := NodE.get_child_with_error(player, Component_Controller)
 	var virtual_input := Input_Virtual.new()
 	death.connect('died', self, '_on_player_died', [controller, virtual_input])
+	
+	damage_receiver.connect('damage_received', self, '_shake_camera')
 	
 	var final_boss := get_tree().get_nodes_in_group('boss')[0] as KinematicBody2D
 	var boss_death := NodE.get_child_with_error(final_boss, Component_Death) as Component_Death
@@ -31,7 +34,10 @@ func _ready():
 	player.global_position = location.global_position
 	var initializer := NodE.get_child(player, Component_Initializer) as Component_Initializer
 	initializer.spawn_position = location.global_position
-	
+
+onready var _camera_shake := $Camera_Game/Shake
+func _shake_camera(_damage: int) -> void:
+	_camera_shake.add_trauma(1.0)
 
 func _on_boss_died() -> void:
 	Music.play(Music.Wind1)

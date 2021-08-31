@@ -97,8 +97,6 @@ func _get_rect_from_area(area: Area2D) -> Rect2:
 	return rect
 
 func _physics_process(delta: float) -> void:
-	_shake(delta)
-	
 	var smoothed_position := _smoothing()
 	
 	var offset := _get_margin_offset()
@@ -134,12 +132,6 @@ func _get_margin_offset() -> Vector2:
 	
 	var offset := margined_position - _camera.global_position
 	return offset
-
-func _shake(delta: float) -> void:
-	_camera.offset.x = _smooth_noise.get_noise_2d(_time_passed_msec * _min_trauma, 0) * _mild_shake_variance.x
-	_camera.offset.y = _smooth_noise.get_noise_2d(0, _time_passed_msec * _min_trauma) * _mild_shake_variance.y
-	
-	_time_passed_msec += round(delta * 1000.0)
 
 func _smoothing() -> Vector2:
 	var threshold_rect := _get_threshold_rect()
