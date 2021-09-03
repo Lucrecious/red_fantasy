@@ -71,6 +71,7 @@ func _on_player_died(controller: Component_Controller, virtual_input: Input_Abst
 	get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, 'initializer', 'reinit')
 	get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, 'door', 'reset')
 	get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, 'condition', 'reset')
+	get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, 'reseter', 'reset')
 	
 	yield(get_tree().create_timer(.25), 'timeout')
 	

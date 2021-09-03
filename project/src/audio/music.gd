@@ -2,11 +2,12 @@ extends Node
 
 const Boss1 := preload('res://assets/audio/music/boss1.wav')
 const Wind1 := preload('res://assets/audio/music/wind1.ogg')
+const Forest := preload('res://assets/audio/music/forest_theme.wav')
 
 var _current: AudioStream
 
 func _ready() -> void:
-	play(Wind1)
+	play(Forest)
 
 func play(music: AudioStream) -> void:
 	if not music:
