@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=2]
+[gd_scene load_steps=96 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -32,6 +32,38 @@
 [ext_resource path="res://src/obstacles/trapdoor.tscn" type="PackedScene" id=30]
 [ext_resource path="res://src/ai/all_enemies_die_condition.tscn" type="PackedScene" id=31]
 [ext_resource path="res://src/ui/boss_healthbar.tscn" type="PackedScene" id=32]
+[ext_resource path="res://assets/props/village/barrel.png" type="Texture" id=33]
+[ext_resource path="res://assets/props/village/box1.png" type="Texture" id=34]
+[ext_resource path="res://assets/props/village/bench.png" type="Texture" id=35]
+[ext_resource path="res://assets/props/village/tree7.png" type="Texture" id=36]
+[ext_resource path="res://assets/props/village/wagon_big.png" type="Texture" id=37]
+[ext_resource path="res://assets/props/village/hay_pile.png" type="Texture" id=38]
+[ext_resource path="res://assets/props/village/house3.png" type="Texture" id=39]
+[ext_resource path="res://assets/props/village/shrub1.png" type="Texture" id=40]
+[ext_resource path="res://assets/props/village/house4.png" type="Texture" id=41]
+[ext_resource path="res://assets/props/village/box2.png" type="Texture" id=42]
+[ext_resource path="res://assets/props/village/box4.png" type="Texture" id=43]
+[ext_resource path="res://assets/props/village/bush2.png" type="Texture" id=44]
+[ext_resource path="res://assets/props/village/boxes2.png" type="Texture" id=45]
+[ext_resource path="res://assets/props/village/bush6.png" type="Texture" id=46]
+[ext_resource path="res://assets/props/village/flower3.png" type="Texture" id=47]
+[ext_resource path="res://assets/props/village/flower4.png" type="Texture" id=48]
+[ext_resource path="res://assets/props/village/house1.png" type="Texture" id=49]
+[ext_resource path="res://assets/props/village/rock_pile_big.png" type="Texture" id=50]
+[ext_resource path="res://assets/props/village/tree3.png" type="Texture" id=51]
+[ext_resource path="res://assets/props/village/box3.png" type="Texture" id=52]
+[ext_resource path="res://assets/props/village/boxes1.png" type="Texture" id=53]
+[ext_resource path="res://assets/props/village/flower2.png" type="Texture" id=54]
+[ext_resource path="res://assets/props/village/pot2.png" type="Texture" id=55]
+[ext_resource path="res://assets/props/village/bush7.png" type="Texture" id=56]
+[ext_resource path="res://assets/props/village/flower1.png" type="Texture" id=57]
+[ext_resource path="res://assets/props/village/pot1.png" type="Texture" id=58]
+[ext_resource path="res://assets/props/village/bush1.png" type="Texture" id=59]
+[ext_resource path="res://assets/props/village/pot3.png" type="Texture" id=60]
+[ext_resource path="res://assets/props/village/tree6.png" type="Texture" id=61]
+[ext_resource path="res://assets/props/village/well.png" type="Texture" id=62]
+[ext_resource path="res://assets/props/village/tree2.png" type="Texture" id=63]
+[ext_resource path="res://assets/props/village/rock_pile_medium.png" type="Texture" id=64]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 44, 16 )
@@ -183,7 +215,6 @@ extents = Vector2( 240, 135 )
 
 [node name="Main" type="Node2D"]
 script = ExtResource( 23 )
-_custom_spawn_location_path = NodePath("Fireplace3")
 
 [node name="Background" type="ParallaxBackground" parent="."]
 
@@ -204,6 +235,238 @@ tile_data = PoolIntArray( -851587, 1, 0, -851586, 1, 1, -851585, 1, 1, -851584, 
 [node name="tree1" type="Sprite" parent="BackgroundMap"]
 position = Vector2( 720, 141 )
 texture = ExtResource( 17 )
+
+[node name="barrel" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 67.7451, 38.3909 )
+texture = ExtResource( 33 )
+
+[node name="bench" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 998.252, -31.1814 )
+texture = ExtResource( 35 )
+
+[node name="box1" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 758.601, 194.661 )
+texture = ExtResource( 34 )
+
+[node name="box2" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 808.937, 199.561 )
+texture = ExtResource( 42 )
+
+[node name="box3" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1123.87, 198.67 )
+texture = ExtResource( 52 )
+
+[node name="box4" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1136.34, 198.67 )
+texture = ExtResource( 43 )
+
+[node name="boxes1" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1158.61, 196.443 )
+texture = ExtResource( 53 )
+
+[node name="bush1" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 881.518, 226.048 )
+texture = ExtResource( 59 )
+
+[node name="bush2" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 871.454, -28.2229 )
+texture = ExtResource( 44 )
+
+[node name="bush3" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 886.816, -26.104 )
+texture = ExtResource( 59 )
+
+[node name="boxes2" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1695.19, -26.6338 )
+texture = ExtResource( 53 )
+
+[node name="box5" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1779.94, -23.9851 )
+texture = ExtResource( 52 )
+
+[node name="boxes3" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1791.07, -26.6338 )
+texture = ExtResource( 45 )
+
+[node name="bush4" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1651.75, -29.2824 )
+texture = ExtResource( 59 )
+
+[node name="bush5" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1634.27, -27.1635 )
+texture = ExtResource( 44 )
+
+[node name="bush6" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1663.4, -29.8121 )
+texture = ExtResource( 59 )
+
+[node name="bush7" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2561.3, -94.9691 )
+texture = ExtResource( 46 )
+
+[node name="bush8" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2673.07, -159.067 )
+texture = ExtResource( 56 )
+
+[node name="flower1" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2970.78, -94.4394 )
+texture = ExtResource( 57 )
+
+[node name="flower2" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2579.84, -92.8502 )
+texture = ExtResource( 57 )
+
+[node name="flower3" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2692.14, -156.948 )
+texture = ExtResource( 54 )
+
+[node name="flower4" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2765.77, -28.223 )
+texture = ExtResource( 47 )
+
+[node name="flower5" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2780.61, -28.223 )
+texture = ExtResource( 48 )
+
+[node name="hay_pile" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2192.61, -40.9365 )
+texture = ExtResource( 38 )
+
+[node name="flower6" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2260.41, -31.4014 )
+texture = ExtResource( 48 )
+
+[node name="flower7" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 2275.77, -30.3419 )
+texture = ExtResource( 54 )
+
+[node name="house1" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 6184.13, -303.154 )
+texture = ExtResource( 49 )
+
+[node name="bush9" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 6208.5, -286.732 )
+texture = ExtResource( 56 )
+
+[node name="flower8" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 350.726, -29.2823 )
+texture = ExtResource( 47 )
+
+[node name="flower9" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 356.024, -28.7525 )
+texture = ExtResource( 57 )
+
+[node name="hay_pile" type="Sprite" parent="BackgroundMap/tree1/barrel/flower9"]
+position = Vector2( 3921.61, 17.4811 )
+texture = ExtResource( 38 )
+
+[node name="tree1" type="Sprite" parent="BackgroundMap/tree1/barrel/flower9"]
+position = Vector2( 3589.47, -106.476 )
+texture = ExtResource( 17 )
+
+[node name="tree7" type="Sprite" parent="BackgroundMap/tree1/barrel/flower9"]
+position = Vector2( 4173.8, -156.91 )
+texture = ExtResource( 36 )
+
+[node name="tree6" type="Sprite" parent="BackgroundMap/tree1/barrel/flower9"]
+position = Vector2( 4137.88, -161.961 )
+texture = ExtResource( 61 )
+
+[node name="flower10" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 464.619, -27.6931 )
+texture = ExtResource( 54 )
+
+[node name="flower11" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 857.679, -28.2228 )
+texture = ExtResource( 47 )
+
+[node name="flower12" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 1644.86, -26.6336 )
+texture = ExtResource( 54 )
+
+[node name="hay_pile2" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 3042.29, -104.504 )
+texture = ExtResource( 38 )
+
+[node name="flower13" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 3067.19, -93.9095 )
+texture = ExtResource( 54 )
+
+[node name="pot1" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 3093.15, -94.9689 )
+texture = ExtResource( 58 )
+
+[node name="pot2" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 3103.21, -95.4987 )
+texture = ExtResource( 55 )
+
+[node name="well" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 2254.42, -199.113 )
+texture = ExtResource( 62 )
+
+[node name="tree7" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 2105.04, -187.989 )
+texture = ExtResource( 36 )
+
+[node name="tree6" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 2116.16, -189.578 )
+texture = ExtResource( 61 )
+
+[node name="tree1" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 2536.24, -359.092 )
+texture = ExtResource( 17 )
+
+[node name="house1" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 1736.35, 17.5463 )
+texture = ExtResource( 49 )
+
+[node name="house3" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 1697.68, 19.1356 )
+texture = ExtResource( 39 )
+
+[node name="house4" type="Sprite" parent="BackgroundMap/tree1/barrel/pot2"]
+position = Vector2( 1861.9, -5.76183 )
+texture = ExtResource( 41 )
+
+[node name="pot3" type="Sprite" parent="BackgroundMap/tree1/barrel"]
+position = Vector2( 3084.14, -93.3798 )
+texture = ExtResource( 60 )
+
+[node name="shrub1" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 3561.9, -0.956284 )
+texture = ExtResource( 40 )
+
+[node name="flower1" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 3650.37, 41.4222 )
+texture = ExtResource( 57 )
+
+[node name="flower2" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 3662.02, 41.952 )
+texture = ExtResource( 54 )
+
+[node name="rock_pile_medium" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 4233.07, -50.2213 )
+texture = ExtResource( 64 )
+
+[node name="rock_pile_big" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 4180.63, 9.63832 )
+texture = ExtResource( 50 )
+
+[node name="tree7" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 3985.16, -85.1837 )
+texture = ExtResource( 36 )
+
+[node name="tree2" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 2032.04, -40.6862 )
+texture = ExtResource( 63 )
+
+[node name="tree3" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 2938.94, -26.3835 )
+texture = ExtResource( 51 )
+
+[node name="wagon_big" type="Sprite" parent="BackgroundMap/tree1"]
+position = Vector2( 4570.51, 34.006 )
+texture = ExtResource( 37 )
 
 [node name="Move" type="Label" parent="BackgroundMap"]
 margin_left = 81.0
