@@ -11,13 +11,17 @@ func _ready():
 
 var _parried := false
 
-func _on_body_entered(body: KinematicBody2D) -> void:
-	if not hit_data: return
+func _on_body_entered(body) -> void:
+	if not hit_data:
+		return
 	
-	var damage_receiver := NodE.get_child_with_error(body, Component_DamageReceiver) as Component_DamageReceiver
-	var is_hit := damage_receiver.projectile(_body, hit_data)
+	var damage_receiver := NodE.get_child(body, Component_DamageReceiver) as Component_DamageReceiver
+	var is_hit := true
+	if damage_receiver:
+		is_hit = damage_receiver.projectile(_body, hit_data)
 	
-	if not is_hit: return
+	if not is_hit:
+		return
 	
 	_body.queue_free()
 	
