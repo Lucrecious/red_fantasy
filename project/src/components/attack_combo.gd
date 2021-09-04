@@ -9,12 +9,14 @@ export(PoolStringArray) var _attack_combo := PoolStringArray()
 export(NodePath) var _priority_node_path := NodePath()
 export(PoolRealArray) var _animation_ends := PoolRealArray()
 export(float) var _lower_gravtiy_factor := .2
+export(bool) var _allow_jump_cancel := true
 
 onready var _animation_player := NodE.get_sibling(self, Component_PriorityAnimationPlayer) as Component_PriorityAnimationPlayer
 onready var _disabler := NodE.get_sibling(self, Component_Disabler) as Component_Disabler
 onready var _velocity := NodE.get_sibling(self, Component_Velocity) as Component_Velocity
 onready var _controller := NodE.get_sibling(self, Component_Controller) as Component_Controller
 onready var _gravity := NodE.get_sibling(self, Component_Gravity) as Component_Gravity
+onready var _jump := NodE.get_sibling(self, Component_Jump) as Component_Jump
 
 onready var _priority_node := get_node_or_null(_priority_node_path) as PriorityNodePlaceholder
 
@@ -43,12 +45,26 @@ func _ready() -> void:
 	_controller.connect('action_just_pressed', self, '_on_action_just_pressed')
 	enable()
 
+func _cancel_attack() -> void:
+	_disabler.disable_below(get_parent().get_child(get_index() + 1))
+	_disabler.enable_below(get_parent().get_child(_jump.get_index() + 1))
+
 var _combo_count := 0
 var _msec_since_last_attack := 0
 var _combo_next := false
 func _on_action_just_pressed(_action: String) -> void:
 	if not _enabled:
 		return
+	
+	if _allow_jump_cancel and _jump and _jump._can_jump() and is_attacking() and _action == 'jump':
+		_disabler.disable_below(self)
+		disable()
+		_disabler.enable_below(self)
+		enable()
+		_jump.impulse()
+		_animation_player.reset_and_stop()
+		_animation_player.play_default()
+		_animation_player.seek(_animation_player.current_animation_position, true)
 
 	if not _input_binding.is_pressed(_controller):
 		return

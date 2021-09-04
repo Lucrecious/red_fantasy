@@ -1212,28 +1212,6 @@ script = ExtResource( 22 )
 [node name="Collision" type="CollisionShape2D" parent="Foreground/Roll/Area"]
 shape = SubResource( 7 )
 
-[node name="Shield" type="Label" parent="Foreground"]
-margin_left = 1764.0
-margin_top = 445.0
-margin_right = 1905.0
-margin_bottom = 457.0
-theme = ExtResource( 18 )
-text = "stand and z to block"
-align = 2
-script = ExtResource( 20 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="Area" type="Area2D" parent="Foreground/Shield"]
-visible = false
-position = Vector2( 81, -28 )
-monitorable = false
-script = ExtResource( 22 )
-
-[node name="Collision" type="CollisionShape2D" parent="Foreground/Shield/Area"]
-shape = SubResource( 7 )
-
 [node name="Spikes" parent="Foreground" instance=ExtResource( 19 )]
 position = Vector2( 1840, 194 )
 
@@ -2011,5 +1989,3 @@ position = Vector2( 6906.37, -140.651 )
 [connection signal="body_Entered" from="Foreground/JumpDown/Area2" to="Foreground/JumpDown/Area/Collision" method="set" flags=3 binds= [ "disabled", false ]]
 [connection signal="body_Entered" from="Foreground/Roll/Area" to="Foreground/Roll" method="appear"]
 [connection signal="body_Exited" from="Foreground/Roll/Area" to="Foreground/Roll" method="disappear"]
-[connection signal="body_Entered" from="Foreground/Shield/Area" to="Foreground/Shield" method="appear"]
-[connection signal="body_Exited" from="Foreground/Shield/Area" to="Foreground/Shield" method="disappear"]
