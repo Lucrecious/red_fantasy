@@ -25,9 +25,9 @@ _walk_throughs = 2
 script = ExtResource( 5 )
 
 [node name="ThrowRect" type="ReferenceRect" parent="."]
-margin_left = 152.0
+margin_left = 41.0
 margin_top = -10.0
-margin_right = 241.0
+margin_right = 181.0
 margin_bottom = 3.0
 __meta__ = {
 "_edit_use_anchors_": false

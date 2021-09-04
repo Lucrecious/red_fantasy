@@ -24,6 +24,7 @@ func _on_body_entered(body) -> void:
 		return
 	
 	_body.queue_free()
+	disconnect('body_entered', self, '_on_body_entered')
 	
 	for c in _exposion_colors:
 		ParticleInstancer.explode(_body, c)
