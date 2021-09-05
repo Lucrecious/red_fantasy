@@ -159,6 +159,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut-godot/components/run.gd"
 }, {
+"base": "Node",
+"class": "Component_Scorer",
+"language": "GDScript",
+"path": "res://src/components/scorer.gd"
+}, {
 "base": "Node2D",
 "class": "Component_Shield",
 "language": "GDScript",
@@ -193,6 +198,11 @@ _global_script_classes=[ {
 "class": "GEometry",
 "language": "GDScript",
 "path": "res://lut-godot/extension/geometry_extension.gd"
+}, {
+"base": "Node",
+"class": "Game_ScoreCounter",
+"language": "GDScript",
+"path": "res://src/score_counter.gd"
 }, {
 "base": "Node",
 "class": "Input_Abstract",
@@ -345,6 +355,7 @@ _global_script_class_icons={
 "Component_Pusher": "",
 "Component_RootSprite": "",
 "Component_Run": "",
+"Component_Scorer": "",
 "Component_Shield": "",
 "Component_SoundPlayer": "",
 "Component_Turner": "",
@@ -352,6 +363,7 @@ _global_script_class_icons={
 "Data_Damage": "",
 "FuncREf": "",
 "GEometry": "",
+"Game_ScoreCounter": "",
 "Input_Abstract": "",
 "Input_ActionBinding": "",
 "Input_ActionBinding_Directional": "",

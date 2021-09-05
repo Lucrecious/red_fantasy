@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=2]
+[gd_scene load_steps=99 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -65,6 +65,8 @@
 [ext_resource path="res://assets/props/village/tree2.png" type="Texture" id=63]
 [ext_resource path="res://assets/props/village/rock_pile_medium.png" type="Texture" id=64]
 [ext_resource path="res://src/ui/options_dialog.tscn" type="PackedScene" id=65]
+[ext_resource path="res://src/ui/score_overlay.tscn" type="PackedScene" id=66]
+[ext_resource path="res://src/score_counter.gd" type="Script" id=67]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 44, 16 )
@@ -1980,9 +1982,15 @@ shape = SubResource( 31 )
 [node name="PlayerPosition" type="Node2D" parent="."]
 position = Vector2( 6906.37, -140.651 )
 
+[node name="ScoreCounter" type="Node" parent="."]
+script = ExtResource( 67 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource( 32 )]
+
+[node name="Score" parent="CanvasLayer" instance=ExtResource( 66 )]
+_score_counter_path = NodePath("../../ScoreCounter")
 
 [node name="OptionsDialog" parent="." instance=ExtResource( 65 )]
 

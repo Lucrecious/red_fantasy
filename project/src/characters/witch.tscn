@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=2]
+[gd_scene load_steps=78 format=2]
 
 [ext_resource path="res://lut-godot/components/extents.gd" type="Script" id=1]
 [ext_resource path="res://assets/characters/witch/idle.png" type="Texture" id=2]
@@ -24,9 +24,38 @@
 [ext_resource path="res://lut-godot/components/death.gd" type="Script" id=22]
 [ext_resource path="res://src/audio/sound_trigger.gd" type="Script" id=23]
 [ext_resource path="res://src/components/sound_player.gd" type="Script" id=24]
+[ext_resource path="res://src/components/scorer.gd" type="Script" id=25]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 10, 13 )
+
+[sub_resource type="AtlasTexture" id=2]
+atlas = ExtResource( 2 )
+region = Rect2( 0, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=3]
+atlas = ExtResource( 2 )
+region = Rect2( 64, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 128, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=5]
+atlas = ExtResource( 2 )
+region = Rect2( 192, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=6]
+atlas = ExtResource( 2 )
+region = Rect2( 256, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 320, 0, 64, 64 )
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 2 )
+region = Rect2( 384, 0, 64, 64 )
 
 [sub_resource type="AtlasTexture" id=21]
 atlas = ExtResource( 3 )
@@ -108,34 +137,6 @@ region = Rect2( 640, 0, 64, 64 )
 atlas = ExtResource( 4 )
 region = Rect2( 704, 0, 64, 64 )
 
-[sub_resource type="AtlasTexture" id=2]
-atlas = ExtResource( 2 )
-region = Rect2( 0, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=3]
-atlas = ExtResource( 2 )
-region = Rect2( 64, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=4]
-atlas = ExtResource( 2 )
-region = Rect2( 128, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=5]
-atlas = ExtResource( 2 )
-region = Rect2( 192, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=6]
-atlas = ExtResource( 2 )
-region = Rect2( 256, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=7]
-atlas = ExtResource( 2 )
-region = Rect2( 320, 0, 64, 64 )
-
-[sub_resource type="AtlasTexture" id=8]
-atlas = ExtResource( 2 )
-region = Rect2( 384, 0, 64, 64 )
-
 [sub_resource type="AtlasTexture" id=29]
 atlas = ExtResource( 5 )
 region = Rect2( 0, 0, 64, 64 )
@@ -210,6 +211,11 @@ region = Rect2( 1088, 0, 64, 64 )
 
 [sub_resource type="SpriteFrames" id=47]
 animations = [ {
+"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
+"loop": true,
+"name": "idle",
+"speed": 12.0
+}, {
 "frames": [ SubResource( 21 ), SubResource( 22 ), SubResource( 23 ), SubResource( 24 ), SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ) ],
 "loop": true,
 "name": "walk",
@@ -218,11 +224,6 @@ animations = [ {
 "frames": [ SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 18 ), SubResource( 19 ), SubResource( 20 ) ],
 "loop": true,
 "name": "death",
-"speed": 12.0
-}, {
-"frames": [ SubResource( 2 ), SubResource( 3 ), SubResource( 4 ), SubResource( 5 ), SubResource( 6 ), SubResource( 7 ), SubResource( 8 ) ],
-"loop": true,
-"name": "idle",
 "speed": 12.0
 }, {
 "frames": [ SubResource( 29 ), SubResource( 30 ), SubResource( 31 ), SubResource( 32 ), SubResource( 33 ), SubResource( 34 ), SubResource( 35 ), SubResource( 36 ), SubResource( 37 ), SubResource( 38 ), SubResource( 39 ), SubResource( 40 ), SubResource( 41 ), SubResource( 42 ), SubResource( 43 ), SubResource( 44 ), SubResource( 45 ), SubResource( 46 ) ],
@@ -417,6 +418,12 @@ tracks/1/keys = {
 collision_layer = 2
 collision_mask = 4
 
+[node name="Scorer" type="Node" parent="." groups=[
+"scorer",
+]]
+script = ExtResource( 25 )
+points = 50
+
 [node name="SoundPlayer" type="Node2D" parent="."]
 script = ExtResource( 24 )
 
@@ -519,4 +526,5 @@ script = ExtResource( 22 )
 [connection signal="damage_received" from="DamageReceiver" to="SoundPlayer/Hit" method="play"]
 [connection signal="direction_h_changed" from="Controller" to="AnimationPlayer/Walk" method="on_condition_changed"]
 [connection signal="died" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]
+[connection signal="died" from="Death" to="Scorer" method="trigger"]
 [connection signal="revived" from="Death" to="AnimationPlayer/Death" method="on_condition_changed"]

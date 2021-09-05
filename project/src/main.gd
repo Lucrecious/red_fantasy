@@ -48,7 +48,12 @@ func _on_boss_died() -> void:
 	
 	yield(get_tree().create_timer(5.0), 'timeout')
 	
+	var thanks := $BackgroundMap/ThanksForPlaying as Label
+	thanks.text += '\n\n'
+	var score := $ScoreCounter.total as int
+	thanks.text += 'score: %s of %s' % [('Minus ' + str(score) if score < 0 else str(score)), $ScoreCounter.grand_total]
 	$BackgroundMap/ThanksForPlaying.appear()
+	
 
 var _dying := false
 func _on_player_died(controller: Component_Controller, virtual_input: Input_Abstract, collision: CollisionShape2D) -> void:
