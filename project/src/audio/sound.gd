@@ -75,7 +75,9 @@ var _in_use := {}
 func _ready() -> void:
 	for i in 7:
 		_stream_pool2d.push_back(AudioStreamPlayer2D.new())
+		_stream_pool2d[-1].bus = 'Sound'
 		_stream_pool.push_back(AudioStreamPlayer.new())
+		_stream_pool[-1].bus = 'Sound'
 
 func play(sound_resource: AudioStream, parent: Node2D) -> void:
 	var pool := []

@@ -254,6 +254,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://lut-godot/signal_animation_finished_callback.gd"
 }, {
+"base": "WindowDialog",
+"class": "Prompt_WaitForKey",
+"language": "GDScript",
+"path": "res://lut-godot/ui/wait_for_key_prompt.gd"
+}, {
 "base": "Node2D",
 "class": "REferenceRect",
 "language": "GDScript",
@@ -298,6 +303,16 @@ _global_script_classes=[ {
 "class": "TimEr",
 "language": "GDScript",
 "path": "res://lut-godot/extension/timer_extension.gd"
+}, {
+"base": "Control",
+"class": "UI_KeybindProperty",
+"language": "GDScript",
+"path": "res://lut-godot/ui/keybind_property.gd"
+}, {
+"base": "Control",
+"class": "UI_SliderProperty",
+"language": "GDScript",
+"path": "res://lut-godot/ui/slider_property.gd"
 } ]
 _global_script_class_icons={
 "AI_Actioner": "",
@@ -349,6 +364,7 @@ _global_script_class_icons={
 "Parameters_Run": "",
 "Planner_Abstract": "",
 "PriorityNodePlaceholder": "",
+"Prompt_WaitForKey": "",
 "REferenceRect": "",
 "RNG": "",
 "SignalDetector": "",
@@ -357,7 +373,9 @@ _global_script_class_icons={
 "SubComponent_JumpSmashFunctions": "",
 "SubComponent_SoundTrigger": "",
 "SubComponent_TurnerListener": "",
-"TimEr": ""
+"TimEr": "",
+"UI_KeybindProperty": "",
+"UI_SliderProperty": ""
 }
 
 [application]
@@ -374,6 +392,7 @@ Tweener="*res://src/tweeners/tweeners.gd"
 FadeInOuter="*res://src/fade_in_outer.tscn"
 Sound="*res://src/audio/sound.gd"
 Music="*res://src/audio/music.gd"
+OptionsDialog="*res://lut-godot/ui/options_dialog.tscn"
 
 [debug]
 

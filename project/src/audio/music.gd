@@ -21,6 +21,7 @@ func play(music: AudioStream) -> void:
 	_current = music
 	
 	var music_player := AudioStreamPlayer.new()
+	music_player.bus = 'Music'
 	music_player.volume_db = -15.0
 	music_player.stream = music
 	add_child(music_player)

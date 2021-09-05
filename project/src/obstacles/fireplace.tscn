@@ -76,9 +76,9 @@ frame = 4
 script = ExtResource( 3 )
 
 [node name="Area" type="Area2D" parent="."]
+collision_layer = 0
 input_pickable = false
 monitorable = false
-collision_layer = 0
 
 [node name="Collision" type="CollisionShape2D" parent="Area"]
 position = Vector2( 1, 16 )
@@ -116,3 +116,4 @@ color = Color( 0.87451, 0.831373, 0.631373, 1 )
 stream = ExtResource( 4 )
 volume_db = -10.0
 max_distance = 720.0
+bus = "Sound"
