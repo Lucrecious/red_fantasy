@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=2]
+[gd_scene load_steps=97 format=2]
 
 [ext_resource path="res://src/characters/golem.tscn" type="PackedScene" id=1]
 [ext_resource path="res://src/ai/move_to.gd" type="Script" id=2]
@@ -64,6 +64,7 @@
 [ext_resource path="res://assets/props/village/well.png" type="Texture" id=62]
 [ext_resource path="res://assets/props/village/tree2.png" type="Texture" id=63]
 [ext_resource path="res://assets/props/village/rock_pile_medium.png" type="Texture" id=64]
+[ext_resource path="res://lut-godot/ui/options_dialog.tscn" type="PackedScene" id=65]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 44, 16 )
@@ -1972,6 +1973,8 @@ position = Vector2( 6906.37, -140.651 )
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="BossHealthBar" parent="CanvasLayer" instance=ExtResource( 32 )]
+
+[node name="OptionsDialog" parent="." instance=ExtResource( 65 )]
 
 [connection signal="body_Entered" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="appear"]
 [connection signal="body_Exited" from="BackgroundMap/Move/Area" to="BackgroundMap/Move" method="disappear"]
