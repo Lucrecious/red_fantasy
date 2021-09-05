@@ -45,6 +45,14 @@ func _ready() -> void:
 	
 	randomize()
 	_smooth_noise.seed = randi()
+	
+	GameOptions.connect('camera_smooth_changed', self, '_smooth_changed')
+	_smooth_changed()
+
+var _do_smooth := true
+func _smooth_changed() -> void:
+	_do_smooth = GameOptions.camera_smooth
+
 
 var _current_area: Area2D = null
 var _margins := Rect2(-1e8, -1e8, 2e8, 2e8)
@@ -57,18 +65,21 @@ func _on_area_entered(area: Area2D) -> void:
 	_tween.stop_all()
 	_tween.remove_all()
 	
-	_margins = _camera.view_rect()
-	
-	var pixels_per_second := 2000.0
-	
-	var position_sec := (_margins.position - rect.position).length() / pixels_per_second
-	var size_sec := max((_margins.size - rect.size).length() / pixels_per_second, .1)
-	
-	_tween.interpolate_property(self, '_margins:position:x', _margins.position.x, rect.position.x, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-	_tween.interpolate_property(self, '_margins:position:y', _margins.position.y, rect.position.y, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-	_tween.interpolate_property(self, '_margins:size:x', _margins.size.x, rect.size.x, size_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-	_tween.interpolate_property(self, '_margins:size:y', _margins.size.y, rect.size.y, size_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
-	_tween.start()
+	if _do_smooth:
+		_margins = _camera.view_rect()
+		
+		var pixels_per_second := 2000.0
+		
+		var position_sec := (_margins.position - rect.position).length() / pixels_per_second
+		var size_sec := max((_margins.size - rect.size).length() / pixels_per_second, .1)
+		
+		_tween.interpolate_property(self, '_margins:position:x', _margins.position.x, rect.position.x, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_tween.interpolate_property(self, '_margins:position:y', _margins.position.y, rect.position.y, position_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_tween.interpolate_property(self, '_margins:size:x', _margins.size.x, rect.size.x, size_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_tween.interpolate_property(self, '_margins:size:y', _margins.size.y, rect.size.y, size_sec, Tween.TRANS_CUBIC, Tween.EASE_IN_OUT)
+		_tween.start()
+	else:
+		_margins = rect
 
 func _on_area_exited(area: Area2D) -> void:
 	if _current_area != area: return

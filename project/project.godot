@@ -392,6 +392,7 @@ Tweener="*res://src/tweeners/tweeners.gd"
 FadeInOuter="*res://src/fade_in_outer.tscn"
 Sound="*res://src/audio/sound.gd"
 Music="*res://src/audio/music.gd"
+GameOptions="*res://src/game_options.gd"
 
 [debug]
 

@@ -64,7 +64,7 @@
 [ext_resource path="res://assets/props/village/well.png" type="Texture" id=62]
 [ext_resource path="res://assets/props/village/tree2.png" type="Texture" id=63]
 [ext_resource path="res://assets/props/village/rock_pile_medium.png" type="Texture" id=64]
-[ext_resource path="res://lut-godot/ui/options_dialog.tscn" type="PackedScene" id=65]
+[ext_resource path="res://src/ui/options_dialog.tscn" type="PackedScene" id=65]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 44, 16 )
@@ -81,11 +81,21 @@ onready var _camera := get_parent() as Camera_Game
 
 var _seed := randi()
 
+func _ready() -> void:
+	GameOptions.connect('camera_shake_changed', self, '_shake_changed')
+	_shake_changed()
+
+func _shake_changed() -> void:
+	set_physics_process(GameOptions.camera_shake)
+
 func add_trauma(value: float) -> void:
 	_trauma += value
 	_trauma = clamp(_trauma, 0, 1)
 
 func _physics_process(delta: float) -> void:
+	if not GameOptions.camera_shake:
+		return
+	
 	if is_equal_approx(_trauma, 0.0):
 		return
 	
