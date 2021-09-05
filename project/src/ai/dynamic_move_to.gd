@@ -28,9 +28,16 @@ func _ready():
 	_update_preferred_side_timer.wait_time = 2.0
 	add_child(_update_preferred_side_timer)
 
+var _side_trials := []
 func _update_preferred_side() -> void:
-		_go_left = false if randf() < .5 else true
-		_side_percent = randf()
+	if _side_trials.empty():
+		for i in 3:
+			_side_trials.push_back(true)
+			_side_trials.push_back(false)
+		_side_trials.shuffle()
+	
+	_go_left = _side_trials.pop_back()
+	_side_percent = randf()
 
 var _target_node: Node2D
 var _rect_range: ReferenceRect
@@ -89,10 +96,12 @@ func _get_target_pos(center: Vector2, box_local: Rect2) -> Vector2:
 	
 	var left := _go_left
 	
-	if left:
-		return Vector2(center_left, center.y)
+	_go_left = left
 	
-	return Vector2(center_right, center.y)
+	if left:
+		return left_side
+	
+	return right_side
 
 func _get_ranges(center: Vector2, box: Rect2) -> Dictionary:
 	var ranges := {
